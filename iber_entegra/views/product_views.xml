@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List -->
+    <record id="view_iber_entegra_product_list" model="ir.ui.view">
+        <field name="name">iber.entegra.product.list</field>
+        <field name="model">iber.entegra.product</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="product_code"/>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="barcode"/>
+                <field name="quantity"/>
+                <field name="price1"/>
+                <field name="status"/>
+                <field name="odoo_product_id"/>
+                <field name="last_sync"/>
+                <button name="action_create_mapping" type="object"
+                        string="Eşleştir" icon="fa-link"
+                        invisible="mapping_id != False"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_iber_entegra_product_form" model="ir.ui.view">
+        <field name="name">iber.entegra.product.form</field>
+        <field name="model">iber.entegra.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_mapping" type="object"
+                            string="Odoo Ürünü Eşleştir" class="btn-primary"
+                            invisible="mapping_id != False"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Entegra Bilgileri">
+                            <field name="config_id" readonly="1"/>
+                            <field name="entegra_id" readonly="1"/>
+                            <field name="product_code" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="barcode" readonly="1"/>
+                            <field name="brand" readonly="1"/>
+                            <field name="status" readonly="1"/>
+                            <field name="supplier" readonly="1"/>
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+                        <group string="Fiyat / Stok">
+                            <field name="quantity" readonly="1"/>
+                            <field name="price1" readonly="1"/>
+                            <field name="price2" readonly="1"/>
+                            <field name="kdv_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Odoo Eşleşmesi">
+                        <field name="mapping_id" readonly="1"/>
+                        <field name="odoo_product_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="view_iber_entegra_product_search" model="ir.ui.view">
+        <field name="name">iber.entegra.product.search</field>
+        <field name="model">iber.entegra.product</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_code"/>
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="brand"/>
+                <filter name="filter_no_mapping" string="Eşleşmemiş"
+                        domain="[('mapping_id', '=', False)]"/>
+                <filter name="filter_mapped" string="Eşleşmiş"
+                        domain="[('mapping_id', '!=', False)]"/>
+                <group>
+                    <filter name="group_brand" string="Marka"
+                            context="{'group_by': 'brand'}"/>
+                    <filter name="group_supplier" string="Pazaryeri"
+                            context="{'group_by': 'supplier'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_iber_entegra_product" model="ir.actions.act_window">
+        <field name="name">Entegra Ürünleri</field>
+        <field name="res_model">iber.entegra.product</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_iber_entegra_product_search"/>
+    </record>
+
+</odoo>

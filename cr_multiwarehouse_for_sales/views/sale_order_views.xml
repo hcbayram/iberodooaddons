@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id='inh_sale_order_view_form' model='ir.ui.view'>
+        <field name='name'>sale.order.form.view</field>
+        <field name='model'>sale.order</field>
+        <field name='inherit_id' ref='sale.view_order_form'/>
+        <field name='arch' type='xml'>
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="is_multi_warehouse" invisible="1"/>
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/list/field[@name='product_template_id']" position="after">
+            <field name="is_sale_warehouse" column_invisible="1"/>
+            <field name="warehouses_id" attrs="{'invisible':[('is_sale_warehouse','=',False)],'required':[('is_sale_warehouse','=',True)]}"/>
+        </xpath>
+        </field>
+    </record>
+</odoo>

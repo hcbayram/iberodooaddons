@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iber_entegra_config_user,iber.entegra.config user,model_iber_entegra_config,group_entegra_user,1,0,0,0
+access_iber_entegra_config_manager,iber.entegra.config manager,model_iber_entegra_config,group_entegra_manager,1,1,1,1
+access_iber_entegra_category_user,iber.entegra.category user,model_iber_entegra_category,group_entegra_user,1,0,0,0
+access_iber_entegra_category_manager,iber.entegra.category manager,model_iber_entegra_category,group_entegra_manager,1,1,1,1
+access_iber_entegra_brand_user,iber.entegra.brand user,model_iber_entegra_brand,group_entegra_user,1,0,0,0
+access_iber_entegra_brand_manager,iber.entegra.brand manager,model_iber_entegra_brand,group_entegra_manager,1,1,1,1
+access_iber_entegra_store_user,iber.entegra.store user,model_iber_entegra_store,group_entegra_user,1,0,0,0
+access_iber_entegra_store_manager,iber.entegra.store manager,model_iber_entegra_store,group_entegra_manager,1,1,1,1
+access_iber_entegra_product_mapping_user,iber.entegra.product.mapping user,model_iber_entegra_product_mapping,group_entegra_user,1,1,0,0
+access_iber_entegra_product_mapping_manager,iber.entegra.product.mapping manager,model_iber_entegra_product_mapping,group_entegra_manager,1,1,1,1
+access_iber_entegra_order_user,iber.entegra.order user,model_iber_entegra_order,group_entegra_user,1,1,0,0
+access_iber_entegra_order_manager,iber.entegra.order manager,model_iber_entegra_order,group_entegra_manager,1,1,1,1
+access_iber_entegra_order_line_user,iber.entegra.order.line user,model_iber_entegra_order_line,group_entegra_user,1,0,0,0
+access_iber_entegra_order_line_manager,iber.entegra.order.line manager,model_iber_entegra_order_line,group_entegra_manager,1,1,1,1
+access_iber_entegra_product_user,iber.entegra.product user,model_iber_entegra_product,group_entegra_user,1,0,0,0
+access_iber_entegra_product_manager,iber.entegra.product manager,model_iber_entegra_product,group_entegra_manager,1,1,1,1
+access_iber_entegra_sync_wizard_user,iber.entegra.sync.wizard user,model_iber_entegra_sync_wizard,group_entegra_user,1,1,1,1

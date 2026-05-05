@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form -->
+    <record id="view_iber_entegra_product_mapping_form" model="ir.ui.view">
+        <field name="name">iber.entegra.product.mapping.form</field>
+        <field name="model">iber.entegra.product.mapping</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_push_price" type="object"
+                            string="Fiyat Gönder" class="btn-primary"/>
+                    <button name="action_push_quantity" type="object"
+                            string="Stok Gönder"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not last_error">
+                        <strong>Son Hata:</strong>
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="Odoo Ürünü">
+                            <field name="config_id"/>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group string="Entegra">
+                            <field name="entegra_product_code"/>
+                            <field name="entegra_barcode"/>
+                            <field name="entegra_product_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Senkronizasyon">
+                            <field name="sync_prices"/>
+                            <field name="sync_quantities"/>
+                            <field name="last_price_sync"/>
+                            <field name="last_qty_sync"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List -->
+    <record id="view_iber_entegra_product_mapping_list" model="ir.ui.view">
+        <field name="name">iber.entegra.product.mapping.list</field>
+        <field name="model">iber.entegra.product.mapping</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="state == 'error'" decoration-muted="state == 'inactive'">
+                <field name="product_tmpl_id"/>
+                <field name="product_id" optional="show"/>
+                <field name="entegra_product_code"/>
+                <field name="entegra_barcode" optional="hide"/>
+                <field name="config_id"/>
+                <field name="sync_prices"/>
+                <field name="sync_quantities"/>
+                <field name="last_price_sync" optional="show"/>
+                <field name="last_qty_sync" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-danger="state == 'error'"
+                       decoration-muted="state == 'inactive'"/>
+                <button name="action_push_price" type="object"
+                        string="Fiyat" icon="fa-tag"/>
+                <button name="action_push_quantity" type="object"
+                        string="Stok" icon="fa-cubes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="view_iber_entegra_product_mapping_search" model="ir.ui.view">
+        <field name="name">iber.entegra.product.mapping.search</field>
+        <field name="model">iber.entegra.product.mapping</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="entegra_product_code"/>
+                <field name="product_tmpl_id"/>
+                <filter name="filter_error" string="Hatalı"
+                        domain="[('state', '=', 'error')]"/>
+                <filter name="filter_price_sync" string="Fiyat Sync Aktif"
+                        domain="[('sync_prices', '=', True)]"/>
+                <filter name="filter_qty_sync" string="Stok Sync Aktif"
+                        domain="[('sync_quantities', '=', True)]"/>
+                <group>
+                    <filter name="group_config" string="Bağlantı"
+                            context="{'group_by': 'config_id'}"/>
+                    <filter name="group_state" string="Durum"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_iber_entegra_product_mapping" model="ir.actions.act_window">
+        <field name="name">Ürün Eşleşmeleri</field>
+        <field name="res_model">iber.entegra.product.mapping</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_iber_entegra_product_mapping_search"/>
+    </record>
+
+</odoo>

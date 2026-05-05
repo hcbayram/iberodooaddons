@@ -1,0 +1,23 @@
+{
+    'name': 'Entegra Pazaryeri Entegrasyonu',
+    'version': '19.0.1.0.0',
+    'summary': 'Entegra pazaryeri platformu ile ürün, sipariş ve fiyat senkronizasyonu',
+    'author': 'Iber Bilisim',
+    'website': 'https://www.iberbilisim.com.tr',
+    'category': 'eCommerce',
+    'license': 'LGPL-3',
+    'depends': ['base', 'product', 'sale'],
+    'data': [
+        'security/entegra_security.xml',
+        'security/ir.model.access.csv',
+        'views/config_views.xml',
+        'views/order_views.xml',
+        'views/product_views.xml',
+        'views/product_mapping_views.xml',
+        'views/reference_views.xml',
+        'views/sync_wizard_views.xml',
+        'views/menu.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

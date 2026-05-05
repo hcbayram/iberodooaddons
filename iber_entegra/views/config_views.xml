@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form -->
+    <record id="view_iber_entegra_config_form" model="ir.ui.view">
+        <field name="name">iber.entegra.config.form</field>
+        <field name="model">iber.entegra.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_connection" type="object"
+                            string="Bağlantıyı Test Et" class="btn-primary"/>
+                    <field name="connection_state" widget="statusbar"
+                           statusbar_visible="draft,connected,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_orders" type="object"
+                                class="oe_stat_button" icon="fa-shopping-cart">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="order_count"/>
+                                </span>
+                                <span class="o_stat_text">Sipariş</span>
+                            </div>
+                        </button>
+                        <button name="action_view_orders" type="object"
+                                class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="pending_order_count"/>
+                                </span>
+                                <span class="o_stat_text">Bekleyen</span>
+                            </div>
+                        </button>
+                        <button name="action_view_product_mappings" type="object"
+                                class="oe_stat_button" icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="product_mapping_count"/>
+                                </span>
+                                <span class="o_stat_text">Ürün Eşleşmesi</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Bağlantı Adı"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Bağlantı Bilgileri">
+                            <field name="company_id"/>
+                            <field name="api_url"/>
+                            <field name="email"/>
+                            <field name="password" password="true"/>
+                        </group>
+                        <group string="Token Durumu">
+                            <field name="access_token_expiry"/>
+                            <field name="refresh_token_expiry"/>
+                            <field name="last_order_sync"/>
+                            <field name="last_product_sync"/>
+                            <field name="last_reference_sync"/>
+                        </group>
+                    </group>
+
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not last_error">
+                        <strong>Hata:</strong>
+                        <field name="last_error" readonly="1"/>
+                    </div>
+
+                    <div class="o_row mt16">
+                        <button name="action_open_sync_orders" type="object"
+                                string="Siparişleri Çek" class="btn btn-secondary me-2"/>
+                        <button name="action_open_sync_products" type="object"
+                                string="Ürünleri Güncelle" class="btn btn-secondary me-2"/>
+                        <button name="action_open_sync_reference" type="object"
+                                string="Referans Verileri Güncelle" class="btn btn-secondary"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List -->
+    <record id="view_iber_entegra_config_list" model="ir.ui.view">
+        <field name="name">iber.entegra.config.list</field>
+        <field name="model">iber.entegra.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="email"/>
+                <field name="connection_state" widget="badge"
+                       decoration-success="connection_state == 'connected'"
+                       decoration-danger="connection_state == 'error'"
+                       decoration-muted="connection_state == 'draft'"/>
+                <field name="order_count"/>
+                <field name="pending_order_count"/>
+                <field name="last_order_sync"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_iber_entegra_config" model="ir.actions.act_window">
+        <field name="name">Bağlantı Ayarları</field>
+        <field name="res_model">iber.entegra.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

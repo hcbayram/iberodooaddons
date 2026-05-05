@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ana menü -->
+    <menuitem id="menu_iber_entegra_root"
+              name="Entegra"
+              sequence="85"
+              groups="iber_entegra.group_entegra_user"/>
+
+    <!-- Sipariş yönetimi -->
+    <menuitem id="menu_iber_entegra_orders"
+              name="Siparişler"
+              parent="menu_iber_entegra_root"
+              action="action_iber_entegra_order"
+              sequence="10"
+              groups="iber_entegra.group_entegra_user"/>
+
+    <!-- Entegra ürünleri (staging) -->
+    <menuitem id="menu_iber_entegra_entegra_products"
+              name="Entegra Ürünleri"
+              parent="menu_iber_entegra_root"
+              action="action_iber_entegra_product"
+              sequence="20"
+              groups="iber_entegra.group_entegra_user"/>
+
+    <!-- Ürün eşleşmeleri -->
+    <menuitem id="menu_iber_entegra_products"
+              name="Ürün Eşleşmeleri"
+              parent="menu_iber_entegra_root"
+              action="action_iber_entegra_product_mapping"
+              sequence="30"
+              groups="iber_entegra.group_entegra_user"/>
+
+    <!-- Yapılandırma alt menüsü -->
+    <menuitem id="menu_iber_entegra_config_root"
+              name="Yapılandırma"
+              parent="menu_iber_entegra_root"
+              sequence="90"
+              groups="iber_entegra.group_entegra_manager"/>
+
+    <menuitem id="menu_iber_entegra_config"
+              name="Bağlantı Ayarları"
+              parent="menu_iber_entegra_config_root"
+              action="action_iber_entegra_config"
+              sequence="10"
+              groups="iber_entegra.group_entegra_manager"/>
+
+    <menuitem id="menu_iber_entegra_categories"
+              name="Kategoriler"
+              parent="menu_iber_entegra_config_root"
+              action="action_iber_entegra_category"
+              sequence="20"
+              groups="iber_entegra.group_entegra_manager"/>
+
+    <menuitem id="menu_iber_entegra_brands"
+              name="Markalar"
+              parent="menu_iber_entegra_config_root"
+              action="action_iber_entegra_brand"
+              sequence="30"
+              groups="iber_entegra.group_entegra_manager"/>
+
+    <menuitem id="menu_iber_entegra_stores"
+              name="Mağazalar"
+              parent="menu_iber_entegra_config_root"
+              action="action_iber_entegra_store"
+              sequence="40"
+              groups="iber_entegra.group_entegra_manager"/>
+
+</odoo>

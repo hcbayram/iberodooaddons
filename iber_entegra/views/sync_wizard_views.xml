@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_iber_entegra_sync_wizard_form" model="ir.ui.view">
+        <field name="name">iber.entegra.sync.wizard.form</field>
+        <field name="model">iber.entegra.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Senkronizasyon" invisible="state == 'done'">
+                        <field name="config_id"/>
+                        <field name="sync_type" widget="radio"/>
+                    </group>
+
+                    <!-- Sipariş seçenekleri -->
+                    <group string="Sipariş Seçenekleri"
+                           invisible="sync_type != 'orders'">
+                        <field name="order_only_unsynced"/>
+                        <field name="order_supplier"/>
+                        <field name="order_status_filter"/>
+                        <field name="order_limit"/>
+                    </group>
+
+                    <!-- Ürün seçenekleri -->
+                    <group string="Ürün Seçenekleri"
+                           invisible="sync_type != 'products'">
+                        <field name="product_sync_only_changed"/>
+                    </group>
+
+                    <!-- Sonuç -->
+                    <div invisible="state not in ('done', 'error')">
+                        <div class="alert alert-success" role="alert"
+                             invisible="state != 'done'">
+                            <field name="result_message" readonly="1"/>
+                        </div>
+                        <div class="alert alert-danger" role="alert"
+                             invisible="state != 'error'">
+                            <strong>Hata:</strong>
+                            <field name="result_message" readonly="1"/>
+                        </div>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_run" type="object"
+                            string="Başlat" class="btn-primary"
+                            invisible="state == 'done'"/>
+                    <button string="Kapat" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

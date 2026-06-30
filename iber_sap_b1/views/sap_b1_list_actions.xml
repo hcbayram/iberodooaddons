@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================
+             SAP B1'den UBL Oluştur — Fatura listesi header butonu
+             (Seçimden bağımsız, iber_sap_b1 kuruluysa görünür)
+        ============================================================ -->
+        <record id="view_outgoing_invoice_list_sap_header" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.outgoing.list.sap.header</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_outgoing_invoice_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_sync_from_erp"
+                        string="SAP B1'den UBL Oluştur"
+                        type="object"
+                        invisible="context.get('active_erp') != 'sap_b1'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Gelen faturalar için de aynı -->
+        <record id="view_incoming_invoice_list_sap_header" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.incoming.list.sap.header</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_incoming_invoice_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_sync_from_erp"
+                        string="SAP B1'den UBL Oluştur"
+                        type="object"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             SAP B1'den UBL Oluştur — İrsaliye listesi header butonu
+        ============================================================ -->
+        <record id="view_outgoing_dn_list_sap_header" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.outgoing.list.sap.header</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="inherit_id" ref="iber_e_transform.view_outgoing_delivery_note_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_sync_from_erp"
+                        string="SAP B1'den UBL Oluştur"
+                        type="object"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_incoming_dn_list_sap_header" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.incoming.list.sap.header</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="inherit_id" ref="iber_e_transform.view_incoming_delivery_note_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_sync_from_erp"
+                        string="SAP B1'den UBL Oluştur"
+                        type="object"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

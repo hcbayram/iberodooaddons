@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="profile_id_earsivfatura" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">e-Arşiv Fatura</field>
+            <field name="code">EARSIVFATURA</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_temelfatura" model="algebra.base.document.profile.id" forcecreate="0">
+            <field name="name">Temel Fatura</field>
+            <field name="code">TEMELFATURA</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_ticarifatura" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">Ticari Fatura</field>
+            <field name="code">TICARIFATURA</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_ihracatfaturasi" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">İhracat Fatura</field>
+            <field name="code">IHRACAT</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_yolcuberaberfatura" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">Yolcu Beraber Fatura</field>
+            <field name="code">YOLCUBERABERFATURA</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_kamufaturasi" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">Kamu Faturası</field>
+            <field name="code">KAMU</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_haltipifatura" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">Hal Tipi Fatura</field>
+            <field name="code">HKS</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_ilactibbiciihazfaturasi" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">İlaç veya Tıbbi Cihaz</field>
+            <field name="code">ILAC_TIBBICIHAZ</field>
+            <field name="profile_type">invoice</field>
+        </record>
+        <record id="profile_id_earsivbelge" model="algebra.base.document.profile.id" forcecreate="0">
+            <field name="name">e-Arşiv Belge</field>
+            <field name="code">EARSIVBELGE</field>
+            <field name="profile_type">receipt</field>
+        </record>
+        <record id="profile_id_temelirsaliye" model="algebra.base.document.profile.id"
+            forcecreate="0">
+            <field name="name">Temel İrsaliye</field>
+            <field name="code">TEMELIRSALIYE</field>
+            <field name="profile_type">delivery_note</field>
+        </record>
+        <record id="profile_id_hksirsaliye" model="algebra.base.document.profile.id" forcecreate="0">
+            <field name="name">Hal İrsaliye</field>
+            <field name="code">HKSIRSALIYE</field>
+            <field name="profile_type">delivery_note</field>
+        </record>
+
+
+    </data>
+</odoo>

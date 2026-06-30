@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ============================================================
+             GİDEN İRSALİYELER — Liste Görünümü
+        ============================================================ -->
+        <record id="view_outgoing_delivery_note_list" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.outgoing.list</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="priority">15</field>
+            <field name="arch" type="xml">
+                <list string="Giden İrsaliyeler" js_class="ubl_delivery_note_list" create="0"
+                    decoration-success="gib_status == 'approved'"
+                    decoration-warning="gib_status == 'sent'"
+                    decoration-danger="gib_status in ['rejected','error']"
+                    decoration-muted="gib_status == 'draft'">
+                    <field name="id_value" string="Belge No"/>
+                    <field name="issue_date" string="Tarih"/>
+                    <field name="customer_name" string="Alıcı"/>
+                    <field name="customer_vkn_tckn" string="VKN/TCKN"/>
+                    <field name="profile_id" string="Profil" domain="[('profile_type', '=', 'delivery_note')]"/>
+                    <field name="document_type_id" string="Tip" domain="[('doc_type', '=', 'delivery_note')]"/>
+                    <field name="vehicle_plate_number" string="Plaka" optional="show"/>
+                    <field name="gib_status" string="GIB Durumu" widget="badge"
+                        decoration-success="gib_status == 'approved'"
+                        decoration-warning="gib_status in ['xml_created','sent']"
+                        decoration-danger="gib_status in ['rejected','error']"
+                        decoration-muted="gib_status == 'draft'"/>
+                    <field name="gib_send_date" string="Gönderim Tarihi" optional="show"/>
+                    <field name="stock_picking_id" string="Sevkiyat" optional="show"/>
+                    <field name="document_direction" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             GELEN İRSALİYELER — Liste Görünümü
+        ============================================================ -->
+        <record id="view_incoming_delivery_note_list" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.incoming.list</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="priority">15</field>
+            <field name="arch" type="xml">
+                <list string="Gelen İrsaliyeler" js_class="ubl_delivery_note_list" create="0"
+                    decoration-success="gib_status == 'approved'"
+                    decoration-warning="gib_status == 'sent'"
+                    decoration-danger="gib_status in ['rejected','error']"
+                    decoration-muted="gib_status == 'draft'">
+                    <field name="id_value" string="Belge No"/>
+                    <field name="issue_date" string="Tarih"/>
+                    <field name="supplier_name" string="Gönderici"/>
+                    <field name="supplier_vkn_tckn" string="VKN/TCKN"/>
+                    <field name="profile_id" string="Profil" domain="[('profile_type', '=', 'delivery_note')]"/>
+                    <field name="document_type_id" string="Tip" domain="[('doc_type', '=', 'delivery_note')]"/>
+                    <field name="gib_status" string="GIB Durumu" widget="badge"
+                        decoration-success="gib_status == 'approved'"
+                        decoration-warning="gib_status in ['xml_created','sent']"
+                        decoration-danger="gib_status in ['rejected','error']"
+                        decoration-muted="gib_status == 'draft'"/>
+                    <field name="document_direction" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             TOPLU İŞLEM — Seçili İrsaliyeleri GIB'e Gönder
+        ============================================================ -->
+        <record id="action_server_send_delivery_notes_to_gib" model="ir.actions.server">
+            <field name="name">GIB'e Gönder</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+for rec in records:
+    if rec.gib_status not in ('sent', 'approved'):
+        rec.action_send_to_ubl_service()
+            </field>
+        </record>
+
+        <!-- ============================================================
+             SERVER ACTION — Faturaları Güncelle (seçimden bağımsız)
+        ============================================================ -->
+        <record id="action_server_sync_delivery_notes_from_erp" model="ir.actions.server">
+            <field name="name">İrsaliyeleri Güncelle</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = model.action_sync_from_erp()</field>
+        </record>
+
+        <!-- ============================================================
+             TOPLU İŞLEM — GIB Durumu Sıfırla
+        ============================================================ -->
+        <record id="action_server_reset_delivery_note_gib_status" model="ir.actions.server">
+            <field name="name">GIB Durumunu Sıfırla</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_model_id" ref="model_l10n_tr_ubl_delivery_note"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+records.write({'gib_status': 'draft', 'gib_log': False})
+            </field>
+        </record>
+
+        <!-- ============================================================
+             ACTION'LAR
+        ============================================================ -->
+        <record id="action_outgoing_delivery_note" model="ir.actions.act_window">
+            <field name="name">Giden İrsaliyeler</field>
+            <field name="res_model">l10n_tr.ubl.delivery.note</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_outgoing_delivery_note_list"/>
+            <field name="context">{'default_document_direction': 'outgoing'}</field>
+            <field name="domain">[('document_direction', '=', 'outgoing')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Yeni bir giden irsaliye oluştur
+                </p>
+                <p>
+                    Müşterilerinize gönderdiğiniz e-İrsaliyeleri buradan yönetebilirsiniz.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_incoming_delivery_note" model="ir.actions.act_window">
+            <field name="name">Gelen İrsaliyeler</field>
+            <field name="res_model">l10n_tr.ubl.delivery.note</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_incoming_delivery_note_list"/>
+            <field name="context">{'default_document_direction': 'incoming'}</field>
+            <field name="domain">[('document_direction', '=', 'incoming')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Yeni bir gelen irsaliye oluştur
+                </p>
+                <p>
+                    Tedarikçilerden aldığınız e-İrsaliyeleri buradan takip edebilirsiniz.
+                </p>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             MENÜLER
+        ============================================================ -->
+        <menuitem id="menu_ubl_delivery_notes_root"
+            name="İrsaliyeler"
+            parent="iber_e_transform.menu_iber_e_transform_root"
+            sequence="20"/>
+
+        <menuitem id="menu_outgoing_delivery_note"
+            name="Giden İrsaliyeler"
+            parent="menu_ubl_delivery_notes_root"
+            action="action_outgoing_delivery_note"
+            sequence="10"/>
+
+        <menuitem id="menu_incoming_delivery_note"
+            name="Gelen İrsaliyeler"
+            parent="menu_ubl_delivery_notes_root"
+            action="action_incoming_delivery_note"
+            sequence="20"/>
+
+    </data>
+</odoo>

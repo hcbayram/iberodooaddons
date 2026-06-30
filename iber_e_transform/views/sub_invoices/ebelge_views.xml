@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- e-Arşiv Belge: profil EARSIVBELGE iken belge tipi (makbuz) göster -->
+        <record id="view_ubl_invoice_form_ebelge" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.form.ebelge</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
+            <field name="arch" type="xml">
+                <!-- Profil bilgisinin hemen altına makbuz belge tipi alanı -->
+                <xpath expr="//field[@name='profile_id']" position="after">
+                    <field name="document_type_id"
+                        string="Makbuz/Belge Tipi"
+                        invisible="profile_code != 'EARSIVBELGE'"
+                        domain="[('doc_type', '=', 'receipt')]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

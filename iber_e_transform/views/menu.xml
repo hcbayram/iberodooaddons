@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Ana Menü (Fatura ve İrsaliye alt menüleri direction_menus dosyalarında) -->
+        <menuitem id="menu_iber_e_transform_root"
+            name="E-Dönüşüm"
+            sequence="80"
+            web_icon="iber_e_transform,static/description/icon.png"/>
+
+        <!-- Yapılandırma -->
+        <menuitem id="menu_e_transform_config"
+            name="Yapılandırma"
+            parent="menu_iber_e_transform_root"
+            sequence="100"/>
+        <menuitem id="menu_ubl21_config_settings"
+            name="E-Dönüşüm Ayarları"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_ubl21_config_settings_server"
+            sequence="10"/>
+
+        <menuitem id="menu_algebra_base_branch"
+            name="Şubeler"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_algebra_base_branch"
+            sequence="30"/>
+        <menuitem id="menu_algebra_base_document_unit"
+            name="Birim Kodları"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_algebra_base_document_unit"
+            sequence="40"/>
+        <menuitem id="menu_algebra_base_document_profile_id"
+            name="Fatura Profilleri"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_algebra_base_document_profile_id"
+            sequence="50"/>
+        <menuitem id="menu_algebra_base_document_type"
+            name="Fatura Tipleri"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_algebra_base_document_type"
+            sequence="60"/>
+        <menuitem id="menu_l10n_tr_ubl_partyid_type"
+            name="Taraf Kimlik Tipleri"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_l10n_tr_ubl_partyid_type"
+            sequence="70"/>
+        <menuitem id="menu_l10n_tr_ubl_tax_type"
+            name="Vergi Tipleri"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_l10n_tr_ubl_tax_type"
+            sequence="80"/>
+        <menuitem id="menu_tax_exemption_reason"
+            name="KDV İstisna Sebepleri"
+            parent="menu_e_transform_config"
+            action="iber_e_transform.action_tax_exemption_reason"
+            sequence="90"/>
+    </data>
+</odoo>

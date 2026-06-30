@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Özel Matrah: satır listesine istisna sebebi ve özel matrah tutarı sütunu ekle -->
+        <record id="view_ubl_invoice_line_ozelmatrah" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoiceline.list.ozelmatrah</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/list/field[@name='tax_amount']" position="after">
+                    <field name="tax_exemption_reason_id"
+                        string="Özel Matrah Sebebi"
+                        column_invisible="parent.document_type_code != 'OZELMATRAH'"
+                        domain="[('invoice_type', '=', 'OZELMATRAH')]"/>
+                    <field name="special_base_amount"
+                        string="Özel Matrah Tutarı"
+                        column_invisible="parent.document_type_code != 'OZELMATRAH'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

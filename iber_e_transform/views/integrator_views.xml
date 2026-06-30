@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_algebra_integrator_list" model="ir.ui.view">
+            <field name="name">algebra.integrator.list</field>
+            <field name="model">algebra.integrator</field>
+            <field name="arch" type="xml">
+                <list string="Entegratörler">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_algebra_integrator_form" model="ir.ui.view">
+            <field name="name">algebra.integrator.form</field>
+            <field name="model">algebra.integrator</field>
+            <field name="arch" type="xml">
+                <form string="Entegratör">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

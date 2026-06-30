@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="iber_e_transform.UBLDeliveryNoteListRenderer"
+       t-inherit="web.ListRenderer"
+       t-inherit-mode="extension">
+        <xpath expr="//table" position="before">
+            <t t-if="props.list.resModel === 'l10n_tr.ubl.delivery.note'">
+                <div class="o_iber_ubl_dn_toolbar px-3 py-2 border-bottom d-flex align-items-center gap-2 flex-wrap bg-view">
+
+                    <!-- Giden İrsaliyeler -->
+                    <t t-if="props.list.context and props.list.context.default_document_direction === 'outgoing'">
+                        <button type="button" class="btn btn-success"
+                                t-on-click="() => env.bus.trigger('ubl_dn:erp_ubl_olustur')">
+                            <i class="fa fa-refresh me-1"/> İrsaliyeleri Güncelle
+                        </button>
+                        <button type="button" class="btn btn-primary"
+                                t-att-disabled="!props.list.selection.length"
+                                t-on-click="() => env.bus.trigger('ubl_dn:gib_gonder')">
+                            <i class="fa fa-paper-plane me-1"/> GIB'e Gönder
+                        </button>
+                        <button type="button" class="btn btn-info"
+                                t-att-disabled="props.list.selection.length !== 1"
+                                t-on-click="() => env.bus.trigger('ubl_dn:pdf_onizle')">
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                        </button>
+                        <button type="button" class="btn btn-secondary"
+                                t-att-disabled="!props.list.selection.length"
+                                t-on-click="() => env.bus.trigger('ubl_dn:gib_sifirla')">
+                            <i class="fa fa-undo me-1"/> GIB Durumunu Sıfırla
+                        </button>
+                    </t>
+
+                    <!-- Gelen İrsaliyeler -->
+                    <t t-if="props.list.context and props.list.context.default_document_direction === 'incoming'">
+                        <!-- Tarih filtre combobox -->
+                        <div class="d-flex align-items-center gap-1 me-2">
+                            <label class="small text-muted mb-0 me-1">Dönem:</label>
+                            <select class="form-select form-select-sm"
+                                    style="width:140px"
+                                    t-on-change="(ev) => env.bus.trigger('ubl_dn:tarih_filtre', ev.target.value)">
+                                <option value="son_30_gun">Son 30 Gün</option>
+                                <option value="bu_ay">Bu Ay</option>
+                                <option value="bu_hafta">Bu Hafta</option>
+                                <option value="bugun">Bugün</option>
+                                <option value="tumu">Tümü</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-success"
+                                t-on-click="() => env.bus.trigger('ubl_dn:entegrator_getir')">
+                            <i class="fa fa-cloud-download me-1"/> Entegratörden İrsaliyeleri Getir
+                        </button>
+                        <button type="button" class="btn btn-info"
+                                t-att-disabled="props.list.selection.length !== 1"
+                                t-on-click="() => env.bus.trigger('ubl_dn:pdf_onizle')">
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                        </button>
+                        <button type="button" class="btn btn-secondary"
+                                t-att-disabled="!props.list.selection.length"
+                                t-on-click="() => env.bus.trigger('ubl_dn:gib_sifirla')">
+                            <i class="fa fa-undo me-1"/> GIB Durumunu Sıfırla
+                        </button>
+                    </t>
+
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

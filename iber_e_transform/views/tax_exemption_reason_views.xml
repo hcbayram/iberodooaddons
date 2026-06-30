@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_tax_exemption_reason_list" model="ir.ui.view">
+            <field name="name">tax.exemption.reason.list</field>
+            <field name="model">tax.exemption.reason</field>
+            <field name="arch" type="xml">
+                <list string="KDV İstisna Sebepleri">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="invoice_type"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_tax_exemption_reason_form" model="ir.ui.view">
+            <field name="name">tax.exemption.reason.form</field>
+            <field name="model">tax.exemption.reason</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="invoice_type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

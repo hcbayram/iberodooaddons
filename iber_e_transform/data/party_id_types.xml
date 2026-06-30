@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="partyid_type_HIZMETNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">HIZMETNO</field>
+            <field name="scheme_code">HIZMETNO</field>
+            <field name="description">HIZMETNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_MUSTERINO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">MUSTERINO</field>
+            <field name="scheme_code">MUSTERINO</field>
+            <field name="description">MUSTERINO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_TESISATNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">TESISATNO</field>
+            <field name="scheme_code">TESISATNO</field>
+            <field name="description">TESISATNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_TELEFONNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">TELEFONNO</field>
+            <field name="scheme_code">TELEFONNO</field>
+            <field name="description">TELEFONNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_DISTRIBUTORNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">DISTRIBUTORNO</field>
+            <field name="scheme_code">DISTRIBUTORNO</field>
+            <field name="description">DISTRIBUTORNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_TICARETSICILNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">TICARETSICILNO</field>
+            <field name="scheme_code">TICARETSICILNO</field>
+            <field name="description">TICARETSICILNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_TAPDKNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">TAPDKNO</field>
+            <field name="scheme_code">TAPDKNO</field>
+            <field name="description">TAPDKNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_BAYINO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">BAYINO</field>
+            <field name="scheme_code">BAYINO</field>
+            <field name="description">BAYINO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_ABONENO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">ABONENO</field>
+            <field name="scheme_code">ABONENO</field>
+            <field name="description">ABONENO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_SAYACNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">SAYACNO</field>
+            <field name="scheme_code">SAYACNO</field>
+            <field name="description">SAYACNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_EPDKNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">EPDKNO</field>
+            <field name="scheme_code">EPDKNO</field>
+            <field name="description">EPDKNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_SUBENO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">SUBENO</field>
+            <field name="scheme_code">SUBENO</field>
+            <field name="description">SUBENO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_PASAPORTNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">PASAPORTNO</field>
+            <field name="scheme_code">PASAPORTNO</field>
+            <field name="description">PASAPORTNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_ARACIKURUMETIKET" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">ARACIKURUMETIKET</field>
+            <field name="scheme_code">ARACIKURUMETIKET</field>
+            <field name="description">ARACIKURUMETIKET</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_ARACIKURUMVKN" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">ARACIKURUMVKN</field>
+            <field name="scheme_code">ARACIKURUMVKN</field>
+            <field name="description">ARACIKURUMVKN</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_CIFTCINO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">CIFTCINO</field>
+            <field name="scheme_code">CIFTCINO</field>
+            <field name="description">CIFTCINO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_IMALATCINO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">IMALATCINO</field>
+            <field name="scheme_code">IMALATCINO</field>
+            <field name="description">IMALATCINO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_DOSYANO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">DOSYANO</field>
+            <field name="scheme_code">DOSYANO</field>
+            <field name="description">DOSYANO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_HASTANO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">HASTANO</field>
+            <field name="scheme_code">HASTANO</field>
+            <field name="description">HASTANO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_MERSISNO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">MERSISNO</field>
+            <field name="scheme_code">MERSISNO</field>
+            <field name="description">MERSISNO</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="partyid_type_URETICINO" model="l10n_tr.ubl.partyid.type" forcecreate="0">
+            <field name="name">URETICINO</field>
+            <field name="scheme_code">URETICINO</field>
+            <field name="description">URETICINO</field>
+            <field name="active" eval="True" />
+        </record>
+
+
+    </data>
+</odoo>

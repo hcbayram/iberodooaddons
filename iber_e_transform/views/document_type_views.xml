@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_algebra_base_document_type_list" model="ir.ui.view">
+            <field name="name">algebra.base.document.type.list</field>
+            <field name="model">algebra.base.document.type</field>
+            <field name="arch" type="xml">
+                <list string="Fatura Tipleri">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="doc_type"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_algebra_base_document_type_form" model="ir.ui.view">
+            <field name="name">algebra.base.document.type.form</field>
+            <field name="model">algebra.base.document.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="doc_type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

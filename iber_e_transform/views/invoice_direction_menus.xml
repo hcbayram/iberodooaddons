@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- ============================================================
+             GİDEN FATURALAR — Liste Görünümü
+        ============================================================ -->
+        <record id="view_outgoing_invoice_list" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.outgoing.list</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="priority">15</field>
+            <field name="arch" type="xml">
+                <list string="Giden Faturalar" js_class="ubl_invoice_list" create="0"
+                    decoration-success="gib_status == 'approved'"
+                    decoration-warning="gib_status == 'sent'"
+                    decoration-danger="gib_status in ['rejected','error']"
+                    decoration-muted="gib_status == 'draft'">
+                    <field name="id_value" string="Belge No"/>
+                    <field name="issue_date" string="Tarih"/>
+                    <field name="customer_name" string="Alıcı"/>
+                    <field name="customer_vkn_tckn" string="VKN/TCKN"/>
+                    <field name="profile_id" string="Profil"/>
+                    <field name="document_type_id" string="Tip"/>
+                    <field name="total_with_tax" string="Toplam" sum="Toplam"/>
+                    <field name="document_currency_id" string="Para Birimi"/>
+                    <field name="gib_status" string="GIB Durumu" widget="badge"
+                        decoration-success="gib_status == 'approved'"
+                        decoration-warning="gib_status in ['xml_created','sent']"
+                        decoration-danger="gib_status in ['rejected','error']"
+                        decoration-muted="gib_status == 'draft'"/>
+                    <field name="gib_send_date" string="Gönderim Tarihi" optional="show"/>
+                    <field name="account_move_id" string="Kaynak Fatura" optional="show"/>
+                    <field name="invoice_direction" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             GELEN FATURALAR — Liste Görünümü
+        ============================================================ -->
+        <record id="view_incoming_invoice_list" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.incoming.list</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="priority">15</field>
+            <field name="arch" type="xml">
+                <list string="Gelen Faturalar" js_class="ubl_invoice_list" create="0"
+                    decoration-success="gib_status == 'approved'"
+                    decoration-warning="gib_status == 'sent'"
+                    decoration-danger="gib_status in ['rejected','error']"
+                    decoration-muted="gib_status == 'draft'">
+                    <field name="id_value" string="Belge No"/>
+                    <field name="issue_date" string="Tarih"/>
+                    <field name="supplier_name" string="Gönderici"/>
+                    <field name="supplier_vkn_tckn" string="VKN/TCKN"/>
+                    <field name="profile_id" string="Profil"/>
+                    <field name="document_type_id" string="Tip"/>
+                    <field name="total_with_tax" string="Toplam" sum="Toplam"/>
+                    <field name="document_currency_id" string="Para Birimi"/>
+                    <field name="gib_status" string="GIB Durumu" widget="badge"
+                        decoration-success="gib_status == 'approved'"
+                        decoration-warning="gib_status in ['xml_created','sent']"
+                        decoration-danger="gib_status in ['rejected','error']"
+                        decoration-muted="gib_status == 'draft'"/>
+                    <field name="invoice_direction" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             TOPLU İŞLEM — Seçili Faturaları GIB'e Gönder
+        ============================================================ -->
+        <record id="action_server_send_invoices_to_gib" model="ir.actions.server">
+            <field name="name">GIB'e Gönder</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_invoice"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+for rec in records:
+    if rec.invoice_direction == 'outgoing' and rec.gib_status not in ('sent', 'approved'):
+        rec.action_send_to_ubl_service()
+            </field>
+        </record>
+
+        <!-- ============================================================
+             SERVER ACTION — Faturaları Güncelle (seçimden bağımsız)
+        ============================================================ -->
+        <record id="action_server_sync_invoices_from_erp" model="ir.actions.server">
+            <field name="name">Faturaları Güncelle</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_sync_from_erp()</field>
+        </record>
+
+        <!-- ============================================================
+             TOPLU İŞLEM — GIB Durumu Sıfırla (Yeniden Göndermek için)
+        ============================================================ -->
+        <record id="action_server_reset_invoice_gib_status" model="ir.actions.server">
+            <field name="name">GIB Durumunu Sıfırla</field>
+            <field name="model_id" ref="model_l10n_tr_ubl_invoice"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+records.filtered(lambda r: r.invoice_direction == 'outgoing').write({'gib_status': 'draft', 'gib_log': False})
+            </field>
+        </record>
+
+        <!-- ============================================================
+             ACTION'LAR
+        ============================================================ -->
+        <record id="action_outgoing_invoice" model="ir.actions.act_window">
+            <field name="name">Giden Faturalar</field>
+            <field name="res_model">l10n_tr.ubl.invoice</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_outgoing_invoice_list"/>
+            <field name="context">{'default_invoice_direction': 'outgoing'}</field>
+            <field name="domain">[('invoice_direction', '=', 'outgoing')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Yeni bir giden fatura oluştur
+                </p>
+                <p>
+                    Müşterilerinize düzenlediğiniz e-Faturaları buradan yönetebilirsiniz.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_incoming_invoice" model="ir.actions.act_window">
+            <field name="name">Gelen Faturalar</field>
+            <field name="res_model">l10n_tr.ubl.invoice</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_incoming_invoice_list"/>
+            <field name="context">{'default_invoice_direction': 'incoming'}</field>
+            <field name="domain">[('invoice_direction', '=', 'incoming')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Yeni bir gelen fatura oluştur
+                </p>
+                <p>
+                    Tedarikçilerden aldığınız e-Faturaları buradan takip edebilirsiniz.
+                </p>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             MENÜLER
+        ============================================================ -->
+        <menuitem id="menu_ubl_invoices_root"
+            name="Faturalar"
+            parent="iber_e_transform.menu_iber_e_transform_root"
+            sequence="10"/>
+
+        <menuitem id="menu_outgoing_invoice"
+            name="Giden Faturalar"
+            parent="menu_ubl_invoices_root"
+            action="action_outgoing_invoice"
+            sequence="10"/>
+
+        <menuitem id="menu_incoming_invoice"
+            name="Gelen Faturalar"
+            parent="menu_ubl_invoices_root"
+            action="action_incoming_invoice"
+            sequence="20"/>
+
+    </data>
+</odoo>

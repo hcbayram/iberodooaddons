@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ubl_invoice_pdf_preview_wizard_form" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.pdf.preview.wizard.form</field>
+            <field name="model">l10n_tr.ubl.invoice.pdf.preview.wizard</field>
+            <field name="arch" type="xml">
+                <form string="PDF Önizleme">
+                    <sheet>
+                        <field name="pdf_data" widget="pdf_viewer"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ubl_invoice_preview_wizard_form" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.preview.wizard.form</field>
+            <field name="model">l10n_tr.ubl.invoice.preview.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Fatura Önizleme">
+                    <sheet>
+                        <field name="html_content" widget="html" readonly="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

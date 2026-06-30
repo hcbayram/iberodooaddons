@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="exemption_reason_201" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">201 - 17/1 Kültür ve eğitim amacı taşıyan işlemler</field>
+            <field name="code">201</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_202" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">202 - 17/2-a Sağlık, çevre ve sosyal yardım amaçlı işlemler</field>
+            <field name="code">202</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_204" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">204 - 17/2-c Yabancı diplomatik organ ve hayır kurumlarının
+                bağışlarıyla ilgili mal ve hizmet alışları</field>
+            <field name="code">204</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_205" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">205 - 17/2-d Taşınmaz kültür varlıklarına ilişkin teslimler ve
+                mimarlık hizmetleri</field>
+            <field name="code">205</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_206" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">206 - 17/2-e Mesleki kuruluşların işlemleri</field>
+            <field name="code">206</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_207" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">207 - 17/3 Askeri fabrika</field>
+            <field name="code">207</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_208" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">208 - 17/4-c Birleşme, devir, dönüşüm ve bölünme işlemleri</field>
+            <field name="code">208</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_209" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">209 - 17/4-e Banka ve sigorta muameleleri vergisi kapsamına giren
+                işlemler</field>
+            <field name="code">209</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_211" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">211 - 17/4-h Zirai amaçlı veya köy tüzel kişiliklerince yapılan içme
+                suyu teslimleri</field>
+            <field name="code">211</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_212" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">212 - 17/4-ı Serbest bölgelerde verilen hizmetler</field>
+            <field name="code">212</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_213" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">213 - 17/4-j Boru hattı ile yapılan petrol ve gaz taşımacılığı</field>
+            <field name="code">213</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_214" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">214 - 17/4-k Sanayi bölgelerindeki arsa ve işyeri teslimleri ile
+                konut yapı kooperatiflerinin üyelerine konut teslimleri</field>
+            <field name="code">214</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_215" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">215 - 17/4-l Varlık yönetim şirketlerinin işlemleri</field>
+            <field name="code">215</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_216" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">216 - 7/4-m Tasarruf mevduatı sigorta fonunun işlemleri</field>
+            <field name="code">216</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_217" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">217 - 17/4-n Basın - Yayın ve Enformasyon Genel Müdürlüğüne verilen
+                haber hizmetleri</field>
+            <field name="code">217</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_218" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">218 - 17/4-o Gümrük antrepoları ve benzeri sahalardaki ilgili
+                hizmetler</field>
+            <field name="code">218</field>
+            <field name="invoice_type">IHRACAT</field>
+        </record>
+        <record id="exemption_reason_219" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">219 - 17/4-p Hazine ve Arsa Ofisi Genel Müdürlüğünün işlemleri</field>
+            <field name="code">219</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_220" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">220 - 17/4-r Kurumlar Vergisi Kanununun Geçici 28 ve 29. maddeleri
+                kapsamındaki teslimler</field>
+            <field name="code">220</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_221" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">221 - Geçici 15 İnşaat taahhüt hizmetleri</field>
+            <field name="code">221</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_223" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">223 - Geçici 20/1 Teknoloji geliştirme bölgelerinde yapılan işlemler</field>
+            <field name="code">223</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_225" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">225 - Geçici 23 Milli Eğitim Bakanlığına yapılan bilgisayar bağışları
+                ile ilgili teslimler</field>
+            <field name="code">225</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_226" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">226 - 17/2-b Özel okul, üniversite ve yüksekokulların bedelsiz eğitim
+                hizmetleri</field>
+            <field name="code">226</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_227" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">227 - 17/2-b Kanun gereği bedelsiz olarak yapılan teslim ve hizmetler</field>
+            <field name="code">227</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_228" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">228 - 17/2-b Kanunun (17/1) maddesinde sayılan kurum ve kuruluşlara
+                bedelsiz yapılan teslimler</field>
+            <field name="code">228</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_229" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">229 - 17/2-b Gıda bankacılığı faaliyetinde bağışlanan gıda, temizlik,
+                giyecek ve yakacak maddeleri</field>
+            <field name="code">229</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_230" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">230 - 17/4-g Külçe altın, külçe gümüş ve kıymetli taşların teslimi</field>
+            <field name="code">230</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_231" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">231 - 17/4-g Geri dönüşüm hurda ve atık teslimleri</field>
+            <field name="code">231</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_232" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">232 - 17/4-g Döviz, para, damga pulu ve değerli kağıt teslimleri</field>
+            <field name="code">232</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_234" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">234 - 17/4-ş Konut finansmanı amacıyla teminat gösterilen konut
+                teslimi</field>
+            <field name="code">234</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_235" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">235 - 16/1-c Transit ve antrepo rejimleri kapsamındaki malların
+                teslimi</field>
+            <field name="code">235</field>
+            <field name="invoice_type">IHRACAT</field>
+        </record>
+        <record id="exemption_reason_236" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">236 - 19/2 Uluslararası anlaşmalar kapsamındaki istisnalar (İade
+                hakkı tanınmayan)</field>
+            <field name="code">236</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_237" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">237 - 17/4- 5300 Sayılı Kanuna göre ürün senetlerinin ilk tesliminden
+                sonraki teslimi</field>
+            <field name="code">237</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_238" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">238 - 17/4-u Varlık kiralama işlemleri</field>
+            <field name="code">238</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_239" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">239 - 17/4- Taşınmazların finansal kiralama şirketlerine devri ve
+                geri kiralanması</field>
+            <field name="code">239</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_240" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">240 - 17/4-z Patent/faydalı model haklarının kiralanması, devri,
+                satışı</field>
+            <field name="code">240</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_250" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">250 - Kısmi İstisna Diğer</field>
+            <field name="code">250</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_301" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">301 - 11/1-a Mal ihracatı</field>
+            <field name="code">301</field>
+            <field name="invoice_type">IHRACAT</field>
+        </record>
+        <record id="exemption_reason_302" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">302 - 11/1-a Hizmet ihracatı</field>
+            <field name="code">302</field>
+            <field name="invoice_type">IHRACAT</field>
+        </record>
+        <record id="exemption_reason_303" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">303 - 11/1-a Roaming hizmetleri</field>
+            <field name="code">303</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_304" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">304 - 13/a Taşıma araçları teslimi, bakım/onarım</field>
+            <field name="code">304</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_305" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">305 - 13/b Liman ve hava meydanlarında yapılan hizmetler</field>
+            <field name="code">305</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_306" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">306 - 13/c Petrol arama ve petrol boru hatları projeleri</field>
+            <field name="code">306</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_307" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">307 - 13/c Maden arama ve işleme faaliyetleri</field>
+            <field name="code">307</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_308" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">308 - 13/d Teşvikli yatırım malı teslimleri</field>
+            <field name="code">308</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_309" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">309 - 13/e Demiryolu hattı ve liman/hava meydanı projeleri</field>
+            <field name="code">309</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_310" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">310 - 13/f Ulusal güvenlik amaçlı teslim ve hizmetler</field>
+            <field name="code">310</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_311" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">311 - 14/1 Uluslararası taşımacılık</field>
+            <field name="code">311</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_312" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">312 - 15/a Diplomatik organ ve misyonlara yapılan teslim ve hizmetler</field>
+            <field name="code">312</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_313" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">313 - 15/b Uluslararası kuruluşlara yapılan teslim ve hizmetler</field>
+            <field name="code">313</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_314" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">314 - 19/2 Uluslararası anlaşmalar kapsamındaki istisnalar (İade
+                hakkı tanınan)</field>
+            <field name="code">314</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_315" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">315 - 14/3 İhraç konusu eşya taşıyan araçlara motorin teslimleri</field>
+            <field name="code">315</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_316" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">316 - 11/1-a Serbest bölge müşteri fason hizmetleri</field>
+            <field name="code">316</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_317" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">317 - 17/4-s Engelli eğitim, yaşam ve araç-gereç teslimleri</field>
+            <field name="code">317</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_318" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">318 - Geçici 29 Yap-İşlet-Devret ve kiralama karşılığı sağlık/öğretim
+                tesisleri</field>
+            <field name="code">318</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_319" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">319 - 13/g Başbakanlık Merkez Teşkilatına araç teslimleri</field>
+            <field name="code">319</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_320" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">320 - Geçici 16 İSMEP kapsamında yapılan teslim ve hizmetler</field>
+            <field name="code">320</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_321" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">321 - Geçici 26 BM, NATO, OECD resmî kullanım teslim ve hizmetleri</field>
+            <field name="code">321</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_322" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">322 - 11/1-a Türkiye'de ikamet etmeyenlere özel fatura ile yapılan
+                teslimler (Bavul Ticareti)</field>
+            <field name="code">322</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_323" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">323 - 13/ğ 5300 Sayılı Kanuna göre ürün senetlerinin ilk teslimi</field>
+            <field name="code">323</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_324" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">324 - 13/h Türkiye Kızılay Derneğine yapılan teslim ve hizmetler</field>
+            <field name="code">324</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_325" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">325 - 13/ı Yem teslimleri</field>
+            <field name="code">325</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_326" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">326 - 13/ı Tescil edilmiş gübrelerin teslimi</field>
+            <field name="code">326</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_327" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">327 - 13/ı Gübre hammaddelerinin üreticilere teslimi</field>
+            <field name="code">327</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_338" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">338 - İmalatçıların Mal İhracatları</field>
+            <field name="code">338</field>
+            <field name="invoice_type">IHRACAT</field>
+        </record>
+        <record id="exemption_reason_350" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">350 - İstisna Diğer</field>
+            <field name="code">350</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_351" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">351 - KDV İstisna Olmayan Diğer</field>
+            <field name="code">351</field>
+            <field name="invoice_type">ISTISNA</field>
+        </record>
+        <record id="exemption_reason_701" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">701 - 3065 s. KDV Kanununun 11/1-c md. Kapsamındaki İhraç Kayıtlı
+                Satış</field>
+            <field name="code">701</field>
+            <field name="invoice_type">IHRACKAYITLI</field>
+        </record>
+        <record id="exemption_reason_702" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">702 - DİİB ve Geçici Kabul Rejimi Kapsamındaki Satışlar</field>
+            <field name="code">702</field>
+            <field name="invoice_type">IHRACKAYITLI</field>
+        </record>
+        <record id="exemption_reason_703" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">703 - 4760 s. ÖTV Kanununun 8/2 Md. Kapsamındaki İhraç Kayıtlı Satış</field>
+            <field name="code">703</field>
+            <field name="invoice_type">IHRACKAYITLI</field>
+        </record>
+        <record id="exemption_reason_704" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">704 - 3065 sayılı KDV Kanununun (11/1-c) maddesi ve 4760 s. Ötv
+                Kanununun 8/2. Md. Kapsamındaki İhraç Kayıtlı Satış</field>
+            <field name="code">704</field>
+            <field name="invoice_type">IHRACKAYITLI</field>
+        </record>
+        <record id="exemption_reason_801" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">801 - Milli Piyango, Spor Toto vb. Oyunlar</field>
+            <field name="code">801</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_802" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">802 - At Yarışları ve Diğer Müşterek Bahis ve Talih Oyunları</field>
+            <field name="code">802</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_803" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">803 - Profesyonel Sanatçıların Yer Aldığı Gösteriler, Konserler,
+                Profesyonel Sporcuların Katıldığı Sportif Faaliyetler, Maçlar, Yarışlar ve
+                Yarışmalar</field>
+            <field name="code">803</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_804" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">804 - Gümrük Depolarında ve Müzayede Mahallerinde Yapılan Satışlar</field>
+            <field name="code">804</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_805" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">805 - Altından Mamül veya Altın İçeren Ziynet Eşyaları İle Sikke
+                Altınların Teslimi</field>
+            <field name="code">805</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_806" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">806 - Tütün Mamülleri</field>
+            <field name="code">806</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_807" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">807 - Muzır Neşriyat Kapsamındaki Gazete, Dergi vb. Periyodik
+                Yayınlar</field>
+            <field name="code">807</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_808" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">808 - Gümüşten Mamul veya Gümüş İçeren Ziynet Eşyaları ile Sikke
+                Gümüşlerin Teslimi</field>
+            <field name="code">808</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_809" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">809 - Belediyeler Tarafından Yapılan Şehir İçi Yolcu Taşımacılığında
+                Kullanılan Biletlerin ve Kartların Bayiler Tarafından Satışı</field>
+            <field name="code">809</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_810" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">810 - Ön Ödemeli Elektronik Haberleşme Hizmetleri</field>
+            <field name="code">810</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_811" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">811 - TŞOF Tarafından Araç Plakaları ile Sürücü Kurslarında
+                Kullanılan Bir Kısım Evrakın Teslimi</field>
+            <field name="code">811</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+        <record id="exemption_reason_812" model="tax.exemption.reason" forcecreate="0">
+            <field name="name">812 - KDV Uygulanmadan Alınan İkinci El Motorlu Kara Taşıtı veya
+                Taşınmaz Teslimi</field>
+            <field name="code">812</field>
+            <field name="invoice_type">OZELMATRAH</field>
+        </record>
+
+
+    </data>
+</odoo>

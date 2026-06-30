@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- stock.picking form: E-Dönüşüm smart button + tab -->
+        <record id="view_stock_picking_e_transform" model="ir.ui.view">
+            <field name="name">stock.picking.e.transform.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <!-- Smart Button -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_ubl_delivery_notes"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        invisible="picking_type_code != 'outgoing' or ubl_delivery_note_count == 0">
+                        <field name="ubl_delivery_note_count" widget="statinfo" string="E-İrsaliye"/>
+                    </button>
+                </xpath>
+
+                <!-- E-Dönüşüm Tab -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="E-İrsaliye"
+                        invisible="picking_type_code != 'outgoing'">
+                        <group>
+                            <button name="action_create_ubl_delivery_note"
+                                string="E-İrsaliye Oluştur"
+                                type="object"
+                                class="btn-primary"
+                                invisible="ubl_delivery_note_count != 0 or state != 'done'"/>
+                            <button name="action_view_ubl_delivery_notes"
+                                string="E-İrsaliyeyi Görüntüle"
+                                type="object"
+                                invisible="ubl_delivery_note_count == 0"/>
+                        </group>
+                        <field name="ubl_delivery_note_ids" readonly="1">
+                            <list>
+                                <field name="id_value"/>
+                                <field name="issue_date"/>
+                                <field name="profile_id"/>
+                                <field name="UUID"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

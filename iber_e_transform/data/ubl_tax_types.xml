@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0003" forcecreate="0">
+            <field name="code">0003</field>
+            <field name="name">Gelir Vergisi Stopajı</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0059" forcecreate="0">
+            <field name="code">0059</field>
+            <field name="name">Konaklama Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0011" forcecreate="0">
+            <field name="code">0011</field>
+            <field name="name">Kurumlar Vergisi Stopajı</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0061" forcecreate="0">
+            <field name="code">0061</field>
+            <field name="name">Kaynak Kullanımı Destekleme Fonu Kesintisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0071" forcecreate="0">
+            <field name="code">0071</field>
+            <field name="name">Petrol ve Doğal Ürünlerine İliştv T.V. [ÖTV 1. Liste]</field>
+            <field name="type">vat</field>
+            <field name="description">Yalnızca oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0073" forcecreate="0">
+            <field name="code">0073</field>
+            <field name="name">Kolalı Gazoz, Alkollü İçe. ve Tütün Mamüllerine İlişkin Ö.T.V.
+                [ÖTV 3. Liste]</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0074" forcecreate="0">
+            <field name="code">0074</field>
+            <field name="name">Dayanıklı Tüketim ve Diğer Mallara İlişkin Ö.T.V. [ÖTV 4.
+                Liste]</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0075" forcecreate="0">
+            <field name="code">0075</field>
+            <field name="name">Alkollü İçeçeklere İlişkin Ö.T.V. [ÖTV 3A Liste]</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0076" forcecreate="0">
+            <field name="code">0076</field>
+            <field name="name">Tütün Mamüllerine İlişkin Ö.T.V. [ÖTV 3B Liste]</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_0077" forcecreate="0">
+            <field name="code">0077</field>
+            <field name="name">Kolalı Gazozlara İlişkin Ö.T.V. [ÖTV 3C Liste]</field>
+            <field name="type">vat</field>
+            <field name="description">Yalnızca oran girilebilir.
+                Tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılır.
+                0,00 Olması durumunda ÖTV istisna sebebi girilmelidir.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_1047" forcecreate="0">
+            <field name="code">1047</field>
+            <field name="name">Damga Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_1048" forcecreate="0">
+            <field name="code">1048</field>
+            <field name="name">5035 Sayılı Kanuna Göre Damga Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_4071" forcecreate="0">
+            <field name="code">4071</field>
+            <field name="name">Elektrik ve Hava Gazı Tüketim Vergisi</field>
+            <field name="type">vat</field>
+            <field name="description">Yalnızca oran girilebilir.
+                Tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_4080" forcecreate="0">
+            <field name="code">4080</field>
+            <field name="name">Özel İletişim Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_4081" forcecreate="0">
+            <field name="code">4081</field>
+            <field name="name">5035 Sayılı Kanuna Göre Özel İletişim Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_4171" forcecreate="0">
+            <field name="code">4171</field>
+            <field name="name">ÖTV Tevkifatı</field>
+            <field name="type">base</field>
+            <field name="description">Yalnızca tutar girilebilir.
+                ÖTV Tevkifat eklemek için fatura tipinin ‘TEVKIFAT’ olması gerekiyor.
+                ÖTV Tevkifat eklemek için öncelikle ‘ÖTV 1. Liste‘ eklenmelidir.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8001" forcecreate="0">
+            <field name="code">8001</field>
+            <field name="name">Borsa Tescil Ücreti</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8002" forcecreate="0">
+            <field name="code">8002</field>
+            <field name="name">Enerji Fonu</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8004" forcecreate="0">
+            <field name="code">8004</field>
+            <field name="name">TRT Payı</field>
+            <field name="type">base</field>
+            <field name="description">Yalnızca tutar girilebilir.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8005" forcecreate="0">
+            <field name="code">8005</field>
+            <field name="name">Elektrik Tüketim Vergisi</field>
+            <field name="type">vat</field>
+            <field name="description">Yalnızca oran girilebilir.
+                Tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8006" forcecreate="0">
+            <field name="code">8006</field>
+            <field name="name">Telsiz Kullanım Ücreti</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8007" forcecreate="0">
+            <field name="code">8007</field>
+            <field name="name">Telsiz Ruhsat Ücreti</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_8008" forcecreate="0">
+            <field name="code">8008</field>
+            <field name="name">Çevre Temizlik Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_9021" forcecreate="0">
+            <field name="code">9021</field>
+            <field name="name">4961 Banka Sigorta Muameleleri Vergisi</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_9040" forcecreate="0">
+            <field name="code">9040</field>
+            <field name="name">Mera Fonu</field>
+            <field name="type">otv</field>
+            <field name="description">Tutar veya oran girilebilir.
+                Oran girildiği durumda tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+        <record model="l10n_tr.ubl.tax.type" id="ubl_tax_type_9077" forcecreate="0">
+            <field name="code">9077</field>
+            <field name="name">Motorlu Taşıt Aralarına İlişkin Özel Tüketim Vergisi [ÖTV 2.
+                Liste]</field>
+            <field name="type">vat</field>
+            <field name="description">Yalnızca oran girilebilir.
+                Tutar oran üzerinden hesaplanır.
+                İstisna sebebiyet kontrolü yapılmaz.</field>
+        </record>
+
+    </data>
+</odoo>

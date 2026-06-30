@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ubl21_config_settings_form" model="ir.ui.view">
+            <field name="name">ubl21.config.settings.form</field>
+            <field name="model">ubl21.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="E-Dönüşüm Ayarları">
+                    <header>
+                        <button name="action_save" string="Kaydet" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <notebook>
+                            <!-- Genel Ayarlar -->
+                            <page string="Genel">
+                                <group string="ERP Entegrasyonu">
+                                    <field name="active_erp" widget="radio"/>
+                                </group>
+                                <group string="UBL Servis">
+                                    <field name="ubl_service_url"/>
+                                </group>
+                                <group string="Şirket Bilgileri">
+                                    <group>
+                                        <field name="erp_company_name"/>
+                                        <field name="erp_vkn_tckn"/>
+                                        <field name="erp_tax_office"/>
+                                        <field name="erp_pname"/>
+                                        <field name="erp_psurname"/>
+                                    </group>
+                                    <group>
+                                        <field name="erp_street"/>
+                                        <field name="erp_county"/>
+                                        <field name="erp_city"/>
+                                        <field name="erp_postal_code"/>
+                                        <field name="erp_country_code"/>
+                                        <field name="erp_country_name"/>
+                                    </group>
+                                </group>
+                                <group string="Gönderim">
+                                    <field name="erp_sender_alias"/>
+                                </group>
+                            </page>
+
+
+                            <!-- Senkronizasyon Durumu -->
+                            <page string="Senkronizasyon">
+                                <group string="Son Senkronizasyon Zamanları">
+                                    <field name="last_invoice_sync_datetime" readonly="1"/>
+                                    <button name="action_clear_invoice_sync_time"
+                                        string="Fatura Sync Zamanını Sıfırla"
+                                        type="object"
+                                        class="btn-secondary"/>
+                                    <field name="last_delivery_note_sync_datetime" readonly="1"/>
+                                    <button name="action_clear_delivery_note_sync_time"
+                                        string="İrsaliye Sync Zamanını Sıfırla"
+                                        type="object"
+                                        class="btn-secondary"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

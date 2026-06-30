@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ubl_delivery_note_list" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.list</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="arch" type="xml">
+                <list string="UBL İrsaliyeler">
+                    <field name="id_value"/>
+                    <field name="issue_date"/>
+                    <field name="document_direction"/>
+                    <field name="customer_name"/>
+                    <field name="customer_vkn_tckn"/>
+                    <field name="profile_id" domain="[('profile_type', '=', 'delivery_note')]"/>
+                    <field name="stock_picking_id" string="Sevkiyat" optional="show"/>
+                    <field name="erp_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_ubl_delivery_note_form" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.delivery.note.form</field>
+            <field name="model">l10n_tr.ubl.delivery.note</field>
+            <field name="arch" type="xml">
+                <form string="UBL İrsaliye" create="0">
+                    <header>
+                        <!-- Giden irsaliye: GIB'e Gönder -->
+                        <button name="action_send_to_ubl_service"
+                            string="GIB'e Gönder"
+                            type="object"
+                            class="btn-primary"
+                            invisible="document_direction != 'outgoing' or gib_status in ['sent','approved']"/>
+                        <!-- Giden irsaliye: ERP'den Güncelle (draft) -->
+                        <button name="action_sync_from_erp"
+                            string="İrsaliyeleri Güncelle"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="document_direction != 'outgoing' or gib_status != 'draft'"
+                            title="ERP'deki güncel veriyle irsaliyeleri senkronize eder"/>
+                        <!-- PDF Önizleme -->
+                        <button name="action_preview_pdf"
+                            string="PDF Önizleme"
+                            type="object"
+                            invisible="pdf_data"/>
+                        <button name="action_clear_pdf_preview"
+                            string="Önizlemeyi Kapat"
+                            type="object"
+                            invisible="not pdf_data"/>
+                    </header>
+                    <sheet>
+                        <div class="o_iber_form_with_pdf">
+
+                            <!-- Sol kolon: form alanları -->
+                            <div class="o_iber_form_main_col">
+
+                                <div class="oe_button_box" name="button_box">
+                                    <button name="action_view_stock_picking"
+                                        type="object"
+                                        class="oe_stat_button"
+                                        icon="fa-truck"
+                                        invisible="not stock_picking_id">
+                                        <div class="o_stat_info">
+                                            <span class="o_stat_text">Sevkiyat</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <group>
+                            <group string="Belge Bilgileri">
+                                <field name="id_value" required="1"/>
+                                <field name="issue_date"/>
+                                <field name="document_direction"/>
+                                <field name="customization_id"/>
+                                <field name="profile_id" domain="[('profile_type', '=', 'delivery_note')]"/>
+                                <field name="document_type_id" domain="[('doc_type', '=', 'delivery_note')]"/>
+                                <field name="copy_indicator"/>
+                                <field name="stock_picking_id" string="Sevkiyat Kaydı"/>
+                            </group>
+                            <group string="ERP / UUID">
+                                <field name="UUID" readonly="1"/>
+                                <field name="erp_id"/>
+                                <field name="erp_last_sync_date" readonly="1"/>
+                                <field name="branch_id"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Gönderici (Tedarikçi)">
+                                <group>
+                                    <group>
+                                        <field name="supplier_name"/>
+                                        <field name="supplier_vkn_tckn"/>
+                                        <field name="supplier_scheme_id"/>
+                                        <field name="supplier_tax_office"/>
+                                    </group>
+                                    <group>
+                                        <field name="supplier_street"/>
+                                        <field name="supplier_county"/>
+                                        <field name="supplier_city"/>
+                                        <field name="supplier_postal_code"/>
+                                        <field name="supplier_country_code"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Alıcı (Müşteri)">
+                                <group>
+                                    <group>
+                                        <field name="customer_name"/>
+                                        <field name="customer_vkn_tckn"/>
+                                        <field name="customer_scheme_id"/>
+                                        <field name="customer_tax_office"/>
+                                        <field name="customer_receiver_alias"/>
+                                    </group>
+                                    <group>
+                                        <field name="customer_street"/>
+                                        <field name="customer_county"/>
+                                        <field name="customer_city"/>
+                                        <field name="customer_postal_code"/>
+                                        <field name="customer_country_code"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Taşıma">
+                                <group string="Araç Bilgileri">
+                                    <field name="vehicle_plate_number"/>
+                                    <field name="trailer_ids">
+                                        <list editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="plate_number"/>
+                                        </list>
+                                    </field>
+                                </group>
+                                <group string="Sürücüler">
+                                    <field name="driver_ids">
+                                        <list editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="first_name"/>
+                                            <field name="family_name"/>
+                                            <field name="tckn"/>
+                                            <field name="title"/>
+                                        </list>
+                                    </field>
+                                </group>
+                                <group string="Gönderi">
+                                    <field name="shipment_id"/>
+                                    <field name="goods_item_value_amount"/>
+                                    <field name="actual_despatch_date"/>
+                                    <field name="actual_despatch_time"/>
+                                    <field name="despatch_contact_name"/>
+                                </group>
+                            </page>
+
+                            <page string="İlave Taraflar">
+                                <group string="Başlatan Taraf">
+                                    <field name="originator_name"/>
+                                    <field name="originator_vkn_tckn"/>
+                                    <field name="originator_tax_office"/>
+                                    <field name="originator_city"/>
+                                </group>
+                                <group string="Taşıyıcı">
+                                    <field name="carrier_name"/>
+                                    <field name="carrier_vkn_tckn"/>
+                                    <field name="carrier_tax_office"/>
+                                    <field name="carrier_city"/>
+                                </group>
+                                <group string="Satın Alan">
+                                    <field name="buyercustomer_name"/>
+                                    <field name="buyercustomer_vkn_tckn"/>
+                                </group>
+                                <group string="Satan">
+                                    <field name="sellersupplier_name"/>
+                                    <field name="sellersupplier_vkn_tckn"/>
+                                </group>
+                            </page>
+
+                            <page string="Satırlar">
+                                <field name="line_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_code_id"/>
+                                        <field name="description"/>
+                                        <field name="currency_id" column_invisible="1"/>
+                                        <field name="price_amount"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <page string="Notlar">
+                                <field name="invoice_note_ids">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="note"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <page string="XML / JSON">
+                                <group>
+                                    <field name="xml_data" widget="code" readonly="1"/>
+                                    <field name="json_data" widget="code" readonly="1"/>
+                                </group>
+                            </page>
+                                </notebook>
+
+                            </div><!-- /o_iber_form_main_col -->
+
+                            <!-- Sağ kolon: PDF önizleme -->
+                            <div class="o_iber_pdf_col" invisible="not pdf_data">
+                                <div class="border-bottom mb-2 pb-1 d-flex justify-content-between align-items-center">
+                                    <strong class="text-muted small">PDF Önizleme</strong>
+                                </div>
+                                <field name="pdf_data" widget="pdf_viewer" nolabel="1"/>
+                            </div>
+
+                        </div><!-- /o_iber_form_with_pdf -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- İstisna: satır listesine istisna sebebi sütunu ekle -->
+        <record id="view_ubl_invoice_line_istisna" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoiceline.list.istisna</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/list/field[@name='tax_amount']" position="after">
+                    <field name="tax_exemption_reason_id"
+                        string="İstisna Sebebi"
+                        column_invisible="parent.document_type_code != 'ISTISNA'"
+                        domain="[('invoice_type', '=', 'ISTISNA')]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

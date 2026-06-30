@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_algebra_base_branch_list" model="ir.ui.view">
+            <field name="name">algebra.base.branch.list</field>
+            <field name="model">algebra.base.branch</field>
+            <field name="arch" type="xml">
+                <list string="Şubeler">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="city"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_algebra_base_branch_form" model="ir.ui.view">
+            <field name="name">algebra.base.branch.form</field>
+            <field name="model">algebra.base.branch</field>
+            <field name="arch" type="xml">
+                <form string="Şube">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="active"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="street"/>
+                                <field name="county"/>
+                                <field name="city"/>
+                                <field name="postal_code"/>
+                                <field name="country_code"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="ERP Eşleşmeleri">
+                                <field name="erp_mapping_ids">
+                                    <list editable="bottom">
+                                        <field name="erp_system"/>
+                                        <field name="erp_branch_id"/>
+                                        <field name="erp_branch_name"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

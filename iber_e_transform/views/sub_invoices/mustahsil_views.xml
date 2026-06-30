@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Müstahsil: tevkifat sütunlarını gizle, ödeme sekmesini gizle, teslim tarihi ekle -->
+        <record id="view_ubl_invoice_form_mustahsil" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.form.mustahsil</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Tevkifat kodu sütununu müstahsil ve e-arşiv belgesinde gizle -->
+                <xpath expr="//field[@name='line_ids']/list/field[@name='withholding_code']" position="attributes">
+                    <attribute name="column_invisible">
+                        parent.document_type_code == 'MUSTAHSILMAKBUZ' or parent.profile_code == 'EARSIVBELGE'
+                    </attribute>
+                </xpath>
+
+                <!-- Tevkifat oranı sütununu müstahsil ve e-arşiv belgesinde gizle -->
+                <xpath expr="//field[@name='line_ids']/list/field[@name='withholding_rate']" position="attributes">
+                    <attribute name="column_invisible">
+                        parent.document_type_code == 'MUSTAHSILMAKBUZ' or parent.profile_code == 'EARSIVBELGE'
+                    </attribute>
+                </xpath>
+
+                <!-- Ödeme sekmesini müstahsil ve e-arşiv belgesinde gizle -->
+                <xpath expr="//page[@name='payment_page']" position="attributes">
+                    <attribute name="invisible">document_type_code == 'MUSTAHSILMAKBUZ' or profile_code == 'EARSIVBELGE'</attribute>
+                </xpath>
+
+                <!-- Fiili teslim tarihi alanını sipariş sekmesine ekle -->
+                <xpath expr="//page[@name='order_page']/group" position="inside">
+                    <field name="ActualDeliveryDate"
+                        string="Fiili Teslim Tarihi"
+                        invisible="document_type_code != 'MUSTAHSILMAKBUZ'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

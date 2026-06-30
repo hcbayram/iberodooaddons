@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ====================================================
+             UBL Document Unit Codes (Birim Kodları)
+             Source: UN/CEFACT Code List 20 - Codes for Units of Measurement
+             ==================================================== -->
+
+        <!-- C62 - Adet (Unit/Piece) -->
+        <record id="unit_c62" model="algebra.base.document.unit">
+            <field name="code">C62</field>
+            <field name="name">Adet</field>
+            <field name="description">Birim, parça (Unit, piece)</field>
+        </record>
+
+        <!-- NIU - Adet (Number of items/units) -->
+        <record id="unit_niu" model="algebra.base.document.unit">
+            <field name="code">NIU</field>
+            <field name="name">Adet</field>
+            <field name="description">Number of items/units</field>
+        </record>
+
+        <!-- KGM - Kilogram -->
+        <record id="unit_kgm" model="algebra.base.document.unit">
+            <field name="code">KGM</field>
+            <field name="name">Kilogram</field>
+            <field name="description">Kilogram</field>
+        </record>
+
+        <!-- GRM - Gram -->
+        <record id="unit_grm" model="algebra.base.document.unit">
+            <field name="code">GRM</field>
+            <field name="name">Gram</field>
+            <field name="description">Gram</field>
+        </record>
+
+        <!-- TNE - Ton (metric) -->
+        <record id="unit_tne" model="algebra.base.document.unit">
+            <field name="code">TNE</field>
+            <field name="name">Ton</field>
+            <field name="description">Tonne (metric ton)</field>
+        </record>
+
+        <!-- LTR - Litre -->
+        <record id="unit_ltr" model="algebra.base.document.unit">
+            <field name="code">LTR</field>
+            <field name="name">Litre</field>
+            <field name="description">Litre</field>
+        </record>
+
+        <!-- MTR - Metre -->
+        <record id="unit_mtr" model="algebra.base.document.unit">
+            <field name="code">MTR</field>
+            <field name="name">Metre</field>
+            <field name="description">Metre</field>
+        </record>
+
+        <!-- MTK - Metrekare (Square metre) -->
+        <record id="unit_mtk" model="algebra.base.document.unit">
+            <field name="code">MTK</field>
+            <field name="name">Metrekare</field>
+            <field name="description">Square metre</field>
+        </record>
+
+        <!-- MTQ - Metreküp (Cubic metre) -->
+        <record id="unit_mtq" model="algebra.base.document.unit">
+            <field name="code">MTQ</field>
+            <field name="name">Metreküp</field>
+            <field name="description">Cubic metre</field>
+        </record>
+
+        <!-- HUR - Saat (Hour) -->
+        <record id="unit_hur" model="algebra.base.document.unit">
+            <field name="code">HUR</field>
+            <field name="name">Saat</field>
+            <field name="description">Hour</field>
+        </record>
+
+        <!-- DAY - Gün (Day) -->
+        <record id="unit_day" model="algebra.base.document.unit">
+            <field name="code">DAY</field>
+            <field name="name">Gün</field>
+            <field name="description">Day</field>
+        </record>
+
+        <!-- BX - Kutu (Box) -->
+        <record id="unit_bx" model="algebra.base.document.unit">
+            <field name="code">BX</field>
+            <field name="name">Kutu</field>
+            <field name="description">Box</field>
+        </record>
+
+        <!-- PK - Paket (Package) -->
+        <record id="unit_pk" model="algebra.base.document.unit">
+            <field name="code">PK</field>
+            <field name="name">Paket</field>
+            <field name="description">Pack</field>
+        </record>
+
+        <!-- SET - Set -->
+        <record id="unit_set" model="algebra.base.document.unit">
+            <field name="code">SET</field>
+            <field name="name">Set</field>
+            <field name="description">Set</field>
+        </record>
+
+        <!-- CMT - Santimetre (Centimetre) -->
+        <record id="unit_cmt" model="algebra.base.document.unit">
+            <field name="code">CMT</field>
+            <field name="name">Santimetre</field>
+            <field name="description">Centimetre</field>
+        </record>
+
+        <!-- MMT - Milimetre (Millimetre) -->
+        <record id="unit_mmt" model="algebra.base.document.unit">
+            <field name="code">MMT</field>
+            <field name="name">Milimetre</field>
+            <field name="description">Millimetre</field>
+        </record>
+
+        <!-- KMT - Kilometre -->
+        <record id="unit_kmt" model="algebra.base.document.unit">
+            <field name="code">KMT</field>
+            <field name="name">Kilometre</field>
+            <field name="description">Kilometre</field>
+        </record>
+
+        <!-- MLT - Mililitre (Millilitre) -->
+        <record id="unit_mlt" model="algebra.base.document.unit">
+            <field name="code">MLT</field>
+            <field name="name">Mililitre</field>
+            <field name="description">Millilitre</field>
+        </record>
+
+        <!-- DZN - Düzine (Dozen) -->
+        <record id="unit_dzn" model="algebra.base.document.unit">
+            <field name="code">DZN</field>
+            <field name="name">Düzine</field>
+            <field name="description">Dozen</field>
+        </record>
+
+        <!-- PA - Paket (Packet) -->
+        <record id="unit_pa" model="algebra.base.document.unit">
+            <field name="code">PA</field>
+            <field name="name">Paket</field>
+            <field name="description">Packet</field>
+        </record>
+
+        <!-- KWH - Kilowatt saat (Kilowatt hour) -->
+        <record id="unit_kwh" model="algebra.base.document.unit">
+            <field name="code">KWH</field>
+            <field name="name">Kilowatt Saat</field>
+            <field name="description">Kilowatt hour</field>
+        </record>
+
+        <!-- MGM - Miligram (Milligram) -->
+        <record id="unit_mgm" model="algebra.base.document.unit">
+            <field name="code">MGM</field>
+            <field name="name">Miligram</field>
+            <field name="description">Milligram</field>
+        </record>
+
+        <!-- CMK - Santimetrekare (Square centimetre) -->
+        <record id="unit_cmk" model="algebra.base.document.unit">
+            <field name="code">CMK</field>
+            <field name="name">Santimetrekare</field>
+            <field name="description">Square centimetre</field>
+        </record>
+
+        <!-- CMQ - Santimetreküp (Cubic centimetre) -->
+        <record id="unit_cmq" model="algebra.base.document.unit">
+            <field name="code">CMQ</field>
+            <field name="name">Santimetreküp</field>
+            <field name="description">Cubic centimetre</field>
+        </record>
+
+        <!-- ====================================================
+             ERP Unit Mappings - SAP Business One Examples
+             ==================================================== -->
+
+        <!-- SAP B1: AD -> C62 (Adet) -->
+        <record id="erp_mapping_sap_ad" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_c62"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">AD</field>
+            <field name="erp_description">Adet (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: KG -> KGM (Kilogram) -->
+        <record id="erp_mapping_sap_kg" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_kgm"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">KG</field>
+            <field name="erp_description">Kilogram (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: LT -> LTR (Litre) -->
+        <record id="erp_mapping_sap_lt" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_ltr"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">LT</field>
+            <field name="erp_description">Litre (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: M -> MTR (Metre) -->
+        <record id="erp_mapping_sap_m" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_mtr"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">M</field>
+            <field name="erp_description">Metre (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: M2 -> MTK (Metrekare) -->
+        <record id="erp_mapping_sap_m2" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_mtk"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">M2</field>
+            <field name="erp_description">Metrekare (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: M3 -> MTQ (Metreküp) -->
+        <record id="erp_mapping_sap_m3" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_mtq"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">M3</field>
+            <field name="erp_description">Metreküp (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: TON -> TNE (Ton) -->
+        <record id="erp_mapping_sap_ton" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_tne"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">TON</field>
+            <field name="erp_description">Ton (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: GR -> GRM (Gram) -->
+        <record id="erp_mapping_sap_gr" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_grm"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">GR</field>
+            <field name="erp_description">Gram (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: SAAT -> HUR (Saat) -->
+        <record id="erp_mapping_sap_saat" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_hur"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">SAAT</field>
+            <field name="erp_description">Saat (SAP B1)</field>
+        </record>
+
+        <!-- SAP B1: PK -> PK (Paket) -->
+        <record id="erp_mapping_sap_pk" model="algebra.base.document.unit.erp.mapping">
+            <field name="unit_id" ref="unit_pk"/>
+            <field name="erp_system">SAP_B1</field>
+            <field name="erp_code">PK</field>
+            <field name="erp_description">Paket (SAP B1)</field>
+        </record>
+
+    </data>
+</odoo>

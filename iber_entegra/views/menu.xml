@@ -5,6 +5,7 @@
     <menuitem id="menu_iber_entegra_root"
               name="Entegra"
               sequence="85"
+              web_icon="iber_entegra,static/description/icon.png"
               groups="iber_entegra.group_entegra_user"/>
 
     <!-- Sipariş yönetimi -->

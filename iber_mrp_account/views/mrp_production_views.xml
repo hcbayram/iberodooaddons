@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view_iber_wip" model="ir.ui.view">
+        <field name="name">mrp.production.form.iber.wip</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp_account.mrp_production_form_view_inherited"/>
+        <field name="arch" type="xml">
+            <!-- 711/721/731 → 151 yansıtma girişleri için stat button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_wip_transfer_moves"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exchange"
+                        groups="account.group_account_user"
+                        invisible="not iber_wip_transfer_move_ids">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="iber_wip_transfer_move_ids" widget="many2many_tags" invisible="1"/>
+                        </span>
+                        <span class="o_stat_text">711→151</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

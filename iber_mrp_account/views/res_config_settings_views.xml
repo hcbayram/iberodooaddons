@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_iber_mrp" model="ir.ui.view">
+        <field name="name">res.config.settings.view.iber.mrp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Manufacturing sekmesi altına ekle; yoksa Invoicing'in sonuna -->
+            <block id="analytic" position="after">
+                <block title="Üretim Muhasebesi (7/A)" id="iber_mrp_accounting"
+                       groups="account.group_account_manager">
+                    <setting string="Tek Fiş Modu"
+                             help="Aktifleştirildiğinde bir üretim emrine ait tüm muhasebe satırları (711→150, 151→711, 151→721/731, 152→151) tek bir yevmiye fişinde birleştirilir.">
+                        <field name="iber_mrp_single_entry"/>
+                        <div class="text-muted">
+                            Kapalı: her adım için ayrı fiş oluşur (varsayılan).<br/>
+                            Açık: üretim emri onaylandığında tek fiş.
+                        </div>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>

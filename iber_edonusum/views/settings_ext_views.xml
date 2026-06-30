@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- iber_edonusum: Ayarlar formuna gelen fatura senkronizasyon alanı ekle -->
+    <record id="view_ubl21_config_settings_form_edonusum_ext" model="ir.ui.view">
+        <field name="name">ubl21.config.settings.form.edonusum.ext</field>
+        <field name="model">ubl21.config.settings</field>
+        <field name="inherit_id" ref="iber_e_transform.view_ubl21_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_clear_delivery_note_sync_time']" position="after">
+                <field name="last_incoming_invoice_sync_datetime" readonly="1"/>
+                <button name="action_clear_incoming_invoice_sync_time"
+                    string="Gelen Fatura Sync Zamanını Sıfırla"
+                    type="object"
+                    class="btn-secondary"/>
+            </xpath>
+
+            <!-- Entegratör sekmesi -->
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Entegratör" name="integrator_page">
+                    <group>
+                        <field name="integrator_id"/>
+                    </group>
+                    <group string="Varsayılan Seri Kodları" invisible="not integrator_id">
+                        <field name="default_invoice_series_id"/>
+                        <field name="default_despatch_series_id"/>
+                    </group>
+                    <div invisible="not integrator_id" class="alert alert-info mt-2" role="alert">
+                        Bağlantı bilgileri ve test/üretim ortam seçimi
+                        <strong>Yapılandırma → İntegratörler</strong> menüsünden yönetilir.
+                    </div>
+                    <div invisible="integrator_id" class="mt-2">
+                        <button name="action_install_integrator"
+                            string="Entegratör Kur..."
+                            type="object"
+                            class="btn-primary"/>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

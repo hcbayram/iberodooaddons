@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edn_integrator_user,access.edn.integrator.user,model_edn_integrator,base.group_user,1,1,1,1
+access_edn_log_user,access.edn.log.user,model_edn_log,base.group_user,1,0,0,0
+access_edn_log_system,access.edn.log.system,model_edn_log,base.group_system,1,1,1,1
+access_edn_document_manager,access.edn.document.manager,model_edn_document_manager,base.group_system,1,1,1,1
+access_edn_invoice_series_user,access.edn.invoice.series.user,model_edn_invoice_series,base.group_user,1,1,1,1

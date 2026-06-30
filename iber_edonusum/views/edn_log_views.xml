@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_edn_log_list" model="ir.ui.view">
+            <field name="name">edn.log.list</field>
+            <field name="model">edn.log</field>
+            <field name="arch" type="xml">
+                <list string="İşlem Logu"
+                    decoration-success="status == 'success'"
+                    decoration-danger="status == 'error'"
+                    decoration-muted="status == 'info'">
+                    <field name="create_date" string="Tarih"/>
+                    <field name="integrator" string="Entegratör"/>
+                    <field name="document_no" string="Belge No"/>
+                    <field name="uuid" string="UUID"/>
+                    <field name="status" string="Durum" widget="badge"
+                        decoration-success="status == 'success'"
+                        decoration-danger="status == 'error'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_edn_log_form" model="ir.ui.view">
+            <field name="name">edn.log.form</field>
+            <field name="model">edn.log</field>
+            <field name="arch" type="xml">
+                <form string="İşlem Logu" create="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                                <field name="integrator"/>
+                                <field name="status" widget="badge"
+                                    decoration-success="status == 'success'"
+                                    decoration-danger="status == 'error'"/>
+                            </group>
+                            <group>
+                                <field name="document_no"/>
+                                <field name="uuid"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="JSON Payload">
+                                <field name="jsonpayload" widget="text" readonly="1"/>
+                            </page>
+                            <page string="XML Payload">
+                                <field name="xmlpayload" widget="text" readonly="1"/>
+                            </page>
+                            <page string="Ham İstek">
+                                <field name="payload" widget="text" readonly="1"/>
+                            </page>
+                            <page string="Yanıt">
+                                <field name="result" widget="text" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_edn_logs" model="ir.actions.act_window">
+            <field name="name">İşlem Logu</field>
+            <field name="res_model">edn.log</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

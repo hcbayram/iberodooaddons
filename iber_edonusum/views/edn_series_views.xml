@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Seri Kodları — Bağımsız Liste View -->
+        <record id="view_edn_series_list" model="ir.ui.view">
+            <field name="name">edn.invoice.series.list</field>
+            <field name="model">edn.invoice.series</field>
+            <field name="arch" type="xml">
+                <list string="Seri Kodları">
+                    <field name="integrator_id"/>
+                    <field name="prefix"/>
+                    <field name="document_type"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Entegratör Formu — "Serileri Güncelle" butonu + Seriler listesi -->
+        <record id="view_edn_integrator_form_series_inherit" model="ir.ui.view">
+            <field name="name">edn.integrator.form.series.inherit</field>
+            <field name="model">edn.integrator</field>
+            <field name="inherit_id" ref="iber_edonusum.view_edn_integrator_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Ek parametreler alanından sonra buton + seri listesi -->
+                <xpath expr="//field[@name='extra']" position="after">
+                    <div class="mt-2 mb-2">
+                        <button name="action_fetch_series"
+                            string="Serileri Güncelle"
+                            type="object"
+                            class="btn btn-secondary"
+                            icon="fa-refresh"/>
+                    </div>
+                    <separator string="Kayıtlı GIB Seri Kodları"/>
+                    <field name="series_ids" nolabel="1">
+                        <list create="0" delete="0">
+                            <field name="prefix" string="Prefix"/>
+                            <field name="document_type" string="Tür"/>
+                            <field name="description" string="Açıklama"/>
+                            <field name="active" string="Aktif"/>
+                        </list>
+                    </field>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

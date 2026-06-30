@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ubl_invoice_form_nes_status" model="ir.ui.view">
+            <field name="name">l10n_tr.ubl.invoice.form.nes.status</field>
+            <field name="model">l10n_tr.ubl.invoice</field>
+            <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
+            <field name="arch" type="xml">
+
+
+                <!-- Smart button: UUID olan giden faturalarda GIB durumunu göster -->
+                <div name="button_box" position="inside">
+                    <button name="action_fetch_outgoing_status"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-refresh"
+                        invisible="not UUID or invoice_direction != 'outgoing'"
+                        title="NES'ten güncel durum çek">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="gib_status" widget="badge"
+                                    decoration-success="gib_status == 'approved'"
+                                    decoration-warning="gib_status in ['xml_created','sent']"
+                                    decoration-danger="gib_status in ['rejected','error']"
+                                    decoration-muted="gib_status == 'draft'"/>
+                            </span>
+                            <span class="o_stat_text">Entegratör Durum</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- GIB Durumu sekmesine Belge Cevabı ve NES sorgu tarihi ekle -->
+                <field name="gib_response_desc" position="after">
+                    <field name="nes_document_answer" readonly="1"
+                        widget="badge"
+                        decoration-success="nes_document_answer == 'accepted'"
+                        decoration-warning="nes_document_answer == 'waiting'"
+                        decoration-danger="nes_document_answer == 'rejected'"
+                        decoration-muted="nes_document_answer == 'none'"
+                        invisible="not nes_document_answer or nes_document_answer == 'none'"/>
+                    <field name="nes_outgoing_fetch_date" readonly="1"
+                        invisible="not nes_outgoing_fetch_date"/>
+                </field>
+
+                <!-- NES Yanıtı sekmesini notebook'un sonuna ekle -->
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string="NES Yanıtı" invisible="not nes_outgoing_raw">
+                        <group>
+                            <field name="nes_outgoing_fetch_date" readonly="1" string="Son Sorgu"/>
+                        </group>
+                        <field name="nes_outgoing_raw" widget="code" readonly="1" nolabel="1"/>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

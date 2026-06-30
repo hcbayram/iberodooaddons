@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Trendyol alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_trendyol_root"
+              name="Trendyol"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="10"
+              groups="iber_marketplace_trendyol.group_trendyol_user"/>
+
+    <menuitem id="menu_trendyol_orders"
+              name="Siparişler"
+              parent="menu_trendyol_root"
+              action="action_iber_trendyol_order"
+              sequence="10"
+              groups="iber_marketplace_trendyol.group_trendyol_user"/>
+
+    <menuitem id="menu_trendyol_listings"
+              name="Ürün Listesi"
+              parent="menu_trendyol_root"
+              action="action_iber_trendyol_listing"
+              sequence="20"
+              groups="iber_marketplace_trendyol.group_trendyol_user"/>
+
+    <menuitem id="menu_trendyol_config_root"
+              name="Yapılandırma"
+              parent="menu_trendyol_root"
+              sequence="90"
+              groups="iber_marketplace_trendyol.group_trendyol_manager"/>
+
+    <menuitem id="menu_trendyol_config"
+              name="Bağlantı Ayarları"
+              parent="menu_trendyol_config_root"
+              action="action_iber_trendyol_config"
+              sequence="10"
+              groups="iber_marketplace_trendyol.group_trendyol_manager"/>
+
+</odoo>

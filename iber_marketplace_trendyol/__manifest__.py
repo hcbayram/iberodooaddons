@@ -1,0 +1,22 @@
+{
+    'name': 'Trendyol Pazaryeri Entegrasyonu',
+    'version': '19.0.1.0.0',
+    'summary': 'Trendyol pazaryeri ile sipariş, stok ve fiyat senkronizasyonu',
+    'author': 'Iber Bilisim',
+    'website': 'https://www.iberbilisim.com.tr',
+    'category': 'eCommerce',
+    'license': 'LGPL-3',
+    'depends': ['iber_marketplace', 'product', 'sale', 'stock', 'mail'],
+    'data': [
+        'security/trendyol_security.xml',
+        'security/ir.model.access.csv',
+        'data/cron.xml',
+        'views/config_views.xml',
+        'views/order_views.xml',
+        'views/product_listing_views.xml',
+        'views/sync_wizard_views.xml',
+        'views/menu.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List -->
+    <record id="view_iber_n11_listing_list" model="ir.ui.view">
+        <field name="name">iber.marketplace.n11.listing.list</field>
+        <field name="model">iber.marketplace.n11.listing</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="seller_stock_code"/>
+                <field name="product_id"/>
+                <field name="odoo_qty"/>
+                <field name="n11_stock"/>
+                <field name="sale_price"/>
+                <field name="last_push"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_iber_n11_listing_form" model="ir.ui.view">
+        <field name="name">iber.marketplace.n11.listing.form</field>
+        <field name="model">iber.marketplace.n11.listing</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_push_inventory" type="object"
+                            string="Stok Gönder"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="seller_stock_code" placeholder="Satıcı SKU"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Tanım">
+                            <field name="config_id"/>
+                            <field name="product_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Stok Bilgisi">
+                            <field name="odoo_qty" readonly="1"/>
+                            <field name="n11_stock" readonly="1"/>
+                            <field name="sale_price" readonly="1"/>
+                            <field name="last_push" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_iber_n11_listing" model="ir.actions.act_window">
+        <field name="name">N11 Ürün Listesi</field>
+        <field name="res_model">iber.marketplace.n11.listing</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

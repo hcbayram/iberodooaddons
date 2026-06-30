@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Çiçeksepeti alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_ciceksepeti_root"
+              name="Çiçeksepeti"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="50"
+              groups="iber_marketplace_ciceksepeti.group_ciceksepeti_user"/>
+
+    <menuitem id="menu_ciceksepeti_orders"
+              name="Siparişler"
+              parent="menu_ciceksepeti_root"
+              action="action_iber_ciceksepeti_order"
+              sequence="10"
+              groups="iber_marketplace_ciceksepeti.group_ciceksepeti_user"/>
+
+    <menuitem id="menu_ciceksepeti_listings"
+              name="Ürün Listesi"
+              parent="menu_ciceksepeti_root"
+              action="action_iber_ciceksepeti_listing"
+              sequence="20"
+              groups="iber_marketplace_ciceksepeti.group_ciceksepeti_user"/>
+
+    <menuitem id="menu_ciceksepeti_config_root"
+              name="Yapılandırma"
+              parent="menu_ciceksepeti_root"
+              sequence="90"
+              groups="iber_marketplace_ciceksepeti.group_ciceksepeti_manager"/>
+
+    <menuitem id="menu_ciceksepeti_config"
+              name="Bağlantı Ayarları"
+              parent="menu_ciceksepeti_config_root"
+              action="action_iber_ciceksepeti_config"
+              sequence="10"
+              groups="iber_marketplace_ciceksepeti.group_ciceksepeti_manager"/>
+
+</odoo>

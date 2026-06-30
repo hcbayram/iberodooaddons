@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iber_n11_config_user,iber.marketplace.n11.config user,model_iber_marketplace_n11_config,iber_marketplace_n11.group_n11_user,1,0,0,0
+access_iber_n11_config_manager,iber.marketplace.n11.config manager,model_iber_marketplace_n11_config,iber_marketplace_n11.group_n11_manager,1,1,1,1
+access_iber_n11_order_user,iber.marketplace.n11.order user,model_iber_marketplace_n11_order,iber_marketplace_n11.group_n11_user,1,1,0,0
+access_iber_n11_order_manager,iber.marketplace.n11.order manager,model_iber_marketplace_n11_order,iber_marketplace_n11.group_n11_manager,1,1,1,1
+access_iber_n11_order_line_user,iber.marketplace.n11.order.line user,model_iber_marketplace_n11_order_line,iber_marketplace_n11.group_n11_user,1,0,0,0
+access_iber_n11_order_line_manager,iber.marketplace.n11.order.line manager,model_iber_marketplace_n11_order_line,iber_marketplace_n11.group_n11_manager,1,1,1,1
+access_iber_n11_listing_user,iber.marketplace.n11.listing user,model_iber_marketplace_n11_listing,iber_marketplace_n11.group_n11_user,1,1,0,0
+access_iber_n11_listing_manager,iber.marketplace.n11.listing manager,model_iber_marketplace_n11_listing,iber_marketplace_n11.group_n11_manager,1,1,1,1
+access_iber_n11_sync_wizard_user,iber.marketplace.n11.sync.wizard user,model_iber_marketplace_n11_sync_wizard,iber_marketplace_n11.group_n11_user,1,1,1,1

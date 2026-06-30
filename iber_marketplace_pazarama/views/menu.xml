@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Pazarama alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_pazarama_root"
+              name="Pazarama"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="60"
+              groups="iber_marketplace_pazarama.group_pazarama_user"/>
+
+    <menuitem id="menu_pazarama_orders"
+              name="Siparişler"
+              parent="menu_pazarama_root"
+              action="action_iber_pazarama_order"
+              sequence="10"
+              groups="iber_marketplace_pazarama.group_pazarama_user"/>
+
+    <menuitem id="menu_pazarama_listings"
+              name="Ürün Listesi"
+              parent="menu_pazarama_root"
+              action="action_iber_pazarama_listing"
+              sequence="20"
+              groups="iber_marketplace_pazarama.group_pazarama_user"/>
+
+    <menuitem id="menu_pazarama_config_root"
+              name="Yapılandırma"
+              parent="menu_pazarama_root"
+              sequence="90"
+              groups="iber_marketplace_pazarama.group_pazarama_manager"/>
+
+    <menuitem id="menu_pazarama_config"
+              name="Bağlantı Ayarları"
+              parent="menu_pazarama_config_root"
+              action="action_iber_pazarama_config"
+              sequence="10"
+              groups="iber_marketplace_pazarama.group_pazarama_manager"/>
+
+</odoo>

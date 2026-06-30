@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Hepsiburada alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_hepsiburada_root"
+              name="Hepsiburada"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="20"
+              groups="iber_marketplace_hepsiburada.group_hepsiburada_user"/>
+
+    <menuitem id="menu_hepsiburada_orders"
+              name="Siparişler"
+              parent="menu_hepsiburada_root"
+              action="action_iber_hepsiburada_order"
+              sequence="10"
+              groups="iber_marketplace_hepsiburada.group_hepsiburada_user"/>
+
+    <menuitem id="menu_hepsiburada_listings"
+              name="Ürün Listesi"
+              parent="menu_hepsiburada_root"
+              action="action_iber_hepsiburada_listing"
+              sequence="20"
+              groups="iber_marketplace_hepsiburada.group_hepsiburada_user"/>
+
+    <menuitem id="menu_hepsiburada_config_root"
+              name="Yapılandırma"
+              parent="menu_hepsiburada_root"
+              sequence="90"
+              groups="iber_marketplace_hepsiburada.group_hepsiburada_manager"/>
+
+    <menuitem id="menu_hepsiburada_config"
+              name="Bağlantı Ayarları"
+              parent="menu_hepsiburada_config_root"
+              action="action_iber_hepsiburada_config"
+              sequence="10"
+              groups="iber_marketplace_hepsiburada.group_hepsiburada_manager"/>
+
+</odoo>

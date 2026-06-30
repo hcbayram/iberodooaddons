@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iber_marketplace_channel_user,iber.marketplace.channel user,model_iber_marketplace_channel,iber_marketplace.group_marketplace_user,1,0,0,0
+access_iber_marketplace_channel_manager,iber.marketplace.channel manager,model_iber_marketplace_channel,iber_marketplace.group_marketplace_manager,1,1,1,1

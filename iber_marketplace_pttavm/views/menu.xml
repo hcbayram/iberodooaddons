@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PttAVM alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_pttavm_root"
+              name="PttAVM"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="30"
+              groups="iber_marketplace_pttavm.group_pttavm_user"/>
+
+    <menuitem id="menu_pttavm_orders"
+              name="Siparişler"
+              parent="menu_pttavm_root"
+              action="action_iber_pttavm_order"
+              sequence="10"
+              groups="iber_marketplace_pttavm.group_pttavm_user"/>
+
+    <menuitem id="menu_pttavm_listings"
+              name="Ürün Listesi"
+              parent="menu_pttavm_root"
+              action="action_iber_pttavm_listing"
+              sequence="20"
+              groups="iber_marketplace_pttavm.group_pttavm_user"/>
+
+    <menuitem id="menu_pttavm_config_root"
+              name="Yapılandırma"
+              parent="menu_pttavm_root"
+              sequence="90"
+              groups="iber_marketplace_pttavm.group_pttavm_manager"/>
+
+    <menuitem id="menu_pttavm_config"
+              name="Bağlantı Ayarları"
+              parent="menu_pttavm_config_root"
+              action="action_iber_pttavm_config"
+              sequence="10"
+              groups="iber_marketplace_pttavm.group_pttavm_manager"/>
+
+</odoo>

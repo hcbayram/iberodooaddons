@@ -1,0 +1,208 @@
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
+from ..core.amazon_const import CARRIER_CODES
+
+
+class IberAmazonConfig(models.Model):
+    _name = 'iber.marketplace.amazon.config'
+    _description = 'Amazon TR Bağlantı Ayarları'
+    _rec_name = 'name'
+
+    name = fields.Char(required=True, string='Ad')
+    company_id = fields.Many2one(
+        'res.company', required=True, default=lambda self: self.env.company,
+        string='Şirket')
+    active = fields.Boolean(default=True)
+
+    # LWA kimlik bilgileri
+    lwa_client_id = fields.Char(
+        required=True, string='LWA Client ID',
+        help='Login With Amazon uygulama Client ID')
+    lwa_client_secret = fields.Char(
+        required=True, string='LWA Client Secret', password=True,
+        help='Login With Amazon uygulama Client Secret')
+    lwa_refresh_token = fields.Char(
+        required=True, string='LWA Refresh Token', password=True,
+        help='Satıcı yetkilendirmesi sonucu alınan Refresh Token')
+    seller_id = fields.Char(
+        required=True, string='Seller ID',
+        help='Amazon Satıcı (Merchant) ID numarası')
+
+    # Varsayılan kargo
+    default_carrier_code = fields.Selection(
+        selection=CARRIER_CODES,
+        string='Varsayılan Kargo Şirketi')
+
+    # Token önbelleği
+    access_token = fields.Char(
+        string='Access Token', readonly=True, copy=False)
+    token_expiry = fields.Float(
+        string='Token Sona Erme (Unix)', readonly=True, copy=False)
+
+    # Bağlantı durumu
+    connection_state = fields.Selection([
+        ('draft', 'Bağlanmadı'),
+        ('connected', 'Bağlı'),
+        ('error', 'Hata'),
+    ], default='draft', readonly=True, string='Bağlantı Durumu')
+    last_error = fields.Text(readonly=True, string='Son Hata')
+
+    # Senkronizasyon bilgisi
+    last_order_sync = fields.Datetime(readonly=True, string='Son Sipariş Sync')
+    last_inventory_sync = fields.Datetime(readonly=True, string='Son Stok Sync')
+
+    # İlişkili kayıtlar
+    order_ids = fields.One2many(
+        'iber.marketplace.amazon.order', 'config_id', string='Siparişler')
+    order_count = fields.Integer(compute='_compute_counts', string='Sipariş')
+    pending_order_count = fields.Integer(compute='_compute_counts', string='Bekleyen')
+
+    listing_ids = fields.One2many(
+        'iber.marketplace.amazon.listing', 'config_id', string='Ürün Listesi')
+    listing_count = fields.Integer(compute='_compute_counts', string='Ürün')
+
+    # ------------------------------------------------------------------
+    # Hesaplanan alanlar
+    # ------------------------------------------------------------------
+
+    @api.depends('order_ids', 'order_ids.status', 'listing_ids')
+    def _compute_counts(self):
+        pending_statuses = ('Pending', 'Unshipped', 'PartiallyShipped')
+        for rec in self:
+            rec.order_count = len(rec.order_ids)
+            rec.pending_order_count = len(
+                rec.order_ids.filtered(lambda o: o.status in pending_statuses)
+            )
+            rec.listing_count = len(rec.listing_ids)
+
+    # ------------------------------------------------------------------
+    # Hub senkronizasyonu
+    # ------------------------------------------------------------------
+
+    def _sync_hub_channel(self):
+        Channel = self.env.get('iber.marketplace.channel')
+        if not Channel:
+            return
+        for rec in self:
+            Channel._sync_from_config('amazon', rec)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._sync_hub_channel()
+        return records
+
+    def write(self, vals):
+        result = super().write(vals)
+        self._sync_hub_channel()
+        return result
+
+    # ------------------------------------------------------------------
+    # API istemcisi
+    # ------------------------------------------------------------------
+
+    def _get_client(self):
+        self.ensure_one()
+        from ..core.amazon_client import AmazonClient
+
+        def on_token_refresh(token, expiry):
+            self.sudo().write({'access_token': token, 'token_expiry': expiry})
+
+        return AmazonClient(
+            lwa_client_id=self.lwa_client_id,
+            lwa_client_secret=self.lwa_client_secret,
+            lwa_refresh_token=self.lwa_refresh_token,
+            seller_id=self.seller_id,
+            access_token=self.access_token or None,
+            token_expiry=self.token_expiry or None,
+            on_token_refresh=on_token_refresh,
+        )
+
+    # ------------------------------------------------------------------
+    # Aksiyonlar — manuel
+    # ------------------------------------------------------------------
+
+    def action_test_connection(self):
+        self.ensure_one()
+        try:
+            client = self._get_client()
+            client.test_connection()
+            self.write({'connection_state': 'connected', 'last_error': False})
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': _('Amazon SP-API bağlantısı başarılı.'),
+                    'type': 'success',
+                    'sticky': False,
+                },
+            }
+        except Exception as exc:
+            self.write({'connection_state': 'error', 'last_error': str(exc)})
+            raise UserError(_('Bağlantı hatası: %s') % exc)
+
+    def action_view_orders(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Siparişler'),
+            'res_model': 'iber.marketplace.amazon.order',
+            'view_mode': 'list,form',
+            'domain': [('config_id', '=', self.id)],
+            'context': {'default_config_id': self.id},
+        }
+
+    def action_view_listings(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Ürün Listesi'),
+            'res_model': 'iber.marketplace.amazon.listing',
+            'view_mode': 'list,form',
+            'domain': [('config_id', '=', self.id)],
+            'context': {'default_config_id': self.id},
+        }
+
+    def action_open_sync_wizard(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Senkronizasyon'),
+            'res_model': 'iber.marketplace.amazon.sync.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_config_id': self.id},
+        }
+
+    # ------------------------------------------------------------------
+    # Aksiyonlar — cron
+    # ------------------------------------------------------------------
+
+    def action_cron_sync_orders(self):
+        """Cron: tüm aktif konfigürasyonlar için sipariş senkronizasyonu."""
+        configs = self.search([('active', '=', True)])
+        for cfg in configs:
+            try:
+                wizard = self.env['iber.marketplace.amazon.sync.wizard'].create({
+                    'config_id': cfg.id,
+                    'sync_type': 'orders',
+                    'order_days_back': 7 if not cfg.last_order_sync else 2,
+                })
+                wizard._sync_orders()
+            except Exception as exc:
+                cfg.write({'connection_state': 'error', 'last_error': str(exc)})
+
+    def action_cron_sync_inventory(self):
+        """Cron: tüm aktif konfigürasyonlar için stok/fiyat senkronizasyonu."""
+        configs = self.search([('active', '=', True)])
+        for cfg in configs:
+            try:
+                listings = self.env['iber.marketplace.amazon.listing'].search([
+                    ('config_id', '=', cfg.id),
+                    ('active', '=', True),
+                ])
+                if listings:
+                    listings.action_push_inventory()
+                    cfg.write({'last_inventory_sync': fields.Datetime.now()})
+            except Exception as exc:
+                cfg.write({'connection_state': 'error', 'last_error': str(exc)})

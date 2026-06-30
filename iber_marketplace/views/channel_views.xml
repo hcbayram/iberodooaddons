@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Kanban — Dashboard görünümü -->
+    <record id="view_iber_marketplace_channel_kanban" model="ir.ui.view">
+        <field name="name">iber.marketplace.channel.kanban</field>
+        <field name="model">iber.marketplace.channel</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" create="0">
+                <field name="name"/>
+                <field name="channel_type"/>
+                <field name="connection_state"/>
+                <field name="last_sync"/>
+                <field name="order_count"/>
+                <field name="pending_order_count"/>
+                <field name="listing_count"/>
+                <field name="last_error"/>
+                <field name="ref_config_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex align-items-center mb-2">
+                            <strong class="fs-5 me-auto">
+                                <field name="name"/>
+                            </strong>
+                            <span t-attf-class="badge rounded-pill #{
+                                record.connection_state.raw_value == 'connected' ? 'text-bg-success' :
+                                record.connection_state.raw_value == 'error' ? 'text-bg-danger' :
+                                record.connection_state.raw_value == 'warning' ? 'text-bg-warning' :
+                                'text-bg-secondary'}">
+                                <field name="connection_state"/>
+                            </span>
+                        </div>
+
+                        <div class="o_kanban_primary_left mb-3">
+                            <span class="text-muted small">
+                                <field name="channel_type"/>
+                            </span>
+                        </div>
+
+                        <!-- KPI satırı -->
+                        <div class="d-flex justify-content-around text-center mb-3">
+                            <div>
+                                <div class="fs-4 fw-bold text-primary">
+                                    <field name="order_count"/>
+                                </div>
+                                <div class="text-muted small">Sipariş</div>
+                            </div>
+                            <div>
+                                <div class="fs-4 fw-bold text-warning">
+                                    <field name="pending_order_count"/>
+                                </div>
+                                <div class="text-muted small">Bekleyen</div>
+                            </div>
+                            <div>
+                                <div class="fs-4 fw-bold text-info">
+                                    <field name="listing_count"/>
+                                </div>
+                                <div class="text-muted small">Ürünler</div>
+                            </div>
+                        </div>
+
+                        <!-- Hata mesajı -->
+                        <div t-if="record.last_error.raw_value"
+                             class="alert alert-warning small py-1 mb-2" role="alert">
+                            <i class="fa fa-exclamation-triangle me-1"/>
+                            <t t-esc="record.last_error.raw_value.substring(0, 80)"/>…
+                        </div>
+
+                        <!-- Son sync -->
+                        <div class="text-muted small mb-3">
+                            <i class="fa fa-clock-o me-1"/>
+                            Son sync:
+                            <field name="last_sync" widget="relative_time"/>
+                        </div>
+
+                        <!-- Butonlar -->
+                        <div class="d-flex gap-2">
+                            <button name="action_open_orders" type="object"
+                                    class="btn btn-sm btn-primary flex-fill">
+                                <i class="fa fa-shopping-cart me-1"/>Siparişler
+                            </button>
+                            <button name="action_open_listings" type="object"
+                                    class="btn btn-sm btn-secondary flex-fill">
+                                <i class="fa fa-cubes me-1"/>Ürünler
+                            </button>
+                            <button name="action_open_config" type="object"
+                                    class="btn btn-sm btn-outline-secondary">
+                                <i class="fa fa-cog"/>
+                            </button>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- List görünümü -->
+    <record id="view_iber_marketplace_channel_list" model="ir.ui.view">
+        <field name="name">iber.marketplace.channel.list</field>
+        <field name="model">iber.marketplace.channel</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="channel_type"/>
+                <field name="company_id"/>
+                <field name="connection_state" widget="badge"
+                       decoration-success="connection_state == 'connected'"
+                       decoration-danger="connection_state == 'error'"
+                       decoration-warning="connection_state == 'warning'"
+                       decoration-muted="connection_state == 'draft'"/>
+                <field name="order_count"/>
+                <field name="pending_order_count"/>
+                <field name="listing_count"/>
+                <field name="last_sync"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form görünümü -->
+    <record id="view_iber_marketplace_channel_form" model="ir.ui.view">
+        <field name="name">iber.marketplace.channel.form</field>
+        <field name="model">iber.marketplace.channel</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_refresh" type="object"
+                            string="Durumu Güncelle" class="btn-secondary"/>
+                    <field name="connection_state" widget="statusbar"
+                           statusbar_visible="draft,connected,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_orders" type="object"
+                                class="oe_stat_button" icon="fa-shopping-cart">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="order_count"/>
+                                </span>
+                                <span class="o_stat_text">Sipariş</span>
+                            </div>
+                        </button>
+                        <button name="action_open_orders" type="object"
+                                class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="pending_order_count"/>
+                                </span>
+                                <span class="o_stat_text">Bekleyen</span>
+                            </div>
+                        </button>
+                        <button name="action_open_listings" type="object"
+                                class="oe_stat_button" icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="listing_count"/>
+                                </span>
+                                <span class="o_stat_text">Ürünler</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Kanal Bilgileri">
+                            <field name="channel_type"/>
+                            <field name="company_id"/>
+                            <field name="last_sync"/>
+                        </group>
+                        <group string="Connector Referansı">
+                            <field name="ref_config_model"/>
+                            <field name="ref_config_id"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not last_error">
+                        <strong>Hata: </strong>
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Ana dashboard action — kanban ile açılır -->
+    <record id="action_iber_marketplace_dashboard" model="ir.actions.act_window">
+        <field name="name">Pazaryeri Genel Bakış</field>
+        <field name="res_model">iber.marketplace.channel</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_my_company': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Henüz bağlı pazaryeri kanalı yok.
+            </p>
+            <p>
+                Bir pazaryeri connector'ı yükleyin (örn. Trendyol)
+                ve yapılandırma ekranından yeni bağlantı oluşturun.
+            </p>
+        </field>
+    </record>
+
+</odoo>

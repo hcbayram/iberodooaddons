@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- N11 alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_n11_root"
+              name="N11"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="40"
+              groups="iber_marketplace_n11.group_n11_user"/>
+
+    <menuitem id="menu_n11_orders"
+              name="Siparişler"
+              parent="menu_n11_root"
+              action="action_iber_n11_order"
+              sequence="10"
+              groups="iber_marketplace_n11.group_n11_user"/>
+
+    <menuitem id="menu_n11_listings"
+              name="Ürün Listesi"
+              parent="menu_n11_root"
+              action="action_iber_n11_listing"
+              sequence="20"
+              groups="iber_marketplace_n11.group_n11_user"/>
+
+    <menuitem id="menu_n11_config_root"
+              name="Yapılandırma"
+              parent="menu_n11_root"
+              sequence="90"
+              groups="iber_marketplace_n11.group_n11_manager"/>
+
+    <menuitem id="menu_n11_config"
+              name="Bağlantı Ayarları"
+              parent="menu_n11_config_root"
+              action="action_iber_n11_config"
+              sequence="10"
+              groups="iber_marketplace_n11.group_n11_manager"/>
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Kök menü — tüm connector'ların üst menüsü -->
+    <menuitem id="menu_iber_marketplace_root"
+              name="Pazaryerleri"
+              sequence="85"
+              web_icon="iber_marketplace,static/description/icon.png"
+              groups="iber_marketplace.group_marketplace_user"/>
+
+    <!-- Genel Bakış (Kanban Dashboard) -->
+    <menuitem id="menu_iber_marketplace_dashboard"
+              name="Genel Bakış"
+              parent="menu_iber_marketplace_root"
+              action="action_iber_marketplace_dashboard"
+              sequence="1"
+              groups="iber_marketplace.group_marketplace_user"/>
+
+</odoo>

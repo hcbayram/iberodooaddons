@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Amazon TR alt menüsü — hub'ın "Pazaryerleri" menüsü altında -->
+    <menuitem id="menu_amazon_root"
+              name="Amazon TR"
+              parent="iber_marketplace.menu_iber_marketplace_root"
+              sequence="70"
+              groups="iber_marketplace_amazon.group_amazon_user"/>
+
+    <menuitem id="menu_amazon_orders"
+              name="Siparişler"
+              parent="menu_amazon_root"
+              action="action_iber_amazon_order"
+              sequence="10"
+              groups="iber_marketplace_amazon.group_amazon_user"/>
+
+    <menuitem id="menu_amazon_listings"
+              name="Ürün Listesi"
+              parent="menu_amazon_root"
+              action="action_iber_amazon_listing"
+              sequence="20"
+              groups="iber_marketplace_amazon.group_amazon_user"/>
+
+    <menuitem id="menu_amazon_config_root"
+              name="Yapılandırma"
+              parent="menu_amazon_root"
+              sequence="90"
+              groups="iber_marketplace_amazon.group_amazon_manager"/>
+
+    <menuitem id="menu_amazon_config"
+              name="Bağlantı Ayarları"
+              parent="menu_amazon_config_root"
+              action="action_iber_amazon_config"
+              sequence="10"
+              groups="iber_marketplace_amazon.group_amazon_manager"/>
+
+</odoo>

@@ -1,0 +1,22 @@
+{
+    'name': 'Amazon TR Pazaryeri Entegrasyonu',
+    'version': '19.0.1.0.0',
+    'summary': 'Amazon Türkiye pazaryeri ile sipariş, stok ve fiyat senkronizasyonu (SP-API)',
+    'author': 'Iber Bilisim',
+    'website': 'https://www.iberbilisim.com.tr',
+    'category': 'eCommerce',
+    'license': 'LGPL-3',
+    'depends': ['iber_marketplace', 'product', 'sale', 'stock', 'mail'],
+    'data': [
+        'security/amazon_security.xml',
+        'security/ir.model.access.csv',
+        'data/cron.xml',
+        'views/config_views.xml',
+        'views/order_views.xml',
+        'views/product_listing_views.xml',
+        'views/sync_wizard_views.xml',
+        'views/menu.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

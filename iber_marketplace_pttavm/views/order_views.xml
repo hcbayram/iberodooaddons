@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List -->
+    <record id="view_iber_pttavm_order_list" model="ir.ui.view">
+        <field name="name">iber.marketplace.pttavm.order.list</field>
+        <field name="model">iber.marketplace.pttavm.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="order_number"/>
+                <field name="customer_name"/>
+                <field name="order_date"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'Delivered'"
+                       decoration-warning="status in ('WaitingForApproval', 'Approved', 'Preparing', 'ReadyForShipment', 'Shipped')"
+                       decoration-danger="status in ('Returned', 'Cancelled', 'UnDelivered')"/>
+                <field name="total_price"/>
+                <field name="cargo_tracking_no"/>
+                <field name="shipment_sent" widget="boolean_toggle"/>
+                <field name="sale_order_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_iber_pttavm_order_form" model="ir.ui.view">
+        <field name="name">iber.marketplace.pttavm.order.form</field>
+        <field name="model">iber.marketplace.pttavm.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_cargo" type="object"
+                            string="Kargo Bilgisi Gönder"
+                            class="btn-primary"
+                            invisible="shipment_sent"/>
+                    <button name="action_create_sale_order" type="object"
+                            string="Satış Siparişi Oluştur"
+                            class="btn-secondary"
+                            invisible="sale_order_id"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="WaitingForApproval,Approved,Preparing,ReadyForShipment,Shipped,Delivered"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="order_number" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Sipariş Bilgileri">
+                            <field name="config_id" readonly="1"/>
+                            <field name="pttavm_order_id" readonly="1"/>
+                            <field name="order_date" readonly="1"/>
+                            <field name="total_price" readonly="1"/>
+                            <field name="sale_order_id" readonly="1"/>
+                        </group>
+                        <group string="Müşteri Bilgileri">
+                            <field name="customer_name" readonly="1"/>
+                            <field name="customer_email" readonly="1"/>
+                            <field name="invoice_address" readonly="1"/>
+                            <field name="invoice_city" readonly="1"/>
+                            <field name="ship_address" readonly="1"/>
+                            <field name="ship_city" readonly="1"/>
+                            <field name="ship_district" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Kargo Bilgileri">
+                        <group>
+                            <field name="cargo_company" readonly="1"/>
+                            <field name="cargo_tracking_no"/>
+                            <field name="cargo_tracking_url"/>
+                            <field name="shipment_sent" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Kalemler">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="barcode"/>
+                                    <field name="product_name"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="status" widget="badge"/>
+                                    <field name="product_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_iber_pttavm_order" model="ir.actions.act_window">
+        <field name="name">PttAVM Siparişleri</field>
+        <field name="res_model">iber.marketplace.pttavm.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

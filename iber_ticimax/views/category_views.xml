@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ticimax_category_list" model="ir.ui.view">
+        <field name="name">iber.ticimax.category.list</field>
+        <field name="model">iber.ticimax.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="ticimax_id"/>
+                <field name="tanim"/>
+                <field name="kod"/>
+                <field name="pid"/>
+                <field name="parent_id"/>
+                <field name="odoo_category_id"/>
+                <field name="aktif" widget="boolean_toggle"/>
+                <field name="config_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ticimax_category_form" model="ir.ui.view">
+        <field name="name">iber.ticimax.category.form</field>
+        <field name="model">iber.ticimax.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_push_to_ticimax" type="object"
+                            string="Ticimax'a Gönder" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Ticimax Bilgileri">
+                            <field name="config_id"/>
+                            <field name="ticimax_id" readonly="1"/>
+                            <field name="tanim" readonly="1"/>
+                            <field name="kod" readonly="1"/>
+                            <field name="pid" readonly="1"/>
+                            <field name="parent_id" readonly="1"/>
+                            <field name="aktif" readonly="1"/>
+                        </group>
+                        <group string="Odoo Eşleşmesi">
+                            <field name="odoo_category_id"/>
+                        </group>
+                    </group>
+                    <group string="SEO">
+                        <field name="seo_anahtar_kelime" readonly="1"/>
+                        <field name="seo_sayfa_aciklama" readonly="1"/>
+                        <field name="seo_sayfa_baslik" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ticimax_category" model="ir.actions.act_window">
+        <field name="name">Ticimax Kategoriler</field>
+        <field name="res_model">iber.ticimax.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

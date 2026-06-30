@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ticimax_config_form" model="ir.ui.view">
+        <field name="name">iber.ticimax.config.form</field>
+        <field name="model">iber.ticimax.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_connection" type="object"
+                            string="Bağlantıyı Test Et" class="btn-primary"/>
+                    <button name="action_open_sync" type="object"
+                            string="Senkronizasyon" class="btn-secondary"/>
+                    <field name="connection_state" widget="statusbar"
+                           statusbar_visible="draft,connected,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_categories" type="object"
+                                class="oe_stat_button" icon="fa-tags">
+                            <field name="category_count" widget="statinfo" string="Kategoriler"/>
+                        </button>
+                        <button name="action_view_brands" type="object"
+                                class="oe_stat_button" icon="fa-star">
+                            <field name="brand_count" widget="statinfo" string="Markalar"/>
+                        </button>
+                        <button name="action_view_orders" type="object"
+                                class="oe_stat_button" icon="fa-shopping-cart">
+                            <field name="pending_order_count" widget="statinfo" string="Aktif Sipariş"/>
+                        </button>
+                        <button name="action_view_products" type="object"
+                                class="oe_stat_button" icon="fa-cube">
+                            <field name="product_count" widget="statinfo" string="Ürünler"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Bağlantı Adı"/></h1>
+                    </div>
+                    <group>
+                        <group string="Bağlantı Bilgileri">
+                            <field name="base_url" placeholder="https://www.siteadi.com"/>
+                            <field name="uye_kodu" password="True"/>
+                            <field name="timeout"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Son Senkronizasyon">
+                            <field name="last_category_sync"/>
+                            <field name="last_brand_sync"/>
+                            <field name="last_order_sync"/>
+                            <field name="last_product_sync"/>
+                        </group>
+                    </group>
+                    <group string="Hata Bilgisi" invisible="not last_error">
+                        <field name="last_error" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ticimax_config_list" model="ir.ui.view">
+        <field name="name">iber.ticimax.config.list</field>
+        <field name="model">iber.ticimax.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="base_url"/>
+                <field name="company_id"/>
+                <field name="connection_state" widget="badge"
+                       decoration-success="connection_state == 'connected'"
+                       decoration-danger="connection_state == 'error'"
+                       decoration-muted="connection_state == 'draft'"/>
+                <field name="last_order_sync"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ticimax_config" model="ir.actions.act_window">
+        <field name="name">Ticimax Bağlantıları</field>
+        <field name="res_model">iber.ticimax.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

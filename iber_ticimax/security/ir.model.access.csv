@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ticimax_config_user,iber.ticimax.config user,model_iber_ticimax_config,group_ticimax_user,1,0,0,0
+access_ticimax_config_manager,iber.ticimax.config manager,model_iber_ticimax_config,group_ticimax_manager,1,1,1,1
+access_ticimax_category_user,iber.ticimax.category user,model_iber_ticimax_category,group_ticimax_user,1,0,0,0
+access_ticimax_category_manager,iber.ticimax.category manager,model_iber_ticimax_category,group_ticimax_manager,1,1,1,1
+access_ticimax_brand_user,iber.ticimax.brand user,model_iber_ticimax_brand,group_ticimax_user,1,0,0,0
+access_ticimax_brand_manager,iber.ticimax.brand manager,model_iber_ticimax_brand,group_ticimax_manager,1,1,1,1
+access_ticimax_product_user,iber.ticimax.product user,model_iber_ticimax_product,group_ticimax_user,1,0,0,0
+access_ticimax_product_manager,iber.ticimax.product manager,model_iber_ticimax_product,group_ticimax_manager,1,1,1,1
+access_ticimax_order_user,iber.ticimax.order user,model_iber_ticimax_order,group_ticimax_user,1,0,0,0
+access_ticimax_order_manager,iber.ticimax.order manager,model_iber_ticimax_order,group_ticimax_manager,1,1,1,1
+access_ticimax_order_line_user,iber.ticimax.order.line user,model_iber_ticimax_order_line,group_ticimax_user,1,0,0,0
+access_ticimax_order_line_manager,iber.ticimax.order.line manager,model_iber_ticimax_order_line,group_ticimax_manager,1,1,1,1
+access_ticimax_sync_wizard_user,iber.ticimax.sync.wizard user,model_iber_ticimax_sync_wizard,group_ticimax_user,1,1,1,1

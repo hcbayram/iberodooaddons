@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_ticimax_root"
+              name="Ticimax"
+              sequence="90"
+              web_icon="iber_ticimax,static/description/icon.png"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_orders"
+              name="Siparişler"
+              parent="menu_ticimax_root"
+              action="action_ticimax_order"
+              sequence="10"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_products"
+              name="Ürünler"
+              parent="menu_ticimax_root"
+              action="action_ticimax_product"
+              sequence="20"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_categories"
+              name="Kategoriler"
+              parent="menu_ticimax_root"
+              action="action_ticimax_category"
+              sequence="30"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_brands"
+              name="Markalar"
+              parent="menu_ticimax_root"
+              action="action_ticimax_brand"
+              sequence="40"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_sync"
+              name="Senkronizasyon"
+              parent="menu_ticimax_root"
+              action="action_ticimax_sync_wizard"
+              sequence="50"
+              groups="iber_ticimax.group_ticimax_user"/>
+
+    <menuitem id="menu_ticimax_config"
+              name="Ayarlar"
+              parent="menu_ticimax_root"
+              action="action_ticimax_config"
+              sequence="90"
+              groups="iber_ticimax.group_ticimax_manager"/>
+
+</odoo>

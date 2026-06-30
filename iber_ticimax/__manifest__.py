@@ -1,0 +1,23 @@
+{
+    'name': 'Ticimax E-Ticaret Entegrasyonu',
+    'version': '19.0.1.0.0',
+    'summary': 'Ticimax web servis entegrasyonu — ürün, sipariş, müşteri ve kategori senkronizasyonu',
+    'author': 'Iber Bilisim',
+    'website': 'https://www.iberbilisim.com.tr',
+    'category': 'eCommerce',
+    'license': 'LGPL-3',
+    'depends': ['base', 'product', 'sale', 'mail'],
+    'data': [
+        'security/ticimax_security.xml',
+        'security/ir.model.access.csv',
+        'views/config_views.xml',
+        'views/category_views.xml',
+        'views/brand_views.xml',
+        'views/product_views.xml',
+        'views/order_views.xml',
+        'views/sync_wizard_views.xml',
+        'views/menu.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

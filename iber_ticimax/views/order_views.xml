@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ticimax_order_list" model="ir.ui.view">
+        <field name="name">iber.ticimax.order.list</field>
+        <field name="model">iber.ticimax.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="ticimax_id"/>
+                <field name="siparis_tarihi"/>
+                <field name="uye_adi"/>
+                <field name="uye_mail"/>
+                <field name="siparis_durumu" widget="badge"
+                       decoration-success="siparis_durumu in ('7',)"
+                       decoration-danger="siparis_durumu in ('8', '9')"
+                       decoration-warning="siparis_durumu in ('1', '2', '3')"
+                       decoration-info="siparis_durumu in ('4', '5', '6')"/>
+                <field name="odeme_tipi"/>
+                <field name="toplam_tutar" widget="monetary"/>
+                <field name="entegrasyon_aktarildi" widget="boolean_toggle"/>
+                <field name="sale_order_id"/>
+                <field name="config_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ticimax_order_form" model="ir.ui.view">
+        <field name="name">iber.ticimax.order.form</field>
+        <field name="model">iber.ticimax.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_sale_order" type="object"
+                            string="Satış Siparişi Oluştur" class="btn-primary"
+                            invisible="sale_order_id"/>
+                    <field name="siparis_durumu" widget="statusbar"
+                           statusbar_visible="1,2,4,6,7,8"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_create_sale_order" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o"
+                                invisible="sale_order_id">
+                            <span class="o_stat_text">SO Oluştur</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <span>Ticimax Sipariş #</span>
+                            <field name="ticimax_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Sipariş Bilgileri">
+                            <field name="config_id" readonly="1"/>
+                            <field name="siparis_tarihi" readonly="1"/>
+                            <field name="siparis_kaynagi" readonly="1"/>
+                            <field name="odeme_tipi" readonly="1"/>
+                            <field name="odeme_durumu" readonly="1"/>
+                            <field name="indirim" readonly="1"/>
+                            <field name="toplam_tutar" readonly="1"/>
+                            <field name="entegrasyon_aktarildi" readonly="1"/>
+                            <field name="sale_order_id" readonly="1"/>
+                        </group>
+                        <group string="Müşteri">
+                            <field name="uye_id" readonly="1"/>
+                            <field name="uye_adi" readonly="1"/>
+                            <field name="uye_mail" readonly="1"/>
+                            <field name="uye_telefon" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Fatura Adresi">
+                            <field name="fatura_adresi" readonly="1" nolabel="1"/>
+                            <field name="fatura_ilce" readonly="1"/>
+                            <field name="fatura_sehir" readonly="1"/>
+                        </group>
+                        <group string="Teslimat Adresi">
+                            <field name="teslimat_adresi" readonly="1" nolabel="1"/>
+                            <field name="teslimat_ilce" readonly="1"/>
+                            <field name="teslimat_sehir" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Kargo">
+                        <field name="kargo_firma" readonly="1"/>
+                        <field name="kargo_takip_no" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Kalemler">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="ticimax_urun_id"/>
+                                    <field name="urun_adi"/>
+                                    <field name="stok_kodu"/>
+                                    <field name="barkod"/>
+                                    <field name="adet"/>
+                                    <field name="tutar" widget="monetary"/>
+                                    <field name="kdv_orani"/>
+                                    <field name="kdv_tutari" widget="monetary"/>
+                                    <field name="toplam" widget="monetary"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ticimax_order" model="ir.actions.act_window">
+        <field name="name">Ticimax Siparişler</field>
+        <field name="res_model">iber.ticimax.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_orders': 1}</field>
+    </record>
+
+    <record id="view_ticimax_order_search" model="ir.ui.view">
+        <field name="name">iber.ticimax.order.search</field>
+        <field name="model">iber.ticimax.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ticimax_id" string="Sipariş ID"/>
+                <field name="uye_adi" string="Müşteri"/>
+                <field name="uye_mail" string="E-posta"/>
+                <filter name="not_transferred" string="ERP'ye Aktarılmamış"
+                        domain="[('entegrasyon_aktarildi', '=', False)]"/>
+                <filter name="active_orders" string="Aktif Siparişler"
+                        domain="[('siparis_durumu', 'in', ['1','2','3','4','5','6'])]"/>
+                <filter name="delivered" string="Teslim Edildi"
+                        domain="[('siparis_durumu', '=', '7')]"/>
+                <group>
+                    <filter name="group_status" string="Durum" context="{'group_by': 'siparis_durumu'}"/>
+                    <filter name="group_config" string="Bağlantı" context="{'group_by': 'config_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

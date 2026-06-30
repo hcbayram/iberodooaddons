@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_pavo" model="ir.ui.view">
+        <field name="name">account.move.form.pavo</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Stat button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_pavo_transactions" type="object"
+                        class="oe_stat_button" icon="fa-credit-card"
+                        invisible="iber_pavo_transaction_count == 0">
+                    <field name="iber_pavo_transaction_count" widget="statinfo"
+                           string="Pavo"/>
+                </button>
+            </xpath>
+
+            <!-- Ödeme al butonu — sadece onaylanmış müşteri faturalarında -->
+            <xpath expr="//button[@name='action_register_payment']" position="after">
+                <button name="action_pavo_payment" type="object"
+                        string="Pavo ile Ödeme Al"
+                        class="btn-secondary"
+                        invisible="move_type not in ('out_invoice','out_refund') or state != 'posted' or payment_state == 'paid'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

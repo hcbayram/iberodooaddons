@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Terminal List -->
+    <record id="view_pavo_terminal_list" model="ir.ui.view">
+        <field name="name">iber.pavo.terminal.tree</field>
+        <field name="model">iber.pavo.terminal</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="ip_address"/>
+                <field name="port"/>
+                <field name="serial_number"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paired'"
+                       decoration-warning="state == 'draft'"
+                       decoration-danger="state == 'error'"/>
+                <field name="transaction_count"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Terminal Form -->
+    <record id="view_pavo_terminal_form" model="ir.ui.view">
+        <field name="name">iber.pavo.terminal.form</field>
+        <field name="model">iber.pavo.terminal</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_pair" type="object" string="Eşleştir"
+                            class="btn-primary"
+                            invisible="state == 'paired'"/>
+                    <button name="action_pair" type="object" string="Yeniden Eşleştir"
+                            invisible="state != 'paired'"/>
+                    <button name="action_ping" type="object" string="Bağlantı Test"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,paired"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_transactions" type="object"
+                                class="oe_stat_button" icon="fa-credit-card">
+                            <field name="transaction_count" widget="statinfo"
+                                   string="İşlem"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Terminal adı"/></h1>
+                    </div>
+                    <group>
+                        <group string="Bağlantı">
+                            <field name="ip_address" placeholder="192.168.85.67"/>
+                            <field name="use_ssl"/>
+                            <field name="port"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Cihaz Bilgileri">
+                            <field name="serial_number"/>
+                            <field name="fingerprint"/>
+                            <field name="transaction_sequence"/>
+                        </group>
+                    </group>
+                    <group string="Uygulama Bilgileri">
+                        <field name="referer_app"/>
+                        <field name="referer_app_version"/>
+                    </group>
+                    <group string="Hata Bilgisi" invisible="not last_error">
+                        <field name="last_error" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Terminal Action -->
+    <record id="action_pavo_terminal" model="ir.actions.act_window">
+        <field name="name">Terminaller</field>
+        <field name="res_model">iber.pavo.terminal</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

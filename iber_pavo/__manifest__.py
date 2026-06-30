@@ -1,0 +1,21 @@
+{
+    'name': 'Pavo POS Entegrasyonu',
+    'version': '19.0.1.0.0',
+    'summary': 'Pavo 507 POS terminal ile REST entegrasyonu — satış, avans ve cari ödeme',
+    'author': 'Iber Bilisim',
+    'website': 'https://www.iberbilisim.com.tr',
+    'category': 'Accounting/Payment',
+    'license': 'LGPL-3',
+    'depends': ['base', 'account'],
+    'data': [
+        'security/pavo_security.xml',
+        'security/ir.model.access.csv',
+        'views/terminal_views.xml',
+        'views/transaction_views.xml',
+        'views/invoice_views.xml',
+        'views/menu.xml',
+        'wizards/pavo_payment_wizard_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

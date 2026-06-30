@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pavo_terminal_user,iber.pavo.terminal user,model_iber_pavo_terminal,group_pavo_user,1,0,0,0
+access_pavo_terminal_manager,iber.pavo.terminal manager,model_iber_pavo_terminal,group_pavo_manager,1,1,1,1
+access_pavo_transaction_user,iber.pavo.transaction user,model_iber_pavo_transaction,group_pavo_user,1,0,0,0
+access_pavo_transaction_manager,iber.pavo.transaction manager,model_iber_pavo_transaction,group_pavo_manager,1,1,1,1
+access_pavo_wizard_user,iber.pavo.payment.wizard user,model_iber_pavo_payment_wizard,group_pavo_user,1,1,1,1

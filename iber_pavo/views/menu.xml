@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_pavo_root"
+              name="Pavo POS"
+              sequence="90"
+              web_icon="iber_pavo,static/description/icon.png"
+              groups="iber_pavo.group_pavo_user"/>
+
+    <menuitem id="menu_pavo_terminal"
+              name="Terminaller"
+              parent="menu_pavo_root"
+              action="action_pavo_terminal"
+              sequence="10"
+              groups="iber_pavo.group_pavo_manager"/>
+
+    <menuitem id="menu_pavo_transaction"
+              name="İşlemler"
+              parent="menu_pavo_root"
+              action="action_pavo_transaction"
+              sequence="20"
+              groups="iber_pavo.group_pavo_user"/>
+</odoo>

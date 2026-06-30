@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pavo_payment_wizard_form" model="ir.ui.view">
+        <field name="name">iber.pavo.payment.wizard.form</field>
+        <field name="model">iber.pavo.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pavo ile Ödeme Al">
+                <sheet>
+                    <!-- Sonuç bölümü -->
+                    <div class="alert alert-success" role="alert"
+                         invisible="result_state != 'success'">
+                        <i class="fa fa-check-circle"/> <field name="result_message" readonly="1"/>
+                        <button name="action_view_transaction" type="object"
+                                string="İşlem Kaydına Git" class="btn-link"/>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="result_state != 'failed'">
+                        <i class="fa fa-times-circle"/> <field name="result_message" readonly="1"/>
+                    </div>
+
+                    <group>
+                        <group string="Terminal">
+                            <field name="terminal_id"/>
+                            <field name="invoice_id" readonly="1" invisible="not invoice_id"/>
+                        </group>
+                        <group string="İşlem">
+                            <field name="sale_type" widget="radio"/>
+                            <field name="amount"/>
+                            <field name="currency_code"/>
+                        </group>
+                    </group>
+                    <group string="Detaylar">
+                        <field name="sale_reason"
+                               invisible="sale_type == 'sale'"/>
+                        <field name="order_no"
+                               placeholder="Boş bırakılırsa otomatik oluşturulur"/>
+                        <field name="main_document_type"
+                               invisible="sale_type != 'sale'"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_send" type="object"
+                            string="Ödeme Gönder" class="btn-primary"
+                            invisible="result_state == 'success'"/>
+                    <button string="Kapat" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

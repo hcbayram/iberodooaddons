@@ -8,6 +8,7 @@
                 <list string="Entegratörler">
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
                     <field name="module_name"/>
                     <field name="is_test" widget="boolean_toggle"/>
                     <field name="active"/>
@@ -32,6 +33,7 @@
                             <group>
                                 <field name="name"/>
                                 <field name="code"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="module_name"/>
                                 <field name="active"/>
                             </group>

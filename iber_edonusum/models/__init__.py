@@ -9,3 +9,5 @@ from . import settings_integrator_ext
 from . import invoice_integrator_sync
 from . import despatch_integrator_sync
 from . import incoming_to_account_move
+from . import edn_invoice_xml_import_wizard
+from . import edn_invoice_uuid_fetch_wizard

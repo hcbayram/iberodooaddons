@@ -8,6 +8,13 @@ class EDNIntegrator(models.Model):
     _rec_name = "name"
 
     name = fields.Char("Entegratör Adı", required=True)
+    company_id = fields.Many2one(
+        "res.company",
+        string="Şirket",
+        required=True,
+        index=True,
+        default=lambda self: self.env.company,
+    )
     code = fields.Char(
         "Kod",
         required=True,
@@ -51,7 +58,8 @@ class EDNIntegrator(models.Model):
     )
 
     _sql_constraints = [
-        ("code_unique", "unique(code)", "Entegratör kodu benzersiz olmalıdır!")
+        ("code_company_unique", "unique(code, company_id)",
+         "Bu entegratör kodu için şirket başına yalnızca 1 kayıt olabilir!")
     ]
 
     def action_fetch_series(self):

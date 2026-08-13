@@ -18,7 +18,7 @@
             <xpath expr="//notebook/page[last()]" position="after">
                 <page string="Entegratör" name="integrator_page">
                     <group>
-                        <field name="integrator_id"/>
+                        <field name="integrator_id" domain="[('company_id', '=', company_id)]"/>
                     </group>
                     <group string="Varsayılan Seri Kodları" invisible="not integrator_id">
                         <field name="default_invoice_series_id"/>

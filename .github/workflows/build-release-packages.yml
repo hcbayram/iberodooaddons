@@ -1,0 +1,493 @@
+name: Build & Package Odoo Addons
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'Module to Build'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - 'iber_edonusum'
+          - 'iber_edonusum_uyumsoft'
+          - 'iber_edonusum_hizli'
+          - 'iber_edonusum_nes'
+          - 'iber_e_transform'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+# ---------------------------------------------------------------------------
+#  Detect which addons have changed
+# ---------------------------------------------------------------------------
+
+jobs:
+
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      iber_edonusum: ${{ steps.filter.outputs.iber_edonusum }}
+      iber_edonusum_uyumsoft: ${{ steps.filter.outputs.iber_edonusum_uyumsoft }}
+      iber_edonusum_hizli: ${{ steps.filter.outputs.iber_edonusum_hizli }}
+      iber_edonusum_nes: ${{ steps.filter.outputs.iber_edonusum_nes }}
+      iber_e_transform: ${{ steps.filter.outputs.iber_e_transform }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed addons
+        id: filter
+        run: |
+          set_output() {
+            local addon=$1
+            local val=$2
+            echo "${addon}=${val}" >> $GITHUB_OUTPUT
+          }
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MODULE="${{ github.event.inputs.module }}"
+            for addon in iber_edonusum iber_edonusum_uyumsoft iber_edonusum_hizli \
+                         iber_edonusum_nes iber_e_transform; do
+              if [ "$MODULE" = "all" ] || [ "$MODULE" = "$addon" ]; then
+                set_output "$addon" "true"
+              else
+                set_output "$addon" "false"
+              fi
+            done
+          else
+            CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
+            echo "Changed files:"
+            echo "$CHANGED"
+
+            for addon in iber_edonusum iber_edonusum_uyumsoft iber_edonusum_hizli \
+                         iber_edonusum_nes iber_e_transform; do
+              if echo "$CHANGED" | grep -q "^${addon}/"; then
+                set_output "$addon" "true"
+              else
+                set_output "$addon" "false"
+              fi
+            done
+          fi
+
+          echo "=== Results ==="
+          cat $GITHUB_OUTPUT
+
+# ---------------------------------------------------------------------------
+#  Cython addon build jobs
+# ---------------------------------------------------------------------------
+
+  build-iber-edonusum:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.iber_edonusum == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Cython wheel setuptools requests
+      - name: Build Cython extensions
+        working-directory: iber_edonusum
+        run: python setup.py build_ext --inplace
+      - name: Copy .pyd files to core/
+        working-directory: iber_edonusum
+        run: |
+          Get-ChildItem -Path build -Filter "*.pyd" -Recurse | ForEach-Object {
+            Copy-Item $_.FullName -Destination "core\" -Force
+          }
+      - name: Test imports
+        working-directory: iber_edonusum
+        run: |
+          python -c "from core import ubl_xml_parser; print('OK: ubl_xml_parser')"
+          python -c "from core.ubl_xml_parser import parse_incoming_ubl_xml; print('OK: parse_incoming_ubl_xml')"
+      - name: Prepare addon package
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_REF: ${{ github.ref_name }}
+        run: |
+          $addon = "iber_edonusum"
+          $staging = "staging\$addon"
+          $manifest = Get-Content "$addon\__manifest__.py" -Raw
+          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          $versionTag = $version -replace '\.', '_'
+          echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force -Path $staging | Out-Null
+          $PSNativeCommandUseErrorActionPreference = $false
+          robocopy $addon $staging /E /NFL /NDL /NJH /NJS /NC /NS /XD build __pycache__ .git .github /XF *.md setup.py build_cython.sh build_cython.bat build_cython.ps1 *.c *.html .DS_Store
+          $roboExit = $LASTEXITCODE
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($roboExit -ge 8) { throw "robocopy failed with exit code $roboExit" }
+          $global:LASTEXITCODE = 0
+          Get-ChildItem -Path "$addon\core" -Filter "*.pyd" -ErrorAction SilentlyContinue | ForEach-Object {
+            Copy-Item $_.FullName -Destination "$staging\core\" -Force
+          }
+          $pydFiles = @(Get-ChildItem -Path "$staging\core" -Filter "*.pyd" -ErrorAction SilentlyContinue)
+          Get-ChildItem -Path "$staging\core\*.py" | Where-Object { $_.Name -ne "__init__.py" } | ForEach-Object {
+            $pyBase = $_.BaseName
+            $matchingPyd = $pydFiles | Where-Object { $_.Name -match "^$([regex]::Escape($pyBase))\.cp" }
+            if ($matchingPyd) { Remove-Item $_.FullName -Force }
+          }
+          $info = "$addon - Release Package`r`nVersion: $version`r`nPython: 3.12 (x64)`r`nBuild Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')`r`nCommit: $env:GH_SHA`r`nBranch: $env:GH_REF`r`n"
+          $info | Out-File -FilePath "$staging\BUILD_INFO.txt" -Encoding UTF8
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: staging/
+          retention-days: 90
+
+# ---------------------------------------------------------------------------
+
+  build-iber-edonusum-uyumsoft:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.iber_edonusum_uyumsoft == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Cython wheel setuptools requests
+      - name: Build Cython extensions
+        working-directory: iber_edonusum_uyumsoft
+        run: python setup.py build_ext --inplace
+      - name: Copy .pyd files to core/
+        working-directory: iber_edonusum_uyumsoft
+        run: |
+          Get-ChildItem -Path build -Filter "*.pyd" -Recurse | ForEach-Object {
+            Copy-Item $_.FullName -Destination "core\" -Force
+          }
+      - name: Test imports
+        working-directory: iber_edonusum_uyumsoft
+        run: |
+          python -c "from core import uyumsoft_parser; print('OK: uyumsoft_parser')"
+          python -c "from core.uyumsoft_parser import _parse_ubl_xml; print('OK: _parse_ubl_xml')"
+      - name: Prepare addon package
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_REF: ${{ github.ref_name }}
+        run: |
+          $addon = "iber_edonusum_uyumsoft"
+          $staging = "staging\$addon"
+          $manifest = Get-Content "$addon\__manifest__.py" -Raw
+          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          $versionTag = $version -replace '\.', '_'
+          echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force -Path $staging | Out-Null
+          $PSNativeCommandUseErrorActionPreference = $false
+          robocopy $addon $staging /E /NFL /NDL /NJH /NJS /NC /NS /XD build __pycache__ .git .github /XF *.md setup.py build_cython.sh build_cython.bat build_cython.ps1 *.c *.html .DS_Store
+          $roboExit = $LASTEXITCODE
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($roboExit -ge 8) { throw "robocopy failed with exit code $roboExit" }
+          $global:LASTEXITCODE = 0
+          Get-ChildItem -Path "$addon\core" -Filter "*.pyd" -ErrorAction SilentlyContinue | ForEach-Object {
+            Copy-Item $_.FullName -Destination "$staging\core\" -Force
+          }
+          $pydFiles = @(Get-ChildItem -Path "$staging\core" -Filter "*.pyd" -ErrorAction SilentlyContinue)
+          Get-ChildItem -Path "$staging\core\*.py" | Where-Object { $_.Name -ne "__init__.py" } | ForEach-Object {
+            $pyBase = $_.BaseName
+            $matchingPyd = $pydFiles | Where-Object { $_.Name -match "^$([regex]::Escape($pyBase))\.cp" }
+            if ($matchingPyd) { Remove-Item $_.FullName -Force }
+          }
+          $info = "$addon - Release Package`r`nVersion: $version`r`nPython: 3.12 (x64)`r`nBuild Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')`r`nCommit: $env:GH_SHA`r`nBranch: $env:GH_REF`r`n"
+          $info | Out-File -FilePath "$staging\BUILD_INFO.txt" -Encoding UTF8
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: staging/
+          retention-days: 90
+
+# ---------------------------------------------------------------------------
+
+  build-iber-edonusum-hizli:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.iber_edonusum_hizli == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Cython wheel setuptools requests
+      - name: Build Cython extensions
+        working-directory: iber_edonusum_hizli
+        run: python setup.py build_ext --inplace
+      - name: Copy .pyd files to core/
+        working-directory: iber_edonusum_hizli
+        run: |
+          Get-ChildItem -Path build -Filter "*.pyd" -Recurse | ForEach-Object {
+            Copy-Item $_.FullName -Destination "core\" -Force
+          }
+      - name: Test imports
+        working-directory: iber_edonusum_hizli
+        run: |
+          python -c "from core import hizli_parser; print('OK: hizli_parser')"
+          python -c "from core.hizli_parser import _parse_ubl_xml; print('OK: _parse_ubl_xml')"
+      - name: Prepare addon package
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_REF: ${{ github.ref_name }}
+        run: |
+          $addon = "iber_edonusum_hizli"
+          $staging = "staging\$addon"
+          $manifest = Get-Content "$addon\__manifest__.py" -Raw
+          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          $versionTag = $version -replace '\.', '_'
+          echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force -Path $staging | Out-Null
+          $PSNativeCommandUseErrorActionPreference = $false
+          robocopy $addon $staging /E /NFL /NDL /NJH /NJS /NC /NS /XD build __pycache__ .git .github /XF *.md setup.py build_cython.sh build_cython.bat build_cython.ps1 *.c *.html .DS_Store
+          $roboExit = $LASTEXITCODE
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($roboExit -ge 8) { throw "robocopy failed with exit code $roboExit" }
+          $global:LASTEXITCODE = 0
+          Get-ChildItem -Path "$addon\core" -Filter "*.pyd" -ErrorAction SilentlyContinue | ForEach-Object {
+            Copy-Item $_.FullName -Destination "$staging\core\" -Force
+          }
+          $pydFiles = @(Get-ChildItem -Path "$staging\core" -Filter "*.pyd" -ErrorAction SilentlyContinue)
+          Get-ChildItem -Path "$staging\core\*.py" | Where-Object { $_.Name -ne "__init__.py" } | ForEach-Object {
+            $pyBase = $_.BaseName
+            $matchingPyd = $pydFiles | Where-Object { $_.Name -match "^$([regex]::Escape($pyBase))\.cp" }
+            if ($matchingPyd) { Remove-Item $_.FullName -Force }
+          }
+          $info = "$addon - Release Package`r`nVersion: $version`r`nPython: 3.12 (x64)`r`nBuild Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')`r`nCommit: $env:GH_SHA`r`nBranch: $env:GH_REF`r`n"
+          $info | Out-File -FilePath "$staging\BUILD_INFO.txt" -Encoding UTF8
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: staging/
+          retention-days: 90
+
+# ---------------------------------------------------------------------------
+
+  build-iber-edonusum-nes:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.iber_edonusum_nes == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Cython wheel setuptools requests
+      - name: Build Cython extensions
+        working-directory: iber_edonusum_nes
+        run: python setup.py build_ext --inplace
+      - name: Copy .pyd files to core/
+        working-directory: iber_edonusum_nes
+        run: |
+          Get-ChildItem -Path build -Filter "*.pyd" -Recurse | ForEach-Object {
+            Copy-Item $_.FullName -Destination "core\" -Force
+          }
+      - name: Test imports
+        working-directory: iber_edonusum_nes
+        run: |
+          python -c "from core import nes_helpers; print('OK: nes_helpers')"
+          python -c "from core.nes_helpers import _clean_xml_for_display; print('OK: _clean_xml_for_display')"
+      - name: Prepare addon package
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_REF: ${{ github.ref_name }}
+        run: |
+          $addon = "iber_edonusum_nes"
+          $staging = "staging\$addon"
+          $manifest = Get-Content "$addon\__manifest__.py" -Raw
+          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          $versionTag = $version -replace '\.', '_'
+          echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force -Path $staging | Out-Null
+          $PSNativeCommandUseErrorActionPreference = $false
+          robocopy $addon $staging /E /NFL /NDL /NJH /NJS /NC /NS /XD build __pycache__ .git .github /XF *.md setup.py build_cython.sh build_cython.bat build_cython.ps1 *.c *.html .DS_Store
+          $roboExit = $LASTEXITCODE
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($roboExit -ge 8) { throw "robocopy failed with exit code $roboExit" }
+          $global:LASTEXITCODE = 0
+          Get-ChildItem -Path "$addon\core" -Filter "*.pyd" -ErrorAction SilentlyContinue | ForEach-Object {
+            Copy-Item $_.FullName -Destination "$staging\core\" -Force
+          }
+          $pydFiles = @(Get-ChildItem -Path "$staging\core" -Filter "*.pyd" -ErrorAction SilentlyContinue)
+          Get-ChildItem -Path "$staging\core\*.py" | Where-Object { $_.Name -ne "__init__.py" } | ForEach-Object {
+            $pyBase = $_.BaseName
+            $matchingPyd = $pydFiles | Where-Object { $_.Name -match "^$([regex]::Escape($pyBase))\.cp" }
+            if ($matchingPyd) { Remove-Item $_.FullName -Force }
+          }
+          $info = "$addon - Release Package`r`nVersion: $version`r`nPython: 3.12 (x64)`r`nBuild Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')`r`nCommit: $env:GH_SHA`r`nBranch: $env:GH_REF`r`n"
+          $info | Out-File -FilePath "$staging\BUILD_INFO.txt" -Encoding UTF8
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: staging/
+          retention-days: 90
+
+# ---------------------------------------------------------------------------
+#  Non-Cython addon packaging jobs
+# ---------------------------------------------------------------------------
+
+  package-addon:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.iber_e_transform == 'true'
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - addon: iber_e_transform
+            condition: ${{ needs.detect-changes.outputs.iber_e_transform }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Skip if not changed
+        if: matrix.condition != 'true'
+        run: exit 0
+      - name: Prepare addon package
+        if: matrix.condition == 'true'
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_REF: ${{ github.ref_name }}
+        run: |
+          $addon = "${{ matrix.addon }}"
+          $staging = "staging\$addon"
+          $manifest = Get-Content "$addon\__manifest__.py" -Raw
+          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          $versionTag = $version -replace '\.', '_'
+          echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
+          Write-Host "Packaging $addon v$version"
+          New-Item -ItemType Directory -Force -Path $staging | Out-Null
+          $PSNativeCommandUseErrorActionPreference = $false
+          robocopy $addon $staging /E /NFL /NDL /NJH /NJS /NC /NS /XD build __pycache__ .git .github /XF *.md *.c *.html .DS_Store
+          $roboExit = $LASTEXITCODE
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($roboExit -ge 8) { throw "robocopy failed with exit code $roboExit" }
+          $global:LASTEXITCODE = 0
+          $commitMsg = git log -1 --pretty=format:"%s" 2>$null
+          $info = "$addon - Release Package`r`nVersion: $version`r`nBuild Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')`r`nCommit: $env:GH_SHA`r`nMessage: $commitMsg`r`nBranch: $env:GH_REF`r`n"
+          $info | Out-File -FilePath "$staging\BUILD_INFO.txt" -Encoding UTF8
+      - name: Upload package
+        if: matrix.condition == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: staging/
+          retention-days: 90
+
+# ---------------------------------------------------------------------------
+#  Create GitHub Release (only on push to main/master)
+# ---------------------------------------------------------------------------
+
+  create-release:
+    needs:
+      - detect-changes
+      - build-iber-edonusum
+      - build-iber-edonusum-uyumsoft
+      - build-iber-edonusum-hizli
+      - build-iber-edonusum-nes
+      - package-addon
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled') &&
+      (needs.build-iber-edonusum.result == 'success' ||
+       needs.build-iber-edonusum-uyumsoft.result == 'success' ||
+       needs.build-iber-edonusum-hizli.result == 'success' ||
+       needs.build-iber-edonusum-nes.result == 'success' ||
+       needs.package-addon.result == 'success')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Create release zips
+        run: |
+          mkdir -p release_zips
+          echo "=== Downloaded artifacts ==="
+          ls -la artifacts/
+
+          for artifact_dir in artifacts/*/; do
+            artifact_name=$(basename "$artifact_dir")
+            echo "--- Processing: $artifact_name ---"
+            cd "$artifact_dir"
+            zip -r "../../release_zips/${artifact_name}.zip" .
+            cd ../..
+            size=$(du -h "release_zips/${artifact_name}.zip" | cut -f1)
+            echo "Created: ${artifact_name}.zip ($size)"
+          done
+
+          echo ""
+          echo "=== Release zips ==="
+          ls -la release_zips/
+
+      - name: Create release tag
+        id: tag
+        run: |
+          TAG="v$(date +'%Y.%m.%d')-build.${{ github.run_number }}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Release tag: $TAG"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "Release ${{ steps.tag.outputs.tag }}"
+          body: |
+            ## Addon Packages — Odoo 19 (İberoDoo e-Fatura)
+
+            Kuruluma hazır Odoo 19 addon paketleri.
+            Zip dosyasını Odoo addons klasörüne extract edin.
+
+            **Python**: 3.12 (x64, Windows)
+            **Commit**: ${{ github.sha }}
+
+            ### Cython (Derlenmiş) Paketler
+            - `iber_edonusum` — E-Dönüşüm Çerçevesi (Fatura Entegratör Senkronizasyonu)
+            - `iber_edonusum_uyumsoft` — Uyumsoft e-Fatura/e-Arşiv Entegratörü
+            - `iber_edonusum_hizli` — Hızlı Teknoloji e-Dönüşüm Entegratörü
+            - `iber_edonusum_nes` — NES e-Dönüşüm Entegratörü
+
+            ### Standart Paketler
+            - `iber_e_transform` — UBL Dönüşüm Çerçevesi
+          files: release_zips/*.zip
+          draft: false
+          prerelease: false

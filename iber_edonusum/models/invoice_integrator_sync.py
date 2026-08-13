@@ -9,7 +9,6 @@ Durum çevirisi entegratör client'ının status_map/answer_map'inden yapılır;
 bu dosyada NES'e özgü map tanımlanmaz.
 """
 import base64
-import json
 import logging
 from datetime import datetime, timedelta, timezone
 from odoo import models, fields, api, _
@@ -102,11 +101,6 @@ def _map_incoming_invoice(item: dict, env, client=None) -> dict:
     nes_status_raw = str(_get("status", "documentStatus", "invoiceStatus") or "").upper()
     gib_status     = client.translate_status(nes_status_raw) if client else "sent"
 
-    answer_raw = str(_get("documentAnswer", "answer") or "none").strip().lower()
-    if answer_raw in ("null", "none", ""):
-        answer_raw = "none"
-    document_answer = client.translate_answer(answer_raw) if client else "none"
-
     envelope_id   = (incoming_envelope.get("instanceIdentifier") or
                      _get("envelopeId", "envelopeNumber", "envelopeID"))
     send_date     = _parse_nes_datetime(
@@ -146,8 +140,6 @@ def _map_incoming_invoice(item: dict, env, client=None) -> dict:
     _svkn = str(supplier_vkn or "").replace(" ", "")
     supplier_scheme = "VKN" if len(_svkn) == 10 else ("TCKN" if len(_svkn) == 11 else "VKN")
 
-    # JSON'dan dahili anahtarları çıkar (ham kaydı temiz tut)
-    item_clean = {k: v for k, v in item.items() if not k.startswith("_")}
     xml_data_str = item.get("_xml_data") or ""
 
     vals = {
@@ -181,9 +173,6 @@ def _map_incoming_invoice(item: dict, env, client=None) -> dict:
         "customer_receiver_alias": receiver_alias or False,
         # Senkronizasyon
         "erp_last_sync_date": fields.Datetime.now(),
-        "nes_document_answer": document_answer,
-        "nes_outgoing_raw": json.dumps(item_clean, ensure_ascii=False, indent=2),
-        "nes_outgoing_fetch_date": fields.Datetime.now(),
     }
     if xml_data_str:
         vals["xml_data"] = xml_data_str
@@ -319,6 +308,10 @@ class UBLInvoiceIntegratorSync(models.Model):
         """
         Entegratörden gelen fatura listesini çekip l10n_tr.ubl.invoice kayıtlarına aktarır.
         ui_filters: JS tarafından gönderilen tarih filtreleri.
+
+        Yalnızca UUID'si sistemde henüz bulunmayan (daha önce alınmamış)
+        faturalar oluşturulur — sistemde zaten var olan bir fatura tekrar
+        sorgulanıp üzerine yazılmaz (bkz. döngü içindeki gerekçe).
         """
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_code = settings.integrator_id.code if settings.integrator_id else None
@@ -410,67 +403,18 @@ class UBLInvoiceIntegratorSync(models.Model):
             raw = first.get("raw") or {}
             _logger.info("Ham item keys: %s", list(raw.keys()) if isinstance(raw, dict) else raw)
 
-        created = updated = skipped = errors = 0
+        created = skipped = errors = 0
 
         for item in all_items:
             try:
-                uuid = str(item.get("id") or item.get("uuid") or item.get("UUID") or "").strip()
-                if not uuid:
-                    skipped += 1
-                    continue
-
-                lines_data = item.get("lines") or []
-
-                # Satır verisi yoksa XML çekip doldur (Hızlı gibi liste'de satır vermeyen entegratörler)
-                xml_raw = None
-                if not lines_data and hasattr(client, "get_invoice_lines"):
-                    try:
-                        xl = client.get_invoice_lines(uuid)
-                        if xl.get("ok"):
-                            xml_raw = xl.get("raw") or {}
-                            lines_data = xml_raw.get("data") or []
-                            # XML header'dan item'ı zenginleştir
-                            xh = xml_raw.get("header") or {}
-                            if xh:
-                                item = dict(item)
-                                item.setdefault("_xml_header", xh)
-                                if xh.get("id"):
-                                    item["documentNumber"] = xh["id"]
-                                if xh.get("issueDate"):
-                                    item["issueDate"] = xh["issueDate"]
-                    except Exception as xe:
-                        _logger.warning("UUID %s XML çekme hatası: %s", uuid, xe)
-
-                vals = _map_incoming_invoice(item, self.env, client=client)
-                existing = self.search([
-                    ("UUID", "=", uuid),
-                    ("invoice_direction", "=", "incoming"),
-                ], limit=1)
-
-                if existing:
-                    # Manuel değişiklik koruması
-                    if (existing.erp_last_sync_date and existing.write_date
-                            and existing.write_date > existing.erp_last_sync_date):
-                        _logger.info(
-                            "UUID %s atlandı — manuel değişiklik (write_date=%s > sync=%s)",
-                            uuid, existing.write_date, existing.erp_last_sync_date,
-                        )
-                        skipped += 1
-                        continue
-                    existing.write(vals)
-                    # Kalem varsa sıfırla ve yeniden oluştur
-                    if lines_data:
-                        existing.line_ids.unlink()
-                        _create_invoice_lines(existing, lines_data, self.env)
-                    updated += 1
-                else:
-                    new_inv = self.create(vals)
-                    _create_invoice_lines(new_inv, lines_data, self.env)
+                status = self._import_incoming_item(item, client)
+                if status == "created":
                     created += 1
-
+                else:
+                    skipped += 1
             except Exception as e:
                 errors += 1
-                _logger.error("Gelen fatura işlenirken hata (uuid=%s): %s", uuid, str(e), exc_info=True)
+                _logger.error("Gelen fatura işlenirken hata: %s", str(e), exc_info=True)
 
         settings.write({"last_incoming_invoice_sync_datetime": sync_start})
 
@@ -480,14 +424,224 @@ class UBLInvoiceIntegratorSync(models.Model):
             "params": {
                 "title": _("Entegratörden Faturalar Alındı"),
                 "message": _(
-                    "%(total)d fatura işlendi.\n"
-                    "Yeni: %(c)d  |  Güncellenen: %(u)d  |  "
-                    "Atlanan: %(s)d  |  Hata: %(e)d"
-                ) % {"total": created + updated + skipped + errors,
-                     "c": created, "u": updated, "s": skipped, "e": errors},
+                    "%(total)d fatura değerlendirildi.\n"
+                    "Yeni: %(c)d  |  Zaten sistemde (atlandı): %(s)d  |  Hata: %(e)d"
+                ) % {"total": created + skipped + errors,
+                     "c": created, "s": skipped, "e": errors},
                 "type": "success" if not errors else "warning",
                 "sticky": True,
             },
+        }
+
+    def _import_incoming_item(self, item, client):
+        """Tek bir entegratör item'ını l10n_tr.ubl.invoice kaydına çevirir.
+
+        Sistemde UUID'si zaten bulunan bir belge varsa dokunulmadan atlanır
+        (bkz. action_fetch_incoming_from_integrator'daki gerekçe — burada
+        tekrarlanmıyor). Dönüş: "created" | "skipped".
+        """
+        uuid = str(item.get("id") or item.get("uuid") or item.get("UUID") or "").strip()
+        if not uuid:
+            return "skipped"
+
+        existing = self.search([
+            ("UUID", "=", uuid),
+            ("invoice_direction", "=", "incoming"),
+        ], limit=1)
+        if existing:
+            return "skipped"
+
+        lines_data = item.get("lines") or []
+
+        # Satır verisi yoksa XML çekip doldur (Hızlı gibi liste'de satır vermeyen entegratörler)
+        if not lines_data and hasattr(client, "get_invoice_lines"):
+            try:
+                xl = client.get_invoice_lines(uuid)
+                if xl.get("ok"):
+                    xml_raw = xl.get("raw") or {}
+                    lines_data = xml_raw.get("data") or []
+                    # XML header'dan item'ı zenginleştir
+                    xh = xml_raw.get("header") or {}
+                    if xh:
+                        item = dict(item)
+                        item.setdefault("_xml_header", xh)
+                        if xh.get("id"):
+                            item["documentNumber"] = xh["id"]
+                        if xh.get("issueDate"):
+                            item["issueDate"] = xh["issueDate"]
+            except Exception as xe:
+                _logger.warning("UUID %s XML çekme hatası: %s", uuid, xe)
+
+        vals = _map_incoming_invoice(item, self.env, client=client)
+        new_inv = self.create(vals)
+        _create_invoice_lines(new_inv, lines_data, self.env)
+        return "created"
+
+    # ------------------------------------------------------------------
+    # Gelen Faturalar: Son N Faturayı Getir (yalnızca test entegratörü)
+    # ------------------------------------------------------------------
+    @api.model
+    def action_fetch_last_n_incoming_from_integrator(self, n=10):
+        """
+        TEST AMAÇLI: tarih aralığı gözetmeksizin entegratörden en son N
+        faturayı çeker (sıralama entegratör API'sinin döndürdüğü sırayla
+        best-effort'tur, kesin "en yeni" garantisi yoktur). Paylaşımlı bir
+        test hesabında istenen belgeyi tarih-aralıklı taramayla bulmak
+        zorlaşabildiğinde hızlı bir örnekleme sağlar.
+
+        Yalnızca is_test aktif bir entegratörde çalışır — üretimde
+        tarihsiz/limitsiz sorgu istenmeyen yüke yol açabileceğinden
+        kapalıdır. Zaten sistemde olan faturalar atlanır (bkz.
+        _import_incoming_item).
+        """
+        n = int(n or 10)
+        settings = self.env["ubl21.config.settings"].get_singleton()
+        integrator = settings.integrator_id
+        integrator_code = integrator.code if integrator else None
+        if not integrator_code:
+            raise UserError(_(
+                "Ayarlarda aktif entegratör tanımlı değil.\n"
+                "İberoDoo → Ayarlar → Entegratör alanını doldurun."
+            ))
+        if not integrator.is_test:
+            raise UserError(_(
+                "Bu işlem yalnızca test ortamı aktif olan bir entegratörde "
+                "kullanılabilir (Yapılandırma → İntegratörler → 'Test "
+                "Ortamı Aktif'). Üretim entegratöründe tarihsiz/limitsiz "
+                "sorgu istenmeyen yüke yol açabilir."
+            ))
+
+        mgr = self.env["edn.document.manager"].sudo()
+        client = mgr._get_integrator_client(integrator_code)
+
+        filters = {
+            "document_type": "invoice",
+            "include_lines": True,
+            "page_size": n,
+        }
+        result = self.env["edn.document.manager"].get_incoming_documents(
+            integrator_code, filters, client=client
+        )
+        if not result.get("ok"):
+            raise UserError(_(
+                "Entegratörden veri alınamadı:\n%s"
+            ) % result.get("error", "Bilinmeyen hata"))
+
+        items = result.get("documents") or []
+        if not items:
+            raw = result.get("raw")
+            if isinstance(raw, list):
+                items = raw
+            elif isinstance(raw, dict):
+                items = (
+                    raw.get("items") or raw.get("data") or
+                    raw.get("documents") or raw.get("invoices") or
+                    raw.get("results") or []
+                )
+        items = items[:n]
+
+        created = skipped = errors = 0
+        for item in items:
+            try:
+                status = self._import_incoming_item(item, client)
+                if status == "created":
+                    created += 1
+                else:
+                    skipped += 1
+            except Exception as e:
+                errors += 1
+                _logger.error("Son N fatura işlenirken hata: %s", str(e), exc_info=True)
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Entegratörden Son %d Fatura (Test)") % n,
+                "message": _(
+                    "%(total)d fatura değerlendirildi.\n"
+                    "Yeni: %(c)d  |  Zaten sistemde (atlandı): %(s)d  |  Hata: %(e)d"
+                ) % {"total": created + skipped + errors,
+                     "c": created, "s": skipped, "e": errors},
+                "type": "success" if not errors else "warning",
+                "sticky": True,
+            },
+        }
+
+    # ------------------------------------------------------------------
+    # Gelen Faturalar: UUID İle Getir (liste/tarih filtresine bağımlı değil)
+    # ------------------------------------------------------------------
+    @api.model
+    def action_fetch_by_uuid_from_integrator(self, doc_uuid):
+        """
+        Bilinen bir UUID (GUID) ile entegratörden doğrudan TEK bir belge
+        çeker — inbox listesi/tarih filtresi hiç devreye girmez.
+
+        Paylaşımlı bir test hesabında "alındı" bayrağı belgeyi inbox
+        listesinden düşürse bile, UUID zaten biliniyorsa (ör. destek
+        ekibinden veya başka bir kullanıcıdan alınmışsa) bu yöntemle yine
+        çekilebilir — tabii entegratör API'si bu tür bir sorguyu bayraktan
+        bağımsız işletiyorsa; bu, entegratöre/API'ye göre değişir.
+        """
+        doc_uuid = (doc_uuid or "").strip()
+        if not doc_uuid:
+            raise UserError(_("UUID boş olamaz."))
+
+        existing = self.search([
+            ("UUID", "=", doc_uuid),
+            ("invoice_direction", "=", "incoming"),
+        ], limit=1)
+        if existing:
+            raise UserError(_(
+                "Bu belge zaten sistemde mevcut (Belge No: %s)."
+            ) % existing.id_value)
+
+        settings = self.env["ubl21.config.settings"].get_singleton()
+        integrator_code = settings.integrator_id.code if settings.integrator_id else None
+        if not integrator_code:
+            raise UserError(_(
+                "Ayarlarda aktif entegratör tanımlı değil.\n"
+                "İberoDoo → Ayarlar → Entegratör alanını doldurun."
+            ))
+
+        mgr = self.env["edn.document.manager"].sudo()
+        client = mgr._get_integrator_client(integrator_code)
+        if not hasattr(client, "get_invoice_lines"):
+            raise UserError(_("Bu entegratör UUID ile tekil belge çekmeyi desteklemiyor."))
+
+        xl = client.get_invoice_lines(doc_uuid)
+        if not xl.get("ok"):
+            raise UserError(_(
+                "Belge UUID ile alınamadı:\n%s"
+            ) % xl.get("error", "Bilinmeyen hata"))
+
+        xml_raw = xl.get("raw") or {}
+        xh = xml_raw.get("header") or {}
+        lines_data = xml_raw.get("data") or []
+
+        fake_item = {
+            "id": doc_uuid,
+            "documentNumber": xh.get("id"),
+            "issueDate": xh.get("issueDate"),
+            "profileId": xh.get("profileId"),
+            "invoiceTypeCode": xh.get("invoiceTypeCode"),
+            "documentCurrencyCode": xh.get("currencyCode"),
+            "_xml_header": xh,
+        }
+        vals = _map_incoming_invoice(fake_item, self.env, client=client)
+        xml_clean = xml_raw.get("xml_clean") or ""
+        if xml_clean:
+            vals["xml_data"] = xml_clean
+
+        new_inv = self.create(vals)
+        if lines_data:
+            _create_invoice_lines(new_inv, lines_data, self.env)
+
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "l10n_tr.ubl.invoice",
+            "res_id": new_inv.id,
+            "view_mode": "form",
+            "target": "current",
         }
 
     # ------------------------------------------------------------------
@@ -672,6 +826,70 @@ class UBLInvoiceIntegratorSync(models.Model):
             self.pdf_data = base64.b64encode(result["pdf_bytes"])
             return True
         return False
+
+    def action_preview_pdf(self):
+        """
+        PDF önizleme: önce entegratörden dener (gelen faturalarda veya
+        gönderilmiş/onaylanmış/reddedilmiş giden faturalarda), başarısız
+        olursa iber_e_transform'un standart (XSLT tabanlı) önizlemesine
+        geri döner.
+
+        NOT: Bu metod önceden yalnızca iber_edonusum_nes'te tanımlıydı;
+        mantığı tamamen provider-agnostik (yalnızca _get_integrator_code /
+        _fetch_and_store_pdf_from_integrator kullanıyor) olduğundan buraya,
+        tüm entegratörlerin (Hızlı, NES, Uyumsoft) ortak yararlanacağı
+        şekilde taşındı. Gelen faturalarda (özellikle Uyumsoft gibi
+        entegratörlerde) UUID standart XSLT akışı için anlamlı değildir —
+        o akış yalnızca giden fatura üretimi için tasarlanmıştır ve gelen
+        faturalarda çağrılırsa hata verir.
+        """
+        self.ensure_one()
+        integrator_code = self._get_integrator_code()
+        use_integrator = (
+            integrator_code and self.UUID and (
+                self.invoice_direction == "incoming" or
+                self.gib_status in ("sent", "approved", "rejected")
+            )
+        )
+        integrator_warning = None
+        if use_integrator:
+            try:
+                ok = self._fetch_and_store_pdf_from_integrator(integrator_code)
+                if not ok:
+                    integrator_warning = _("Entegratörden PDF alınamadı, standart önizleme kullanılıyor.")
+                    use_integrator = False
+            except Exception as e:
+                integrator_warning = _("Entegratör PDF hatası: %s\nStandart önizleme kullanılıyor.") % str(e)
+                use_integrator = False
+
+        if not use_integrator:
+            try:
+                self.pdf_data = self.get_pdf_data()
+            except Exception as e:
+                raise UserError(_("PDF oluşturulamadı:\n%s") % str(e))
+
+        action = {
+            "type": "ir.actions.act_window",
+            "res_model": "l10n_tr.ubl.invoice",
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "res_id": self.id,
+            "target": "current",
+        }
+
+        if integrator_warning:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": _("PDF Uyarısı"),
+                    "message": integrator_warning,
+                    "type": "warning",
+                    "sticky": False,
+                    "next": action,
+                },
+            }
+        return action
 
     def action_fetch_outgoing_status(self):
         """Entegratörden giden faturanın güncel durumunu çeker ve GIB alanlarını günceller."""

@@ -21,8 +21,17 @@ class EDNDocumentManager(models.Model):
     # ------------------------------------------------------------------
     @api.model
     def _get_integrator_client(self, integrator_code: str):
+        # NOT: bu metod çoğu yerde .sudo() edilmiş bir recordset üzerinden
+        # çağrılıyor (ir.rule bypass edilir) — company_id filtresi bu yüzden
+        # burada açıkça uygulanıyor; aksi halde başka şirketin entegratör
+        # credential'ları (kullanıcı adı/şifre) yanlışlıkla kullanılabilir.
         integ = self.env["edn.integrator"].search(
-            [("code", "=", integrator_code), ("active", "=", True)], limit=1
+            [
+                ("code", "=", integrator_code),
+                ("active", "=", True),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
         )
         if not integ:
             raise ValueError(f"Entegratör bulunamadı veya aktif değil: {integrator_code}")
@@ -257,7 +266,12 @@ class EDNDocumentManager(models.Model):
         Mevcut kayıtları günceller, yenilerini ekler.
         """
         integ = self.env["edn.integrator"].search(
-            [("code", "=", integrator_code), ("active", "=", True)], limit=1
+            [
+                ("code", "=", integrator_code),
+                ("active", "=", True),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
         )
         if not integ:
             raise UserError(f"Entegratör bulunamadı: {integrator_code}")

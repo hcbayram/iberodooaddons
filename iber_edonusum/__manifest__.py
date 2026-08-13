@@ -1,14 +1,17 @@
 {
     "name": "İberoDoo E-Dönüşüm Entegratör Çekirdeği",
     "summary": "Plugin tabanlı e-Dönüşüm çekirdeği: entegratör yönetimi, seri kodları, gönderim/alım, log",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "depends": ["base", "iber_e_transform"],
     "data": [
         "security/ir.model.access.csv",
+        "security/multi_company_security.xml",
         "views/edn_integrator_views.xml",
+        "views/edn_invoice_xml_import_wizard_views.xml",
+        "views/edn_invoice_uuid_fetch_wizard_views.xml",
         "views/edn_log_views.xml",
         "views/edn_series_views.xml",
         "views/edn_menu.xml",

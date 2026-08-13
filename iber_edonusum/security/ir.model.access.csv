@@ -4,3 +4,5 @@ access_edn_log_user,access.edn.log.user,model_edn_log,base.group_user,1,0,0,0
 access_edn_log_system,access.edn.log.system,model_edn_log,base.group_system,1,1,1,1
 access_edn_document_manager,access.edn.document.manager,model_edn_document_manager,base.group_system,1,1,1,1
 access_edn_invoice_series_user,access.edn.invoice.series.user,model_edn_invoice_series,base.group_user,1,1,1,1
+access_edn_invoice_xml_import_wizard_user,access.edn.invoice.xml.import.wizard.user,model_edn_invoice_xml_import_wizard,base.group_user,1,1,1,1
+access_edn_invoice_uuid_fetch_wizard_user,access.edn.invoice.uuid.fetch.wizard.user,model_edn_invoice_uuid_fetch_wizard,base.group_user,1,1,1,1

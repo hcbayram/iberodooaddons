@@ -1,7 +1,7 @@
 {
     "name": "İberoDoo E-Dönüşüm Entegratör Çekirdeği",
     "summary": "Plugin tabanlı e-Dönüşüm çekirdeği: entegratör yönetimi, seri kodları, gönderim/alım, log",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class UBL21ConfigSettingsIntegratorExt(models.Model):
@@ -11,7 +11,6 @@ class UBL21ConfigSettingsIntegratorExt(models.Model):
         help="Bağlantı bilgileri ve test/üretim ortamı entegratör kaydından okunur.",
     )
 
-    @api.model
     def action_install_integrator(self):
         """Kurulabilir entegratör addon'larını filtreli listeler."""
         return {

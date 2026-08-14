@@ -24,7 +24,7 @@ extensions = [
 
 setup(
     name='iber_edonusum_nes_core',
-    version='19.0.1.2.0',
+    version='19.0.1.3.0',
     package_dir={'iber_edonusum_nes': ''},
     ext_modules=cythonize(
         extensions,

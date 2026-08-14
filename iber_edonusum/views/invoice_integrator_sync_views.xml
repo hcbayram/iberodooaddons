@@ -46,7 +46,7 @@
                         type="object"
                         class="btn-secondary"
                         invisible="invoice_direction != 'incoming' or account_move_id != False"
-                        title="Creates this incoming e-Invoice as an Odoo system invoice (vendor bill)"/>
+                        title="Creates this incoming e-Invoice as a system invoice (vendor bill)"/>
                     <!-- Gelen fatura: Bağlı sistem faturasına git -->
                     <button name="action_open_account_move"
                         string="Open System Invoice"

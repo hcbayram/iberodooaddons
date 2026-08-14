@@ -41,10 +41,10 @@ class UBLDeliveryNote(models.Model):
     # Odoo 19 native bağlantısı (Seçenek A)
     stock_picking_id = fields.Many2one(
         "stock.picking",
-        string="Odoo Despatch Advice",
+        string="System Despatch Advice",
         index=True,
         ondelete="set null",
-        help="The Odoo stock move that is the source of this UBL despatch advice",
+        help="The System stock move that is the source of this UBL despatch advice",
     )
 
     document_direction = fields.Selection(

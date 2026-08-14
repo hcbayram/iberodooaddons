@@ -1,7 +1,7 @@
 {
     "name": "IberoDoo e-Transformation",
-    "version": "19.0.1.9.0",
-    "summary": "UBL-TR 2.1 e-Invoice and e-Despatch — native Odoo 19 Enterprise integration + multi-ERP support",
+    "version": "19.0.1.10.0",
+    "summary": "UBL-TR 2.1 e-Invoice and e-Despatch — native System integration + multi-ERP support",
     "category": "Accounting",
     "author": "İberoDoo",
     "license": "LGPL-3",

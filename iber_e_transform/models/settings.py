@@ -19,7 +19,7 @@ class UBL21ConfigSettings(models.Model):
     # Not: iber_sap_b1 gibi ek modüller bu listeye kendi seçeneklerini ekler
     active_erp = fields.Selection(
         [
-            ("odoo_native", "Odoo 19 Enterprise (Built-in)"),
+            ("odoo_native", "System (Built-in)"),
             ("other", "Other ERP"),
         ],
         string="Active ERP",

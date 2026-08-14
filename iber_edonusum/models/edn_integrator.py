@@ -22,7 +22,7 @@ class EDNIntegrator(models.Model):
     )
     module_name = fields.Char(
         "Addon Name",
-        help="Name of the Odoo addon that provides this integrator (e.g. iber_edonusum_nes)",
+        help="Name of the System addon that provides this integrator (e.g. iber_edonusum_nes)",
     )
     active = fields.Boolean("Active", default=True)
 

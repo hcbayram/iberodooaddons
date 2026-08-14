@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 ERP_SYSTEM_SELECTION = [
     ("SAP_B1", "SAP Business One"),
-    ("ODOO19", "Odoo 19 Enterprise"),
+    ("ODOO19", "System"),
     ("LOGO", "Logo"),
     ("MIKRO", "Mikro"),
     ("OTHER", "Other"),

@@ -111,10 +111,10 @@ class UBLInvoice(models.Model):
     # Odoo 19 native bağlantısı (Seçenek A: bağımsız kayıt)
     account_move_id = fields.Many2one(
         "account.move",
-        string="Odoo Invoice",
+        string="System Invoice",
         index=True,
         ondelete="set null",
-        help="The Odoo invoice record that is the source of this UBL invoice",
+        help="The System invoice record that is the source of this UBL invoice",
     )
 
     line_ids = fields.One2many("l10n_tr.ubl.invoiceline", "base_document_id", string="Lines")

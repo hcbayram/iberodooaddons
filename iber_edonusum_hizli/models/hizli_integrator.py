@@ -236,10 +236,10 @@ class HizliIntegrator(IntegratorBase):
             if isinstance(enc, list):
                 enc = enc[0] if enc else {}
         except Exception as e:
-            return {"ok": False, "error": f"UtilEncrypt hatası: {e}"}
+            return {"ok": False, "error": f"UtilEncrypt error: {e}"}
 
         if not enc.get("IsSucceeded"):
-            return {"ok": False, "error": f"UtilEncrypt başarısız: {enc.get('Message')}"}
+            return {"ok": False, "error": f"UtilEncrypt failed: {enc.get('Message')}"}
 
         crypto_username = enc.get("username") or enc.get("Username") or ""
         crypto_password = enc.get("password") or enc.get("Password") or ""
@@ -257,10 +257,10 @@ class HizliIntegrator(IntegratorBase):
             if isinstance(login, list):
                 login = login[0] if login else {}
         except Exception as e:
-            return {"ok": False, "error": f"Login hatası: {e}"}
+            return {"ok": False, "error": f"Login error: {e}"}
 
         if not login.get("IsSucceeded"):
-            return {"ok": False, "error": f"Login başarısız: {login.get('Message')}"}
+            return {"ok": False, "error": f"Login failed: {login.get('Message')}"}
 
         token = login.get("Token") or ""
         self._token = token
@@ -507,11 +507,11 @@ class HizliIntegrator(IntegratorBase):
         xml_bytes = xml_result.get("pdf_bytes") or b""
         xml_text = xml_result.get("content") or (xml_bytes.decode("utf-8", errors="replace") if xml_bytes else "")
         if not xml_text:
-            return {"ok": False, "error": "XML içeriği boş"}
+            return {"ok": False, "error": "XML content is empty"}
         try:
             return {"ok": True, "raw": _parse_ubl_xml(xml_text)}
         except Exception as ex:
-            return {"ok": False, "error": f"XML parse hatası: {ex}"}
+            return {"ok": False, "error": f"XML parse error: {ex}"}
 
     def get_incoming_document_pdf(self, uuid: str, doc_type: str = "invoice") -> dict:
         """GET /GetDocumentFile?Tur=PDF — gelen belge PDF'i."""
@@ -540,18 +540,18 @@ class HizliIntegrator(IntegratorBase):
         if isinstance(raw, dict):
             _logger.info("GetDocumentFile JSON keys: %s | IsSucceeded: %s", list(raw.keys()), raw.get("IsSucceeded"))
             if raw.get("IsSucceeded") is False:
-                return {"ok": False, "error": raw.get("Message") or "Dosya alınamadı"}
+                return {"ok": False, "error": raw.get("Message") or "File could not be retrieved"}
             b64 = (raw.get("DocumentFile") or raw.get("Data") or raw.get("data") or
                    raw.get("Content") or raw.get("FileContent") or "")
             if b64:
                 try:
                     return {"ok": True, "pdf_bytes": _b64.b64decode(b64)}
                 except Exception as ex:
-                    return {"ok": False, "error": f"Base64 decode hatası: {ex}"}
-            return {"ok": False, "error": "JSON yanıtında dosya içeriği bulunamadı"}
+                    return {"ok": False, "error": f"Base64 decode error: {ex}"}
+            return {"ok": False, "error": "File content not found in JSON response"}
         # Binary yanıt (direkt PDF/XML bytes)
         if isinstance(raw, (bytes, bytearray)):
             if raw[:4] == b"%PDF" or tur == "PDF":
                 return {"ok": True, "pdf_bytes": raw}
             return {"ok": True, "content": raw.decode("utf-8", errors="replace"), "pdf_bytes": None}
-        return {"ok": False, "error": "Beklenmeyen yanıt formatı"}
+        return {"ok": False, "error": "Unexpected response format"}

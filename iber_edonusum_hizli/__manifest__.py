@@ -1,7 +1,7 @@
 {
-    "name": "İberoDoo Hızlı Teknoloji e-Dönüşüm Entegratörü",
-    "summary": "Hızlı Teknoloji e-Dönüşüm API entegrasyonu — iber_edonusum çerçevesi için Hızlı provider",
-    "version": "19.0.1.3.0",
+    "name": "IberoDoo Hizli Teknoloji e-Transformation Integrator",
+    "summary": "Hizli Teknoloji e-Transformation API integration — Hizli provider for the iber_edonusum framework",
+    "version": "19.0.1.4.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

@@ -1,7 +1,7 @@
 {
     "name": "İberoDoo Uyumsoft e-Dönüşüm Entegratörü",
     "summary": "Uyumsoft e-Fatura/e-Arşiv entegrasyonu — iber_edonusum çerçevesi için Uyumsoft provider",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="SGK Bilgileri" invisible="document_type_code != 'SGK'">
+                    <page string="SGK Information" invisible="document_type_code != 'SGK'">
                         <group>
                             <field name="sgk_invoice_type"/>
                             <field name="sgk_company_code"/>

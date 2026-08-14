@@ -574,14 +574,14 @@ msgstr "Alıcı"
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_customer_extra_id
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoice_customer_id
 msgid "Customer Extra Identification"
-msgstr ""
+msgstr "Alıcı Ek Kimlik"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customer_extra_ids
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__customer_extra_ids
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__customer_extra_ids
 msgid "Customer Identifications"
-msgstr ""
+msgstr "Alıcı Kimlikleri"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customer_name
@@ -595,14 +595,14 @@ msgstr "Alıcı Adı"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__customer_scheme_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__customer_scheme_id
 msgid "Customer Scheme"
-msgstr ""
+msgstr "Alıcı Şeması"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customization_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__customization_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__customization_id
 msgid "Customization"
-msgstr ""
+msgstr "Düzenleme"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__incoterm_code__dap
@@ -630,12 +630,12 @@ msgstr "Teslim Eden"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__delivery_country_code
 msgid "Delivery Country Code"
-msgstr ""
+msgstr "Teslim Ülke Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__delivery_country_name
 msgid "Delivery Country Name"
-msgstr ""
+msgstr "Teslim Ülke Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_driver__delivery_note_id
@@ -644,7 +644,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_profile_id__profile_type__delivery_note
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_type__doc_type__delivery_note
 msgid "Delivery Note"
-msgstr ""
+msgstr "İrsaliye"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_delivery_note_driver
@@ -654,7 +654,7 @@ msgstr "Delivery Note Driver (Sürücü)"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_delivery_note_trailer
 msgid "Delivery Note Trailer (Dorse)"
-msgstr ""
+msgstr "İrsaliye Dorsesi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__transport_type__2
@@ -681,7 +681,7 @@ msgstr "Açıklama"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_despatch_reference__note
 msgid "Description / Note"
-msgstr ""
+msgstr "Açıklama / Not"
 
 #. module: iber_e_transform
 #: model:ir.ui.menu,name:iber_e_transform.menu_ubl_delivery_notes_root
@@ -696,17 +696,17 @@ msgstr "İrsaliye Yönü"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_despatch_reference__despatch_id
 msgid "Despatch Document ID"
-msgstr ""
+msgstr "İrsaliye Belge Numarası"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__despatch_reference_ids
 msgid "Despatch Document References"
-msgstr ""
+msgstr "İrsaliye Belge Referansları"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_despatch_reference__issue_date
 msgid "Despatch Issue Date"
-msgstr ""
+msgstr "İrsaliye Düzenlenme Tarihi"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form
@@ -763,7 +763,7 @@ msgstr "İndirim / Arttırım"
 #: model:ir.model.fields,field_description:iber_e_transform.field_tax_exemption_reason__display_name
 #: model:ir.model.fields,field_description:iber_e_transform.field_ubl21_config_settings__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Görünen Ad"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customer_county
@@ -784,7 +784,7 @@ msgstr "İlçe"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_branch__county
 msgid "District/County"
-msgstr ""
+msgstr "İlçe / İl"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__sgk_invoice_type__diger
@@ -833,7 +833,7 @@ msgstr "Belge Türü"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__document_type_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__document_type_code
 msgid "Document Type Code"
-msgstr ""
+msgstr "Belge Türü Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document__gib_status__draft
@@ -869,29 +869,29 @@ msgstr ""
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_branch_erp_mapping__erp_branch_id
 msgid "ERP Branch ID"
-msgstr ""
+msgstr "Şube ERP ID"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_branch_erp_mapping
 msgid "ERP Branch Mapping"
-msgstr ""
+msgstr "Şube ERP Eşleşmesi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_branch_erp_mapping__erp_branch_name
 msgid "ERP Branch Name"
-msgstr ""
+msgstr "Şube ERP Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customer_card_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__customer_card_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__customer_card_code
 msgid "ERP Card Code"
-msgstr ""
+msgstr "ERP Kart Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_unit_erp_mapping__erp_description
 msgid "ERP Description"
-msgstr ""
+msgstr "ERP Açıklaması"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_erp_field_mapping_info_wizard
@@ -916,7 +916,7 @@ msgstr "ERP Entegrasyonu"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__erp_last_sync_date
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__erp_last_sync_date
 msgid "ERP Last Sync Date"
-msgstr ""
+msgstr "ERP Son Senk. Tarihi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_branch__erp_mapping_ids
@@ -931,14 +931,14 @@ msgstr "ERP Eşleşmeleri"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__erp_object_type
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__erp_object_type
 msgid "ERP Object Type"
-msgstr ""
+msgstr "ERP Nesne Türü"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__customer_receiver_alias
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__customer_receiver_alias
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__customer_receiver_alias
 msgid "ERP Receiver Alias"
-msgstr ""
+msgstr "ERP Alıcı Takma Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_branch_erp_mapping__erp_system
@@ -949,12 +949,12 @@ msgstr ""
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_unit_erp_mapping__erp_code
 msgid "ERP Unit Code"
-msgstr ""
+msgstr "ERP Birim Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_unit_erp_mapping
 msgid "ERP Unit Code Mapping"
-msgstr ""
+msgstr "ERP Birim Kodu Eşleşmesi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__incoterm_code__exw
@@ -976,7 +976,7 @@ msgstr "Hata"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__document_exchange_rate
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__document_exchange_rate
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Kur"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_line_istisna
@@ -1279,7 +1279,7 @@ msgstr "Entegratör Hatası"
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_profile_id__profile_type__invoice
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_type__doc_type__invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fatura"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__invoice_direction
@@ -1294,17 +1294,17 @@ msgstr "Fatura HTML"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_adjustment__line_id
 msgid "Invoice Line"
-msgstr ""
+msgstr "Fatura Satırı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoiceline_adjustment
 msgid "Invoice Line Discount / Surcharge"
-msgstr ""
+msgstr "Fatura Satırı İndirimi / Ek Ücretleri"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoiceline_taxextra
 msgid "Invoice Line Extra Taxes"
-msgstr ""
+msgstr "Fatura Satırı Ek Vergileri"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form
@@ -1316,7 +1316,7 @@ msgstr "Fatura Satırları"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__invoice_note_ids
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__invoice_note_ids
 msgid "Invoice Notes"
-msgstr ""
+msgstr "Fatura Notları"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_preview_wizard_form
@@ -1350,7 +1350,7 @@ msgstr "Faturalar"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__issue_date
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__issue_date
 msgid "Issue Date"
-msgstr ""
+msgstr "Düzenlenme Tarihi"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_invoiceline_details_form
@@ -1367,7 +1367,7 @@ msgstr ""
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Muhasebe Fişi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__container_type__am
@@ -1392,7 +1392,7 @@ msgstr ""
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__kind
 msgid "Kind"
-msgstr ""
+msgstr "Tür"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__transport_type__6
@@ -1527,14 +1527,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_note__line_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_taxextra__line_id
 msgid "Line"
-msgstr ""
+msgstr "Satır"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__line_extension_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__line_extension_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__line_extension_amount
 msgid "Line Amount"
-msgstr ""
+msgstr "Satır Tutarı"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_invoiceline_details_form
@@ -1545,13 +1545,13 @@ msgstr "Satır Detayları"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__line_extension_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__line_extension_total
 msgid "Line Extension Total"
-msgstr ""
+msgstr "Satır Uzantı Toplamı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line_note__note
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_note__note
 msgid "Line Note"
-msgstr ""
+msgstr "Satır Notu"
 
 #. module: iber_e_transform
 #. odoo-python
@@ -1596,35 +1596,35 @@ msgstr "Müşterilerinize düzenlediğiniz e-Faturaları buradan yönetebilirsin
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__manufacturerItemId
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__manufacturerItemId
 msgid "Manufacturer's Item ID"
-msgstr ""
+msgstr "Üretici Ürün Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__product_type__tibbicihaz
 msgid "Medical Device"
-msgstr ""
+msgstr "Medikal Cihaz"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline__product_type__ilac
 msgid "Medicine"
-msgstr ""
+msgstr "İlaç"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__sgk_invoice_type__saglik_med
 msgid "Medikal"
-msgstr ""
+msgstr "Medikal"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_branch_erp_mapping__erp_system__mikro
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_unit_erp_mapping__erp_system__mikro
 msgid "Mikro"
-msgstr ""
+msgstr "Mikro"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__modelName
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__modelName
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__modelName
 msgid "Model Name"
-msgstr ""
+msgstr "Model Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__PaymentMeansCode__10
@@ -1649,7 +1649,7 @@ msgstr "Ad"
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_note__note
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__note
 msgid "Note"
-msgstr ""
+msgstr "Not"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_tax_type__notes
@@ -1719,14 +1719,14 @@ msgstr "Sipariş"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__order_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__order_id
 msgid "Order ID"
-msgstr ""
+msgstr "Sipariş ID"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__order_issue_date
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__order_issue_date
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__order_issue_date
 msgid "Order Issue Date"
-msgstr ""
+msgstr "Sipariş Tarihi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__copy_indicator
@@ -1736,12 +1736,12 @@ msgstr "Asıl/Suret"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__originator_country_code
 msgid "Originator Country Code"
-msgstr ""
+msgstr "Başlatan Ülke Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__originator_country_name
 msgid "Originator Country Name"
-msgstr ""
+msgstr "Başlatan Ülke Adı"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_delivery_note_form
@@ -1834,12 +1834,12 @@ msgstr "Taraf Kimlik Tipleri"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__payable_amount
 msgid "Payable Amount"
-msgstr ""
+msgstr "Ödenecek Tutar"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PayeeFinancialAccount
 msgid "Payee Financial Account"
-msgstr ""
+msgstr "Alacaklı Finansal Hesabı"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form
@@ -1849,22 +1849,22 @@ msgstr "Ödeme"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PaymentChannelCode
 msgid "Payment Channel Code"
-msgstr ""
+msgstr "Ödeme Kanal Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PaymentDueDate
 msgid "Payment Due Date"
-msgstr ""
+msgstr "Ödeme Vadesi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PTPaymentDueDate
 msgid "Payment Due Date (PT)"
-msgstr ""
+msgstr "Ödeme Vadesi (PT)"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PaymentMeansCode
 msgid "Payment Means Code"
-msgstr ""
+msgstr "Ödeme Aracı Kodu"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form
@@ -1879,17 +1879,17 @@ msgstr "Ödeme Koşulları"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PaymentTermsNote
 msgid "Payment Terms Note"
-msgstr ""
+msgstr "Ödeme Koşulları Notu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PenaltyAmount
 msgid "Penalty Amount"
-msgstr ""
+msgstr "Cezai Tutar"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__PenaltySurchargePercent
 msgid "Penalty Surcharge Percent"
-msgstr ""
+msgstr "Cezai Ek Ücret Yüzdesi"
 
 #. module: iber_e_transform
 #. odoo-javascript
@@ -1929,7 +1929,7 @@ msgstr "Posta Kodu"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__product_traceID
 msgid "Product Trace ID"
-msgstr ""
+msgstr "Ürün İzleme ID"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_line_ihracat
@@ -1939,7 +1939,7 @@ msgstr "Ürün İzleme No"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__product_type
 msgid "Product Type"
-msgstr ""
+msgstr "Ürün Türü"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_incoming_delivery_note_list
@@ -1957,21 +1957,21 @@ msgstr "Profil"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__profile_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__profile_code
 msgid "Profile Code"
-msgstr ""
+msgstr "Profil Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__profile_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__profile_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__profile_id
 msgid "Profile ID"
-msgstr ""
+msgstr "Profil Kimliği"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__quantity
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__quantity
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__quantity
 msgid "Quantity"
-msgstr ""
+msgstr "Miktar"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_adjustment__rate
@@ -1984,7 +1984,7 @@ msgstr "Oran (%)"
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_profile_id__profile_type__receipt
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__algebra_base_document_type__doc_type__receipt
 msgid "Receipt"
-msgstr ""
+msgstr "Makbuz"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form_ebelge
@@ -2045,8 +2045,8 @@ msgstr ""
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_sgk_form
-msgid "SGK Bilgileri"
-msgstr ""
+msgid "SGK Information"
+msgstr "SGK Bilgileri"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__sgk_company_code
@@ -2103,17 +2103,17 @@ msgstr "Satan Taraf Adı"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__sellersItemId
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__sellersItemId
 msgid "Seller's Item ID"
-msgstr ""
+msgstr "Satıcı Ürün Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__sellersupplier_country_code
 msgid "Sellersupplier Country Code"
-msgstr ""
+msgstr "Satıcının Ülke Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__sellersupplier_country_name
 msgid "Sellersupplier Country Name"
-msgstr ""
+msgstr "Satıcının Ülke Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__gib_send_date
@@ -2185,12 +2185,12 @@ msgstr "Sıra"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_ubl_common
 msgid "Shared UBL TR Common Logic"
-msgstr ""
+msgstr "Paylaşılan UBL TR Ortak Mantığı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_ubl_json_helper
 msgid "Shared UBL TR Helper Logic"
-msgstr ""
+msgstr "Paylaşılan UBL TR Yardımcı Mantığı"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_outgoing_delivery_note_list
@@ -2241,28 +2241,28 @@ msgstr ""
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_supplier_extra_id
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoice_supplier_id
 msgid "Supplier Extra Identification"
-msgstr ""
+msgstr "Satıcı Ek Kimlik"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__supplier_extra_ids
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__supplier_extra_ids
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__supplier_extra_ids
 msgid "Supplier Identifications"
-msgstr ""
+msgstr "Satıcı Kimlikleri"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__supplier_name
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__supplier_name
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__supplier_name
 msgid "Supplier Name"
-msgstr "Gönderici Adı"
+msgstr "Satıcı Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document__supplier_scheme_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__supplier_scheme_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__supplier_scheme_id
 msgid "Supplier Scheme"
-msgstr ""
+msgstr "Satıcı Şeması"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoiceline_adjustment__type__surcharge
@@ -2346,7 +2346,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__tax_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__tax_amount
 msgid "Tax Amount"
-msgstr ""
+msgstr "Vergi Tutarı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_taxextra__taxable_amount
@@ -2357,7 +2357,7 @@ msgstr "Vergi Baz Tutar"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__tax_category_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__tax_category_code
 msgid "Tax Category Code"
-msgstr ""
+msgstr "Vergi Kategori Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline_taxextra__tax_type_id
@@ -2383,23 +2383,23 @@ msgstr "Vergi Dairesi"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__tax_scheme_code
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__tax_scheme_code
 msgid "Tax Scheme Code"
-msgstr ""
+msgstr "Vergi Şeması Kodu"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__tax_scheme_name
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__tax_scheme_name
 msgid "Tax Scheme Name"
-msgstr ""
+msgstr "Vergi Şeması Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__subtotal_ids
 msgid "Tax Subtotals"
-msgstr ""
+msgstr "Vergi Alt Toplamları"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__tax_total_amount
 msgid "Tax Total Amount"
-msgstr ""
+msgstr "Vergi Toplam Tutarı"
 
 #. module: iber_e_transform
 #: model:ir.actions.act_window,name:iber_e_transform.action_l10n_tr_ubl_tax_type
@@ -2410,7 +2410,7 @@ msgstr "Vergi Tipleri"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_taxsubtotal__taxable_amount
 msgid "Taxable Amount"
-msgstr ""
+msgstr "Vergilendirilebilir Tutar"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form
@@ -2420,12 +2420,12 @@ msgstr "Vergiler"
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__PaymentChannelCode__4
 msgid "Teleks"
-msgstr ""
+msgstr "Teleks"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__PaymentChannelCode__3
 msgid "Telgraf"
-msgstr ""
+msgstr "Telgraf"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,help:iber_e_transform.field_ubl21_config_settings__active_erp
@@ -2490,13 +2490,13 @@ msgstr "Toplam"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__tax_inclusive_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__total_with_tax
 msgid "Total With Tax"
-msgstr ""
+msgstr "Vergi Dahil Toplam"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__tax_exclusive_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__total_without_tax
 msgid "Total Without Tax"
-msgstr ""
+msgstr "Vergi Hariç Toplam"
 
 #. module: iber_e_transform
 #: model_terms:ir.actions.act_window,help:iber_e_transform.action_incoming_delivery_note
@@ -2521,7 +2521,7 @@ msgstr "Dorse/Römork Plakaları"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transfer"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_delivery_note_form
@@ -2531,7 +2531,7 @@ msgstr "Taşıma"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__transport_type
 msgid "Transport Type"
-msgstr ""
+msgstr "Taşıma Tipi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_customer_extra_id__type_id
@@ -2550,7 +2550,7 @@ msgstr "Tür"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_delivery_note_line_note
 msgid "UBL Delivery Note Line Notes"
-msgstr ""
+msgstr "UBL İrsaliye Satır Notları"
 
 #. module: iber_e_transform
 #. odoo-python
@@ -2573,12 +2573,12 @@ msgstr "UBL İrsaliyeler"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_note
 msgid "UBL Document Notes"
-msgstr ""
+msgstr "UBL Belge Notları"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_unit
 msgid "UBL Document Unit Codes"
-msgstr ""
+msgstr "UBL Belge Birim Kodları"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__account_move__ubl_status__draft
@@ -2601,17 +2601,17 @@ msgstr "UBL Fatura Sayısı"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoiceline_note
 msgid "UBL Invoice Line Notes"
-msgstr ""
+msgstr "UBL Fatura Satır Notları"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoice_pdf_preview_wizard
 msgid "UBL Invoice PDF Preview Wizard"
-msgstr ""
+msgstr "UBL Fatura PDF Önizleme Sihirbazı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoice_preview_wizard
 msgid "UBL Invoice Preview"
-msgstr ""
+msgstr "UBL Fatura Önizleme"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_account_bank_statement_line__ubl_invoice_ids
@@ -2638,17 +2638,17 @@ msgstr "UBL Servis URL"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_tax_type
 msgid "UBL Tax Types (KDV, Tevkifat, Stopaj, etc.)"
-msgstr ""
+msgstr "UBL Vergi Türleri (KDV, Tevkifat, Stopaj, vb.)"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_unit_erp_mapping__unit_id
 msgid "UBL Unit"
-msgstr ""
+msgstr "UBL Birim"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_unit__code
 msgid "UBL Unit Code"
-msgstr ""
+msgstr "UBL Birim Kodu"
 
 #. module: iber_e_transform
 #. odoo-python
@@ -2686,67 +2686,67 @@ msgstr "UBL birim kodu (unit_code_id'den türetilir)"
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_delivery_note
 msgid "UBL-TR 2.1 Delivery Note"
-msgstr ""
+msgstr "UBL-TR 2.1 İrsaliye"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoice
 msgid "UBL-TR 2.1 Invoice"
-msgstr ""
+msgstr "UBL-TR 2.1 Fatura"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_ubl21_config_settings
 msgid "UBL-TR 2.1 Settings"
-msgstr ""
+msgstr "UBL-TR 2.1 Ayarları"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document
 msgid "UBL-TR Base Document"
-msgstr ""
+msgstr "UBL-TR Temel Belge"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_delivery_note_line
 msgid "UBL-TR Delivery Note Line"
-msgstr ""
+msgstr "UBL-TR İrsaliye Satırı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_despatch_reference
 msgid "UBL-TR Despatch Document Reference"
-msgstr ""
+msgstr "UBL-TR Sevk Belgesi Referansı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_line
 msgid "UBL-TR Document Line"
-msgstr ""
+msgstr "UBL-TR Belge Satırı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_profile_id
 msgid "UBL-TR Document Profile ID"
-msgstr ""
+msgstr "UBL-TR Belge Profili ID"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_algebra_base_document_type
 msgid "UBL-TR Document Type"
-msgstr ""
+msgstr "UBL-TR Belge Türü"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_invoiceline
 msgid "UBL-TR Invoice Line"
-msgstr ""
+msgstr "UBL-TR Fatura Satırı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_partyid_type
 msgid "UBL-TR Party ID Type"
-msgstr ""
+msgstr "UBL-TR Taraf ID Türü"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_return_reference
 msgid "UBL-TR Return Reference"
-msgstr ""
+msgstr "UBL-TR İade Referansı"
 
 #. module: iber_e_transform
 #: model:ir.model,name:iber_e_transform.model_l10n_tr_ubl_taxsubtotal
 msgid "UBL-TR Tax Subtotal"
-msgstr ""
+msgstr "UBL-TR Vergi Alt Toplamı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,help:iber_e_transform.field_ubl21_config_settings__ubl_service_url
@@ -2758,24 +2758,24 @@ msgstr "UBL XML oluşturma ve gönderme servisi URL adresi"
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note__UUID
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoice__UUID
 msgid "UUID Number of E-Invoice"
-msgstr ""
+msgstr "E-Fatura UUID Numarası"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__PaymentChannelCode__15
 msgid "Ulusal Para Transferi"
-msgstr ""
+msgstr "Ulusal Para Transferi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields.selection,name:iber_e_transform.selection__l10n_tr_ubl_invoice__PaymentChannelCode__14
 msgid "Uluslararası Para Transferi"
-msgstr ""
+msgstr "Uluslararası Para Transferi"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__unit_code_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__unit_code_id
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__unit_code_id
 msgid "Unit"
-msgstr ""
+msgstr "Birim"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__unit_code
@@ -2795,14 +2795,14 @@ msgstr "Birim Kodları"
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_unit__name
 msgid "Unit Name"
-msgstr ""
+msgstr "Birim Adı"
 
 #. module: iber_e_transform
 #: model:ir.model.fields,field_description:iber_e_transform.field_algebra_base_document_line__price_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_delivery_note_line__price_amount
 #: model:ir.model.fields,field_description:iber_e_transform.field_l10n_tr_ubl_invoiceline__price_amount
 msgid "Unit Price"
-msgstr ""
+msgstr "Birim Fiyat"
 
 #. module: iber_e_transform
 #. odoo-javascript
@@ -2908,8 +2908,8 @@ msgstr "Araç Plakası"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_l10n_tr_ubl_tax_type_list
-msgid "Vergi Tipleri"
-msgstr ""
+msgid "Tax Types"
+msgstr "Vergi Tipleri"
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_form

@@ -2077,7 +2077,7 @@ msgstr ""
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_ubl_invoice_sgk_form
-msgid "SGK Bilgileri"
+msgid "SGK Information"
 msgstr ""
 
 #. module: iber_e_transform
@@ -2967,7 +2967,7 @@ msgstr ""
 
 #. module: iber_e_transform
 #: model_terms:ir.ui.view,arch_db:iber_e_transform.view_l10n_tr_ubl_tax_type_list
-msgid "Vergi Tipleri"
+msgid "Tax Types"
 msgstr ""
 
 #. module: iber_e_transform

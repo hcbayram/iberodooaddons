@@ -4,62 +4,62 @@ from odoo import models, fields, api
 
 class EDNIntegrator(models.Model):
     _name = "edn.integrator"
-    _description = "E-Dönüşüm Entegratörü"
+    _description = "e-Transformation Integrator"
     _rec_name = "name"
 
-    name = fields.Char("Entegratör Adı", required=True)
+    name = fields.Char("Integrator Name", required=True)
     company_id = fields.Many2one(
         "res.company",
-        string="Şirket",
+        string="Company",
         required=True,
         index=True,
         default=lambda self: self.env.company,
     )
     code = fields.Char(
-        "Kod",
+        "Code",
         required=True,
-        help="Factory tarafından kullanılan entegratör kodu (NES, UYUMSOFT, FORIBA vb.)",
+        help="Integrator code used by the factory (NES, UYUMSOFT, FORIBA, etc.)",
     )
     module_name = fields.Char(
-        "Addon Adı",
-        help="Bu entegratörü sağlayan Odoo addon adı (örn. iber_edonusum_nes)",
+        "Addon Name",
+        help="Name of the Odoo addon that provides this integrator (e.g. iber_edonusum_nes)",
     )
-    active = fields.Boolean("Aktif", default=True)
+    active = fields.Boolean("Active", default=True)
 
     is_test = fields.Boolean(
-        "Test Ortamı Aktif",
+        "Test Environment Active",
         default=True,
-        help="Etkin olduğunda test credential'ları kullanılır; kapalıysa üretim credential'ları kullanılır.",
+        help="When enabled, test credentials are used; when disabled, production credentials are used.",
     )
 
     # Üretim bağlantı bilgileri
-    base_url = fields.Char("API URL (Üretim)")
-    username = fields.Char("Kullanıcı Adı (Üretim)")
-    password = fields.Char("Şifre (Üretim)")
-    apikey = fields.Char("API Key (Üretim)")
-    token = fields.Char("Token (Üretim)", help="Login sonrası Bearer token — otomatik doldurulur")
+    base_url = fields.Char("API URL (Production)")
+    username = fields.Char("Username (Production)")
+    password = fields.Char("Password (Production)")
+    apikey = fields.Char("API Key (Production)")
+    token = fields.Char("Token (Production)", help="Bearer token after login — filled automatically")
 
     # Test bağlantı bilgileri
     test_base_url = fields.Char("API URL (Test)")
-    test_username = fields.Char("Kullanıcı Adı (Test)")
-    test_password = fields.Char("Şifre (Test)")
+    test_username = fields.Char("Username (Test)")
+    test_password = fields.Char("Password (Test)")
     test_apikey = fields.Char("API Key (Test)")
-    test_token = fields.Char("Token (Test)", help="Login sonrası Bearer token — otomatik doldurulur")
+    test_token = fields.Char("Token (Test)", help="Bearer token after login — filled automatically")
 
     extra = fields.Text(
-        "Ek Parametreler (JSON)",
-        help='Entegratöre özgü alanlar: secretkey, token_expiry, test_secretkey, test_token_expiry vb.\nÖrn: {"secretkey": "abc", "token_expiry": "2026-06-30T10:00:00"}',
+        "Additional Parameters (JSON)",
+        help='Integrator-specific fields: secretkey, token_expiry, test_secretkey, test_token_expiry, etc.\nE.g.: {"secretkey": "abc", "token_expiry": "2026-06-30T10:00:00"}',
     )
 
     series_ids = fields.One2many(
         "edn.invoice.series",
         "integrator_id",
-        string="Kayıtlı Seriler",
+        string="Registered Series",
     )
 
     _sql_constraints = [
         ("code_company_unique", "unique(code, company_id)",
-         "Bu entegratör kodu için şirket başına yalnızca 1 kayıt olabilir!")
+         "Only 1 record can exist per company for this integrator code!")
     ]
 
     def action_fetch_series(self):
@@ -70,8 +70,8 @@ class EDNIntegrator(models.Model):
                 "type": "ir.actions.client",
                 "tag": "display_notification",
                 "params": {
-                    "title": "Seriler Güncellendi",
-                    "message": f"{result['synced']} seri kodu senkronize edildi.",
+                    "title": "Series Updated",
+                    "message": f"{result['synced']} series code(s) synced.",
                     "type": "success",
                     "sticky": False,
                 },
@@ -80,8 +80,8 @@ class EDNIntegrator(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": "Kısmi Hata",
-                "message": result.get("error", "Bilinmeyen hata"),
+                "title": "Partial Error",
+                "message": result.get("error", "Unknown error"),
                 "type": "warning",
                 "sticky": True,
             },

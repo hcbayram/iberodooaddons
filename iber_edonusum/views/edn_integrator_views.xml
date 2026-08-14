@@ -5,7 +5,7 @@
             <field name="name">edn.integrator.list</field>
             <field name="model">edn.integrator</field>
             <field name="arch" type="xml">
-                <list string="Entegratörler">
+                <list string="Integrators">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="company_id" groups="base.group_multi_company"/>
@@ -20,14 +20,14 @@
             <field name="name">edn.integrator.form</field>
             <field name="model">edn.integrator</field>
             <field name="arch" type="xml">
-                <form string="Entegratör">
+                <form string="Integrator">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button name="action_fetch_series"
                                 type="object"
                                 class="oe_stat_button"
                                 icon="fa-list"
-                                string="Serileri Güncelle"/>
+                                string="Update Series"/>
                         </div>
                         <group>
                             <group>
@@ -43,12 +43,12 @@
                         </group>
 
                         <notebook>
-                            <page string="Üretim Bağlantısı" name="prod_creds">
+                            <page string="Production Connection" name="prod_creds">
                                 <group>
-                                    <group string="Bağlantı">
+                                    <group string="Connection">
                                         <field name="base_url" placeholder="https://api.entegrator.com"/>
                                     </group>
-                                    <group string="Kimlik Doğrulama">
+                                    <group string="Authentication">
                                         <field name="username"/>
                                         <field name="password" password="True"/>
                                         <field name="apikey"/>
@@ -56,12 +56,12 @@
                                     </group>
                                 </group>
                             </page>
-                            <page string="Test Bağlantısı" name="test_creds">
+                            <page string="Test Connection" name="test_creds">
                                 <group>
-                                    <group string="Bağlantı">
+                                    <group string="Connection">
                                         <field name="test_base_url" placeholder="https://test-api.entegrator.com"/>
                                     </group>
-                                    <group string="Kimlik Doğrulama">
+                                    <group string="Authentication">
                                         <field name="test_username"/>
                                         <field name="test_password" password="True"/>
                                         <field name="test_apikey"/>
@@ -69,7 +69,7 @@
                                     </group>
                                 </group>
                             </page>
-                            <page string="Seriler" name="series">
+                            <page string="Series" name="series">
                                 <field name="series_ids" readonly="1">
                                     <list>
                                         <field name="prefix"/>
@@ -78,7 +78,7 @@
                                     </list>
                                 </field>
                             </page>
-                            <page string="Ek Parametreler" name="extra_params">
+                            <page string="Additional Parameters" name="extra_params">
                                 <field name="extra"
                                     placeholder='{"timeout": 60, "custom_header": "value"}'
                                     nolabel="1"/>
@@ -90,7 +90,7 @@
         </record>
 
         <record id="action_edn_integrators" model="ir.actions.act_window">
-            <field name="name">Entegratörler</field>
+            <field name="name">Integrators</field>
             <field name="res_model">edn.integrator</field>
             <field name="view_mode">list,form</field>
         </record>

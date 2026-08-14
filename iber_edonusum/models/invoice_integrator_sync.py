@@ -317,8 +317,8 @@ class UBLInvoiceIntegratorSync(models.Model):
         integrator_code = settings.integrator_id.code if settings.integrator_id else None
         if not integrator_code:
             raise UserError(
-                "Ayarlarda aktif entegratör tanımlı değil.\n"
-                "İberoDoo → Ayarlar → Entegratör alanını doldurun."
+                "No active integrator is defined in settings.\n"
+                "Fill in the IberoDoo → Settings → Integrator field."
             )
         mgr = self.env["edn.document.manager"].sudo()
         client = mgr._get_integrator_client(integrator_code)
@@ -377,8 +377,8 @@ class UBLInvoiceIntegratorSync(models.Model):
             )
             if not result.get("ok"):
                 raise UserError(
-                    f"Entegratörden veri alınamadı ({start_str}→{end_str}):\n"
-                    f"{result.get('error', 'Bilinmeyen hata')}"
+                    f"Could not fetch data from integrator ({start_str}→{end_str}):\n"
+                    f"{result.get('error', 'Unknown error')}"
                 )
             # Entegratörler normalize "documents" listesi döndürür.
             # "raw" ham API yanıtı olup liste olabilir — üzerinde .get() çağrılmaz.
@@ -422,10 +422,10 @@ class UBLInvoiceIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Entegratörden Faturalar Alındı"),
+                "title": _("Invoices Fetched from Integrator"),
                 "message": _(
-                    "%(total)d fatura değerlendirildi.\n"
-                    "Yeni: %(c)d  |  Zaten sistemde (atlandı): %(s)d  |  Hata: %(e)d"
+                    "%(total)d invoice(s) evaluated.\n"
+                    "New: %(c)d  |  Already in system (skipped): %(s)d  |  Errors: %(e)d"
                 ) % {"total": created + skipped + errors,
                      "c": created, "s": skipped, "e": errors},
                 "type": "success" if not errors else "warning",
@@ -500,15 +500,15 @@ class UBLInvoiceIntegratorSync(models.Model):
         integrator_code = integrator.code if integrator else None
         if not integrator_code:
             raise UserError(_(
-                "Ayarlarda aktif entegratör tanımlı değil.\n"
-                "İberoDoo → Ayarlar → Entegratör alanını doldurun."
+                "No active integrator is defined in settings.\n"
+                "Fill in the IberoDoo → Settings → Integrator field."
             ))
         if not integrator.is_test:
             raise UserError(_(
-                "Bu işlem yalnızca test ortamı aktif olan bir entegratörde "
-                "kullanılabilir (Yapılandırma → İntegratörler → 'Test "
-                "Ortamı Aktif'). Üretim entegratöründe tarihsiz/limitsiz "
-                "sorgu istenmeyen yüke yol açabilir."
+                "This action can only be used on an integrator with the "
+                "test environment active (Configuration → Integrators → "
+                "'Test Environment Active'). Running an unbounded query on "
+                "a production integrator could cause unwanted load."
             ))
 
         mgr = self.env["edn.document.manager"].sudo()
@@ -524,8 +524,8 @@ class UBLInvoiceIntegratorSync(models.Model):
         )
         if not result.get("ok"):
             raise UserError(_(
-                "Entegratörden veri alınamadı:\n%s"
-            ) % result.get("error", "Bilinmeyen hata"))
+                "Could not fetch data from integrator:\n%s"
+            ) % result.get("error", "Unknown error"))
 
         items = result.get("documents") or []
         if not items:
@@ -556,10 +556,10 @@ class UBLInvoiceIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Entegratörden Son %d Fatura (Test)") % n,
+                "title": _("Last %d Invoices from Integrator (Test)") % n,
                 "message": _(
-                    "%(total)d fatura değerlendirildi.\n"
-                    "Yeni: %(c)d  |  Zaten sistemde (atlandı): %(s)d  |  Hata: %(e)d"
+                    "%(total)d invoice(s) evaluated.\n"
+                    "New: %(c)d  |  Already in system (skipped): %(s)d  |  Errors: %(e)d"
                 ) % {"total": created + skipped + errors,
                      "c": created, "s": skipped, "e": errors},
                 "type": "success" if not errors else "warning",
@@ -584,7 +584,7 @@ class UBLInvoiceIntegratorSync(models.Model):
         """
         doc_uuid = (doc_uuid or "").strip()
         if not doc_uuid:
-            raise UserError(_("UUID boş olamaz."))
+            raise UserError(_("UUID cannot be empty."))
 
         existing = self.search([
             ("UUID", "=", doc_uuid),
@@ -592,27 +592,27 @@ class UBLInvoiceIntegratorSync(models.Model):
         ], limit=1)
         if existing:
             raise UserError(_(
-                "Bu belge zaten sistemde mevcut (Belge No: %s)."
+                "This document already exists in the system (Document No: %s)."
             ) % existing.id_value)
 
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_code = settings.integrator_id.code if settings.integrator_id else None
         if not integrator_code:
             raise UserError(_(
-                "Ayarlarda aktif entegratör tanımlı değil.\n"
-                "İberoDoo → Ayarlar → Entegratör alanını doldurun."
+                "No active integrator is defined in settings.\n"
+                "Fill in the IberoDoo → Settings → Integrator field."
             ))
 
         mgr = self.env["edn.document.manager"].sudo()
         client = mgr._get_integrator_client(integrator_code)
         if not hasattr(client, "get_invoice_lines"):
-            raise UserError(_("Bu entegratör UUID ile tekil belge çekmeyi desteklemiyor."))
+            raise UserError(_("This integrator does not support fetching a single document by UUID."))
 
         xl = client.get_invoice_lines(doc_uuid)
         if not xl.get("ok"):
             raise UserError(_(
-                "Belge UUID ile alınamadı:\n%s"
-            ) % xl.get("error", "Bilinmeyen hata"))
+                "Could not fetch document by UUID:\n%s"
+            ) % xl.get("error", "Unknown error"))
 
         xml_raw = xl.get("raw") or {}
         xh = xml_raw.get("header") or {}
@@ -654,19 +654,19 @@ class UBLInvoiceIntegratorSync(models.Model):
         """
         self.ensure_one()
         if not self.UUID:
-            raise UserError(_("Bu faturada UUID bulunamadı."))
+            raise UserError(_("No UUID found on this invoice."))
 
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_code = settings.integrator_id.code if settings.integrator_id else None
         if not integrator_code:
-            raise UserError(_("Ayarlarda aktif entegratör tanımlı değil."))
+            raise UserError(_("No active integrator is defined in settings."))
 
         mgr = self.env["edn.document.manager"].sudo()
         client = mgr._get_integrator_client(integrator_code)
         xml_result = client.get_invoice_lines(self.UUID)
         if not xml_result.get("ok"):
             raise UserError(
-                _("XML alınamadı:\n%s") % xml_result.get("error", "Bilinmeyen hata")
+                _("Could not fetch XML:\n%s") % xml_result.get("error", "Unknown error")
             )
 
         raw = xml_result.get("raw") or {}
@@ -702,8 +702,8 @@ class UBLInvoiceIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Fatura Güncellendi"),
-                "message": _("%s no'lu fatura %s'ten güncellendi.") % (self.id_value, integrator_code),
+                "title": _("Invoice Updated"),
+                "message": _("Invoice %s updated from %s.") % (self.id_value, integrator_code),
                 "type": "success",
                 "sticky": False,
                 # Satırlar unlink+create ile yenilendiğinden formu da yeniden yükle;
@@ -732,7 +732,7 @@ class UBLInvoiceIntegratorSync(models.Model):
         """
         settings = self.env["ubl21.config.settings"].get_singleton()
         if not settings:
-            raise UserError("Ayarlar bulunamadı.")
+            raise UserError("Settings not found.")
 
         if settings.active_erp == "sap_b1":
             return self.action_sync_from_erp()
@@ -794,10 +794,10 @@ class UBLInvoiceIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Faturalar Güncellendi"),
+                "title": _("Invoices Updated"),
                 "message": _(
-                    "Oluşturulan: %(c)d  |  Güncellenen: %(u)d  |  "
-                    "Atlanan: %(s)d  |  Hata: %(e)d"
+                    "Created: %(c)d  |  Updated: %(u)d  |  "
+                    "Skipped: %(s)d  |  Errors: %(e)d"
                 ) % {"c": created, "u": updated, "s": skipped, "e": errors},
                 "type": "success" if not errors else "warning",
                 "sticky": bool(errors),
@@ -856,17 +856,17 @@ class UBLInvoiceIntegratorSync(models.Model):
             try:
                 ok = self._fetch_and_store_pdf_from_integrator(integrator_code)
                 if not ok:
-                    integrator_warning = _("Entegratörden PDF alınamadı, standart önizleme kullanılıyor.")
+                    integrator_warning = _("Could not fetch PDF from the integrator, using standard preview.")
                     use_integrator = False
             except Exception as e:
-                integrator_warning = _("Entegratör PDF hatası: %s\nStandart önizleme kullanılıyor.") % str(e)
+                integrator_warning = _("Integrator PDF error: %s\nUsing standard preview.") % str(e)
                 use_integrator = False
 
         if not use_integrator:
             try:
                 self.pdf_data = self.get_pdf_data()
             except Exception as e:
-                raise UserError(_("PDF oluşturulamadı:\n%s") % str(e))
+                raise UserError(_("Could not generate PDF:\n%s") % str(e))
 
         action = {
             "type": "ir.actions.act_window",
@@ -882,7 +882,7 @@ class UBLInvoiceIntegratorSync(models.Model):
                 "type": "ir.actions.client",
                 "tag": "display_notification",
                 "params": {
-                    "title": _("PDF Uyarısı"),
+                    "title": _("PDF Warning"),
                     "message": integrator_warning,
                     "type": "warning",
                     "sticky": False,
@@ -896,15 +896,15 @@ class UBLInvoiceIntegratorSync(models.Model):
         self.ensure_one()
 
         if not self.UUID:
-            raise UserError("Bu faturada UUID bulunamadı. Önce GIB'e gönderin.")
+            raise UserError("No UUID found on this invoice. Send it to GIB first.")
         if self.invoice_direction != "outgoing":
-            raise UserError("Bu işlem yalnızca giden faturalar için geçerlidir.")
+            raise UserError("This action is only valid for outgoing invoices.")
 
         integrator_code = self._get_integrator_code()
         if not integrator_code:
             raise UserError(
-                "Ayarlarda aktif entegratör tanımlı değil. "
-                "Lütfen İberoDoo → Ayarlar → Entegratör alanını doldurun."
+                "No active integrator is defined in settings. "
+                "Please fill in the IberoDoo → Settings → Integrator field."
             )
 
         mgr = self.env["edn.document.manager"]
@@ -912,7 +912,7 @@ class UBLInvoiceIntegratorSync(models.Model):
 
         if not result.get("ok"):
             raise UserError(
-                f"Entegratörden durum alınamadı:\n{result.get('error', 'Bilinmeyen hata')}"
+                f"Could not fetch status from integrator:\n{result.get('error', 'Unknown error')}"
             )
 
         client = mgr._get_integrator_client(integrator_code)

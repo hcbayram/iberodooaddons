@@ -9,9 +9,9 @@ from odoo import models, fields
 
 class EdnInvoiceUuidFetchWizard(models.TransientModel):
     _name = "edn.invoice.uuid.fetch.wizard"
-    _description = "Gelen e-Fatura: UUID İle Getir"
+    _description = "Incoming e-Invoice: Fetch by UUID"
 
-    doc_uuid = fields.Char("Fatura UUID (GUID)", required=True)
+    doc_uuid = fields.Char("Invoice UUID (GUID)", required=True)
 
     def action_fetch(self):
         self.ensure_one()

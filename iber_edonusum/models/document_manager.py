@@ -13,7 +13,7 @@ class EDNDocumentManager(models.Model):
     iber_service_layer'ın send_ubl_xml endpoint'i bu modeli çağırır.
     """
     _name = "edn.document.manager"
-    _description = "E-Dönüşüm Belge Yönetimi"
+    _description = "e-Transformation Document Management"
     _log_access = False  # kayıt oluşturmuyor
 
     # ------------------------------------------------------------------
@@ -34,7 +34,7 @@ class EDNDocumentManager(models.Model):
             limit=1,
         )
         if not integ:
-            raise ValueError(f"Entegratör bulunamadı veya aktif değil: {integrator_code}")
+            raise ValueError(f"Integrator not found or not active: {integrator_code}")
         settings = self._make_settings(integ)
         client = get_integrator(integrator_code, settings)
         # Token yoksa veya süresi dolmuşsa yeniden login yap
@@ -168,7 +168,7 @@ class EDNDocumentManager(models.Model):
             if isinstance(document_data, dict) else None
         )
         if not integrator_code:
-            raise ValueError("IntegratorInfo.IntegratorCode eksik.")
+            raise ValueError("IntegratorInfo.IntegratorCode is missing.")
 
         client = self._get_integrator_client(integrator_code)
         result = client.send_document(document_data)
@@ -279,7 +279,7 @@ class EDNDocumentManager(models.Model):
             limit=1,
         )
         if not integ:
-            raise UserError(f"Entegratör bulunamadı: {integrator_code}")
+            raise UserError(f"Integrator not found: {integrator_code}")
 
         client = self._get_integrator_client(integrator_code)
         synced = 0

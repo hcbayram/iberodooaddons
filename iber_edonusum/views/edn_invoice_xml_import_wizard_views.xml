@@ -4,21 +4,21 @@
         <field name="name">edn.invoice.xml.import.wizard.form</field>
         <field name="model">edn.invoice.xml.import.wizard</field>
         <field name="arch" type="xml">
-            <form string="Gelen e-Fatura: XML'den İçe Aktar">
+            <form string="Incoming e-Invoice: Import from XML">
                 <p class="text-muted">
-                    Entegratörden çekilemeyen (ör. paylaşımlı test hesabında
-                    başka bir kullanıcı tarafından "alındı" olarak
-                    işaretlenmiş) bir belgenin ham UBL-TR XML dosyasını
-                    doğrudan içe aktarın.
+                    Directly import the raw UBL-TR XML file of a document
+                    that could not be fetched from the integrator (e.g.
+                    marked as "received" by another user on a shared test
+                    account).
                 </p>
                 <group>
                     <field name="xml_file" filename="xml_filename"/>
                     <field name="xml_filename" invisible="1"/>
                 </group>
                 <footer>
-                    <button name="action_import" string="İçe Aktar"
+                    <button name="action_import" string="Import"
                         type="object" class="btn-primary"/>
-                    <button string="İptal" special="cancel" class="btn-secondary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
                 </footer>
             </form>
         </field>

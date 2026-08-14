@@ -7,7 +7,7 @@
             <field name="name">edn.invoice.series.list</field>
             <field name="model">edn.invoice.series</field>
             <field name="arch" type="xml">
-                <list string="Seri Kodları">
+                <list string="Series Codes">
                     <field name="integrator_id"/>
                     <field name="prefix"/>
                     <field name="document_type"/>
@@ -28,18 +28,18 @@
                 <xpath expr="//field[@name='extra']" position="after">
                     <div class="mt-2 mb-2">
                         <button name="action_fetch_series"
-                            string="Serileri Güncelle"
+                            string="Update Series"
                             type="object"
                             class="btn btn-secondary"
                             icon="fa-refresh"/>
                     </div>
-                    <separator string="Kayıtlı GIB Seri Kodları"/>
+                    <separator string="Registered GIB Series Codes"/>
                     <field name="series_ids" nolabel="1">
                         <list create="0" delete="0">
                             <field name="prefix" string="Prefix"/>
-                            <field name="document_type" string="Tür"/>
-                            <field name="description" string="Açıklama"/>
-                            <field name="active" string="Aktif"/>
+                            <field name="document_type" string="Type"/>
+                            <field name="description" string="Description"/>
+                            <field name="active" string="Active"/>
                         </list>
                     </field>
                 </xpath>

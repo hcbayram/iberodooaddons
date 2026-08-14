@@ -3,13 +3,13 @@
     <data>
         <!-- E-Dönüşüm ana menüsü iber_e_transform'da, alt menüler buraya ekleniyor -->
         <menuitem id="menu_edn_integrators"
-            name="Entegratörler"
+            name="Integrators"
             parent="iber_e_transform.menu_e_transform_config_entegrasyon"
             action="iber_edonusum.action_edn_integrators"
             sequence="20"/>
 
         <menuitem id="menu_edn_logs"
-            name="Gönderim Logu"
+            name="Send Log"
             parent="iber_e_transform.menu_e_transform_config_genel"
             action="iber_edonusum.action_edn_logs"
             sequence="80"/>

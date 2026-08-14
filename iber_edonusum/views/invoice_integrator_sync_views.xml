@@ -15,41 +15,41 @@
                 <button name="action_send_to_ubl_service" position="replace">
                     <!-- Giden fatura: GIB'e Gönder -->
                     <button name="action_send_to_ubl_service"
-                        string="GIB'e Gönder"
+                        string="Send to GIB"
                         type="object"
                         class="btn-primary"
                         invisible="invoice_direction != 'outgoing' or gib_status in ['sent','approved']"/>
                     <!-- Giden fatura: Faturaları Güncelle (draft) -->
                     <button name="action_sync_outgoing_from_erp"
-                        string="Faturaları Güncelle"
+                        string="Update Invoices"
                         type="object"
                         class="btn-secondary"
                         invisible="invoice_direction != 'outgoing' or gib_status != 'draft'"
-                        title="ERP'deki güncel veriyle bu faturayı senkronize eder"/>
+                        title="Syncs this invoice with the latest data from the ERP"/>
                     <!-- Gelen fatura: Bu faturayı entegratörden güncelle -->
                     <button name="action_fetch_single_incoming"
-                        string="Entegratörden Güncelle"
+                        string="Update from Integrator"
                         type="object"
                         class="btn-primary"
                         invisible="invoice_direction != 'incoming'"
-                        title="Bu faturayı entegratörden XML çekerek günceller"/>
+                        title="Updates this invoice by fetching XML from the integrator"/>
                     <!-- Giden fatura: Entegratörden güncel durumu çek -->
                     <button name="action_fetch_outgoing_status"
-                        string="Entegratör Durumunu Sorgula"
+                        string="Query Integrator Status"
                         type="object"
                         class="btn-secondary"
                         invisible="not UUID or invoice_direction != 'outgoing'"
-                        title="Entegratör API'sinden giden faturanın güncel durumunu çeker"/>
+                        title="Fetches the outgoing invoice's current status from the integrator API"/>
                     <!-- Gelen fatura: Sistem faturasına dönüştür -->
                     <button name="action_convert_to_account_move"
-                        string="Sistem Faturasına Dönüştür"
+                        string="Convert to System Invoice"
                         type="object"
                         class="btn-secondary"
                         invisible="invoice_direction != 'incoming' or account_move_id != False"
-                        title="Bu gelen e-Faturayı Odoo sistem faturası (vendor bill) olarak oluşturur"/>
+                        title="Creates this incoming e-Invoice as an Odoo system invoice (vendor bill)"/>
                     <!-- Gelen fatura: Bağlı sistem faturasına git -->
                     <button name="action_open_account_move"
-                        string="Sistem Faturasını Aç"
+                        string="Open System Invoice"
                         type="object"
                         class="btn-info"
                         invisible="invoice_direction != 'incoming' or account_move_id == False"/>
@@ -62,7 +62,7 @@
              GELEN FATURALAR — Liste üstü server action
         ============================================================ -->
         <record id="action_server_fetch_incoming_from_integrator" model="ir.actions.server">
-            <field name="name">Entegratörden Faturaları Getir</field>
+            <field name="name">Fetch Invoices from Integrator</field>
             <field name="model_id" ref="iber_e_transform.model_l10n_tr_ubl_invoice"/>
             <field name="binding_model_id" ref="iber_e_transform.model_l10n_tr_ubl_invoice"/>
             <field name="binding_view_types">list</field>
@@ -77,16 +77,16 @@
             <field name="name">l10n_tr.ubl.invoice.incoming.search.convert</field>
             <field name="model">l10n_tr.ubl.invoice</field>
             <field name="arch" type="xml">
-                <search string="Gelen Faturalar Arama">
-                    <field name="id_value" string="Fatura No"/>
-                    <field name="supplier_name" string="Gönderici"/>
+                <search string="Incoming Invoices Search">
+                    <field name="id_value" string="Invoice No"/>
+                    <field name="supplier_name" string="Supplier"/>
                     <field name="supplier_vkn_tckn" string="VKN/TCKN"/>
                     <separator/>
-                    <filter name="not_converted" string="Sisteme Alınmayanlar"
+                    <filter name="not_converted" string="Not Imported to System"
                         domain="[('account_move_id', '=', False)]"/>
-                    <filter name="converted" string="Sisteme Alınanlar"
+                    <filter name="converted" string="Imported to System"
                         domain="[('account_move_id', '!=', False)]"/>
-                    <filter name="all_invoices" string="Tümü"
+                    <filter name="all_invoices" string="All"
                         domain="[]"/>
                 </search>
             </field>
@@ -103,7 +103,7 @@
              iber_e_transform'daki "ERP'den UBL Oluştur" action'ını override eder
         ============================================================ -->
         <record id="iber_e_transform.action_server_sync_invoices_from_erp" model="ir.actions.server">
-            <field name="name">Faturaları Güncelle</field>
+            <field name="name">Update Invoices</field>
             <field name="code">action = model.action_sync_outgoing_from_erp()</field>
         </record>
 

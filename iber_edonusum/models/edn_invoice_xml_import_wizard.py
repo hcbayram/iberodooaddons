@@ -24,24 +24,24 @@ _logger = logging.getLogger(__name__)
 
 class EdnInvoiceXmlImportWizard(models.TransientModel):
     _name = "edn.invoice.xml.import.wizard"
-    _description = "Gelen e-Fatura: XML'den İçe Aktar"
+    _description = "Incoming e-Invoice: Import from XML"
 
-    xml_file = fields.Binary("UBL-TR XML Dosyası", required=True)
-    xml_filename = fields.Char("Dosya Adı")
+    xml_file = fields.Binary("UBL-TR XML File", required=True)
+    xml_filename = fields.Char("File Name")
 
     def action_import(self):
         self.ensure_one()
         try:
             xml_text = base64.b64decode(self.xml_file).decode("utf-8")
         except Exception as exc:
-            raise UserError(_("XML dosyası okunamadı/çözümlenemedi: %s") % exc)
+            raise UserError(_("Could not read/decode the XML file: %s") % exc)
 
         try:
             parsed = parse_incoming_ubl_xml(xml_text)
         except Exception as exc:
             raise UserError(_(
-                "XML ayrıştırılamadı — geçerli bir UBL-TR fatura XML'i "
-                "olduğundan emin olun.\nHata: %s"
+                "Could not parse the XML — make sure it is a valid UBL-TR "
+                "invoice XML.\nError: %s"
             ) % exc)
 
         header = parsed.get("header") or {}
@@ -66,7 +66,7 @@ class EdnInvoiceXmlImportWizard(models.TransientModel):
         ], limit=1)
         if existing:
             raise UserError(_(
-                "Bu belge zaten sistemde mevcut (Belge No: %s, UUID: %s)."
+                "This document already exists in the system (Document No: %s, UUID: %s)."
             ) % (existing.id_value, doc_uuid))
 
         fake_item = {

@@ -8,36 +8,36 @@ class EDNInvoiceSeries(models.Model):
     Seçilen seri, UBL belge numarası oluşturulurken prefix olarak kullanılır.
     """
     _name = "edn.invoice.series"
-    _description = "E-Dönüşüm Seri Kodları"
+    _description = "e-Transformation Series Codes"
     _order = "document_type, prefix"
     _rec_name = "prefix"
 
     integrator_id = fields.Many2one(
         "edn.integrator",
-        string="Entegratör",
+        string="Integrator",
         required=True,
         ondelete="cascade",
     )
-    prefix = fields.Char("Seri Prefix", required=True, help="3 büyük harf, örn: IBR")
+    prefix = fields.Char("Series Prefix", required=True, help="3 uppercase letters, e.g.: IBR")
     document_type = fields.Selection(
         [
-            ("invoice", "e-Fatura"),
-            ("earchive", "e-Arşiv Fatura"),
-            ("despatch", "e-İrsaliye"),
+            ("invoice", "e-Invoice"),
+            ("earchive", "e-Archive Invoice"),
+            ("despatch", "e-Despatch"),
         ],
-        string="Belge Türü",
+        string="Document Type",
         required=True,
         default="invoice",
     )
-    description = fields.Char("Açıklama")
-    raw_data = fields.Text("Ham Veri (JSON)")
-    active = fields.Boolean("Aktif", default=True)
+    description = fields.Char("Description")
+    raw_data = fields.Text("Raw Data (JSON)")
+    active = fields.Boolean("Active", default=True)
 
     _sql_constraints = [
         (
             "prefix_type_integrator_unique",
             "unique(integrator_id, prefix, document_type)",
-            "Bu entegratör için aynı prefix/tür kombinasyonu zaten mevcut.",
+            "This prefix/type combination already exists for this integrator.",
         )
     ]
 

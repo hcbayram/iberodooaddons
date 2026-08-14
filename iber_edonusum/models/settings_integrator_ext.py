@@ -7,15 +7,15 @@ class UBL21ConfigSettingsIntegratorExt(models.Model):
 
     integrator_id = fields.Many2one(
         "edn.integrator",
-        string="Aktif Entegratör",
-        help="Bağlantı bilgileri ve test/üretim ortamı entegratör kaydından okunur.",
+        string="Active Integrator",
+        help="Connection details and test/production environment are read from the integrator record.",
     )
 
     def action_install_integrator(self):
         """Kurulabilir entegratör addon'larını filtreli listeler."""
         return {
             "type": "ir.actions.act_window",
-            "name": "Entegratör Kur",
+            "name": "Install Integrator",
             "res_model": "ir.module.module",
             "view_mode": "list,form",
             "domain": [("name", "like", "iber_edonusum_"), ("name", "!=", "iber_edonusum")],

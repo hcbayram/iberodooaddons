@@ -6,7 +6,7 @@
              bazında ayrılır — her şirket kendi Uyumsoft/NES/Hızlı aboneliğini
              tanımlar. -->
         <record id="rule_edn_integrator_company" model="ir.rule">
-            <field name="name">Entegratör: Şirket Bazlı</field>
+            <field name="name">Integrator: Company-based</field>
             <field name="model_id" ref="model_edn_integrator"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>

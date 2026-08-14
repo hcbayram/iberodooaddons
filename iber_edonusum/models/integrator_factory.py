@@ -32,10 +32,10 @@ def register_integrator(cls: type[IntegratorBase]) -> None:
     Bu sayede iber_edonusum'a dokunmadan yeni entegratör eklenebilir.
     """
     if not issubclass(cls, IntegratorBase):
-        raise TypeError(f"{cls} IntegratorBase'den türemeli.")
+        raise TypeError(f"{cls} must derive from IntegratorBase.")
     code = getattr(cls, "code", None)
     if not code:
-        raise ValueError(f"{cls} sınıfında 'code' class attribute eksik.")
+        raise ValueError(f"{cls} class is missing the 'code' class attribute.")
     _integrator_registry[str(code).upper()] = cls
 
 
@@ -46,12 +46,12 @@ def refresh_registry():
 
 def get_integrator(code: str, settings: dict) -> IntegratorBase:
     if not code:
-        raise ValueError("Integrator code boş olamaz.")
+        raise ValueError("Integrator code cannot be empty.")
     cls = _integrator_registry.get(code.upper())
     if not cls:
         registered = ", ".join(sorted(_integrator_registry.keys())) or "—"
         raise ValueError(
-            f"Desteklenmeyen entegratör: '{code}'. Kayıtlı: {registered}"
+            f"Unsupported integrator: '{code}'. Registered: {registered}"
         )
     return cls(settings)
 

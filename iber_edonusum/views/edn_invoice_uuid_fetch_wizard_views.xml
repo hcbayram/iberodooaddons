@@ -4,19 +4,19 @@
         <field name="name">edn.invoice.uuid.fetch.wizard.form</field>
         <field name="model">edn.invoice.uuid.fetch.wizard</field>
         <field name="arch" type="xml">
-            <form string="Gelen e-Fatura: UUID İle Getir">
+            <form string="Incoming e-Invoice: Fetch by UUID">
                 <p class="text-muted">
-                    Belgenin UUID'sini (GUID) biliyorsanız, liste/tarih
-                    filtresine gerek kalmadan doğrudan bu belgeyi entegratörden
-                    çeker.
+                    If you know the document's UUID (GUID), this fetches it
+                    directly from the integrator without needing a list/date
+                    filter.
                 </p>
                 <group>
                     <field name="doc_uuid" placeholder="ör. e2ab73e2-d0e9-4f83-b1d2-d9960611a885"/>
                 </group>
                 <footer>
-                    <button name="action_fetch" string="Getir"
+                    <button name="action_fetch" string="Fetch"
                         type="object" class="btn-primary"/>
-                    <button string="İptal" special="cancel" class="btn-secondary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
                 </footer>
             </form>
         </field>

@@ -20,7 +20,7 @@ class IncomingInvoiceToAccountMove(models.Model):
                 continue
             if inv.account_move_id:
                 raise UserError(
-                    _("%s no'lu fatura zaten bir sistem faturasına bağlı: %s")
+                    _("Invoice %s is already linked to a system invoice: %s")
                     % (inv.id_value, inv.account_move_id.name)
                 )
             move = inv._create_account_move()
@@ -28,7 +28,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             result_moves |= move
 
         if not result_moves:
-            raise UserError(_("Seçili kayıtlar arasında işlenebilir gelen fatura bulunamadı."))
+            raise UserError(_("No processable incoming invoice found among the selected records."))
         return result_moves
 
     def action_convert_to_account_move_silent(self):
@@ -55,7 +55,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             "domain": [("id", "in", result_moves.ids)],
             "view_mode": "list,form",
             "views": [(False, "list"), (False, "form")],
-            "name": _("Oluşturulan Faturalar"),
+            "name": _("Created Invoices"),
         }
 
     def _create_account_move(self):
@@ -66,7 +66,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             [("type", "=", "purchase"), ("company_id", "=", self.env.company.id)], limit=1
         )
         if not journal:
-            raise UserError(_("Satın alma (purchase) tipi muhasebe defteri bulunamadı."))
+            raise UserError(_("No purchase-type accounting journal found."))
 
         move_vals = {
             "move_type": "in_invoice",
@@ -75,7 +75,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             "currency_id": currency.id,
             "journal_id": journal.id,
             "ref": self.id_value or self.UUID,
-            "narration": _("e-Fatura UUID: %s") % (self.UUID or ""),
+            "narration": _("e-Invoice UUID: %s") % (self.UUID or ""),
             "invoice_line_ids": self._build_invoice_line_vals(partner, currency),
         }
         move = self.env["account.move"].sudo().create(move_vals)
@@ -85,7 +85,7 @@ class IncomingInvoiceToAccountMove(models.Model):
     def _find_or_create_partner(self):
         """VKN/TCKN ile cari bul; yoksa yeni oluştur."""
         vkn = (self.supplier_vkn_tckn or "").strip()
-        name = (self.supplier_name or "").strip() or "Bilinmeyen Tedarikçi"
+        name = (self.supplier_name or "").strip() or "Unknown Supplier"
         if vkn:
             partner = self.env["res.partner"].search(
                 [("vat", "=", vkn), ("company_type", "=", "company")], limit=1
@@ -127,7 +127,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             account = self._default_expense_account()
             tax = self._find_tax(20.0)
             line_vals.append((0, 0, {
-                "name": self.id_value or _("e-Fatura"),
+                "name": self.id_value or _("e-Invoice"),
                 "quantity": 1.0,
                 "price_unit": self.payable_amount or 0.0,
                 "account_id": account.id if account else False,
@@ -139,7 +139,7 @@ class IncomingInvoiceToAccountMove(models.Model):
             account = self._default_expense_account()
             tax = self._find_tax(line.tax_percent)
             line_vals.append((0, 0, {
-                "name": line.name or _("Ürün/Hizmet"),
+                "name": line.name or _("Product/Service"),
                 "quantity": line.quantity,
                 "price_unit": line.price_amount,
                 "account_id": account.id if account else False,
@@ -158,7 +158,7 @@ class IncomingInvoiceToAccountMove(models.Model):
     def action_open_account_move(self):
         self.ensure_one()
         if not self.account_move_id:
-            raise UserError(_("Bu faturaya bağlı sistem faturası yok."))
+            raise UserError(_("This invoice has no linked system invoice."))
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.move",

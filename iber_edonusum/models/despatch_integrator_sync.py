@@ -93,7 +93,7 @@ class DeliveryNoteIntegratorSync(models.Model):
         ui_filters = ui_filters or {}
         settings = self.env["ubl21.config.settings"].get_singleton()
         if not settings or not settings.integrator_id:
-            raise UserError(_("Ayarlarda aktif entegratör tanımlı değil."))
+            raise UserError(_("No active integrator is defined in settings."))
         integrator_code = settings.integrator_id.code
         mgr = self.env["edn.document.manager"].sudo()
         client = mgr._get_integrator_client(integrator_code)
@@ -142,8 +142,8 @@ class DeliveryNoteIntegratorSync(models.Model):
             )
             if not result.get("ok"):
                 raise UserError(
-                    _("Entegratörden veri alınamadı (%s→%s):\n%s") % (
-                        start_str, end_str, result.get("error", "Bilinmeyen hata")
+                    _("Could not fetch data from integrator (%s→%s):\n%s") % (
+                        start_str, end_str, result.get("error", "Unknown error")
                     )
                 )
             items = result.get("documents") or []
@@ -193,9 +193,9 @@ class DeliveryNoteIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("İrsaliye Senkronizasyonu Tamamlandı"),
+                "title": _("Despatch Sync Completed"),
                 "message": _(
-                    "Yeni: %d  |  Güncellenen: %d  |  Atlanan: %d  |  Hata: %d"
+                    "New: %d  |  Updated: %d  |  Skipped: %d  |  Errors: %d"
                 ) % (created, updated, skipped, errors),
                 "type": "success" if not errors else "warning",
                 "sticky": True,
@@ -206,19 +206,19 @@ class DeliveryNoteIntegratorSync(models.Model):
         """Form butonuyla tek bir gelen irsaliyeyi NES'ten günceller."""
         self.ensure_one()
         if not self.UUID:
-            raise UserError(_("Bu irsaliyede UUID bulunamadı."))
+            raise UserError(_("No UUID found on this despatch advice."))
 
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_code = settings.integrator_id.code if settings.integrator_id else None
         if not integrator_code:
-            raise UserError(_("Ayarlarda aktif entegratör tanımlı değil."))
+            raise UserError(_("No active integrator is defined in settings."))
 
         mgr = self.env["edn.document.manager"].sudo()
         client = mgr._get_integrator_client(integrator_code)
         xml_result = client.get_despatch_lines(self.UUID)
         if not xml_result.get("ok"):
             raise UserError(
-                _("XML alınamadı:\n%s") % xml_result.get("error", "Bilinmeyen hata")
+                _("Could not fetch XML:\n%s") % xml_result.get("error", "Unknown error")
             )
 
         raw = xml_result.get("raw") or {}
@@ -245,8 +245,8 @@ class DeliveryNoteIntegratorSync(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("İrsaliye Güncellendi"),
-                "message": _("%s no'lu irsaliye %s'ten güncellendi.") % (self.id_value, integrator_code),
+                "title": _("Despatch Advice Updated"),
+                "message": _("Despatch advice %s updated from %s.") % (self.id_value, integrator_code),
                 "type": "success",
                 "sticky": False,
                 "next": {

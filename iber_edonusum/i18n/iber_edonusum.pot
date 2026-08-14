@@ -1,0 +1,930 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* iber_edonusum
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-14 17:40+0000\n"
+"PO-Revision-Date: 2026-08-14 17:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"%(total)d invoice(s) evaluated.\n"
+"New: %(c)d  |  Already in system (skipped): %(s)d  |  Errors: %(e)d"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_invoice_series__prefix
+msgid "3 uppercase letters, e.g.: IBR"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__apikey
+msgid "API Key (Production)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__test_apikey
+msgid "API Key (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__base_url
+msgid "API URL (Production)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__test_base_url
+msgid "API URL (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__active
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__active
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Active"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__integrator_id
+msgid "Active Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Additional Parameters"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__extra
+msgid "Additional Parameters (JSON)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__module_name
+msgid "Addon Name"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "All"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Authentication"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__test_token
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__token
+msgid "Bearer token after login — filled automatically"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_uuid_fetch_wizard_form
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_xml_import_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__code
+msgid "Code"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__company_id
+msgid "Company"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Connection"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_ubl21_config_settings__integrator_id
+msgid ""
+"Connection details and test/production environment are read from the "
+"integrator record."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl21_config_settings_form_edonusum_ext
+msgid ""
+"Connection details and test/production environment selection\n"
+"                        are managed from the <strong>Configuration → Integration → Integrators</strong> menu."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Convert to System Invoice"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Could not fetch PDF from the integrator, using standard preview."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"Could not fetch XML:\n"
+"%s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid ""
+"Could not fetch data from integrator (%s→%s):\n"
+"%s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"Could not fetch data from integrator:\n"
+"%s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"Could not fetch document by UUID:\n"
+"%s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"Could not generate PDF:\n"
+"%s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/edn_invoice_xml_import_wizard.py:0
+msgid ""
+"Could not parse the XML — make sure it is a valid UBL-TR invoice XML.\n"
+"Error: %s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/edn_invoice_xml_import_wizard.py:0
+msgid "Could not read/decode the XML file: %s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "Created Invoices"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__create_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__create_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__create_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__create_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__create_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__create_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__create_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__create_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Created: %(c)d  |  Updated: %(u)d  |  Skipped: %(s)d  |  Errors: %(e)d"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Creates this incoming e-Invoice as a system invoice (vendor bill)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+msgid "Date"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__default_despatch_series_id
+msgid "Default Despatch Series"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_ubl21_config_settings__default_despatch_series_id
+msgid "Default GIB series code (prefix) used for new UBL despatch advices"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_ubl21_config_settings__default_invoice_series_id
+msgid "Default GIB series code (prefix) used for new UBL invoices"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__default_invoice_series_id
+msgid "Default Invoice Series"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl21_config_settings_form_edonusum_ext
+msgid "Default Series Codes"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__description
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Description"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid "Despatch Advice Updated"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid "Despatch Sync Completed"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid "Despatch advice %s updated from %s."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_xml_import_wizard_form
+msgid ""
+"Directly import the raw UBL-TR XML file of a document\n"
+"                    that could not be fetched from the integrator (e.g.\n"
+"                    marked as \"received\" by another user on a shared test\n"
+"                    account)."
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_document_manager__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_l10n_tr_ubl_delivery_note__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_l10n_tr_ubl_invoice__display_name
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__document_no
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+msgid "Document No"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__document_type
+msgid "Document Type"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_log__status__error
+msgid "Error"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_uuid_fetch_wizard_form
+msgid "Fetch"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.actions.server,name:iber_edonusum.action_server_fetch_incoming_from_integrator_despatch
+msgid "Fetch Despatch Advices from Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.actions.server,name:iber_edonusum.action_server_fetch_incoming_from_integrator
+msgid "Fetch Invoices from Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Fetches the outgoing invoice's current status from the integrator API"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__xml_filename
+msgid "File Name"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_document_manager__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_l10n_tr_ubl_delivery_note__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_l10n_tr_ubl_invoice__id
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_uuid_fetch_wizard_form
+msgid ""
+"If you know the document's UUID (GUID), this fetches it\n"
+"                    directly from the integrator without needing a list/date\n"
+"                    filter."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_xml_import_wizard_form
+msgid "Import"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "Imported to System"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "Incoming Invoices Search"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_invoice_uuid_fetch_wizard
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_uuid_fetch_wizard_form
+msgid "Incoming e-Invoice: Fetch by UUID"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_invoice_xml_import_wizard
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_xml_import_wizard_form
+msgid "Incoming e-Invoice: Import from XML"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_log__status__info
+msgid "Info"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl21_config_settings_form_edonusum_ext
+msgid "Install Integrator..."
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__integrator_id
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl21_config_settings_form_edonusum_ext
+msgid "Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__integrator
+msgid "Integrator Code"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__name
+msgid "Integrator Name"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"Integrator PDF error: %s\n"
+"Using standard preview."
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__code
+msgid "Integrator code used by the factory (NES, UYUMSOFT, FORIBA, etc.)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__extra
+msgid ""
+"Integrator-specific fields: secretkey, token_expiry, test_secretkey, test_token_expiry, etc.\n"
+"E.g.: {\"secretkey\": \"abc\", \"token_expiry\": \"2026-06-30T10:00:00\"}"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.actions.act_window,name:iber_edonusum.action_edn_integrators
+#: model:ir.ui.menu,name:iber_edonusum.menu_edn_integrators
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_list
+msgid "Integrators"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "Invoice %s is already linked to a system invoice: %s"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Invoice %s updated from %s."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "Invoice No"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__doc_uuid
+msgid "Invoice UUID (GUID)"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Invoice Updated"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Invoices Fetched from Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Invoices Updated"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__jsonpayload
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_form
+msgid "JSON Payload"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "Last %d Invoices from Integrator (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_ubl21_config_settings__last_incoming_invoice_sync_datetime
+msgid "Last Incoming Invoice Sync Time"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__write_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__write_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__write_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__write_uid
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__write_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__write_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_uuid_fetch_wizard__write_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__write_date
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__module_name
+msgid ""
+"Name of the System addon that provides this integrator (e.g. "
+"iber_edonusum_nes)"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid "New: %d  |  Updated: %d  |  Skipped: %d  |  Errors: %d"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+msgid "No UUID found on this despatch advice."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "No UUID found on this invoice."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/despatch_integrator_sync.py:0
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "No active integrator is defined in settings."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"No active integrator is defined in settings.\n"
+"Fill in the IberoDoo → Settings → Integrator field."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "No processable incoming invoice found among the selected records."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "No purchase-type accounting journal found."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "Not Imported to System"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Open System Invoice"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.actions.act_window,name:iber_edonusum.action_edn_logs
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_form
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+msgid "Operation Log"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "PDF Warning"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__password
+msgid "Password (Production)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__test_password
+msgid "Password (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Prefix"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "Product/Service"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Production Connection"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Query Integrator Status"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__raw_data
+msgid "Raw Data (JSON)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__payload
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_form
+msgid "Raw Request"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Registered GIB Series Codes"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__series_ids
+msgid "Registered Series"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl21_config_settings_form_edonusum_ext
+msgid "Reset Incoming Invoice Sync Time"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_form
+msgid "Response"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__result
+msgid "Response (JSON)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.ui.menu,name:iber_edonusum.menu_edn_logs
+msgid "Send Log"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Send to GIB"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Series"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_series_list
+msgid "Series Codes"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_series__prefix
+msgid "Series Prefix"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__status
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+msgid "Status"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_log__status__success
+msgid "Success"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "Supplier"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_delivery_note_form_integrator
+msgid "Syncs this despatch advice with the latest data from the ERP"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Syncs this invoice with the latest data from the ERP"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "Test Connection"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__is_test
+msgid "Test Environment Active"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid ""
+"This action can only be used on an integrator with the test environment "
+"active (Configuration → Integrators → 'Test Environment Active'). Running an"
+" unbounded query on a production integrator could cause unwanted load."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "This document already exists in the system (Document No: %s)."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/edn_invoice_xml_import_wizard.py:0
+msgid ""
+"This document already exists in the system (Document No: %s, UUID: %s)."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "This integrator does not support fetching a single document by UUID."
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "This invoice has no linked system invoice."
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__token
+msgid "Token (Production)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__test_token
+msgid "Token (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Type"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_l10n_tr_ubl_delivery_note
+msgid "UBL-TR 2.1 Delivery Note"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_l10n_tr_ubl_invoice
+msgid "UBL-TR 2.1 Invoice"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_ubl21_config_settings
+msgid "UBL-TR 2.1 Settings"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_invoice_xml_import_wizard__xml_file
+msgid "UBL-TR XML File"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__uuid
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_list
+msgid "UUID"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/invoice_integrator_sync.py:0
+msgid "UUID cannot be empty."
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_delivery_note_form_integrator
+msgid "Update Despatch Advices"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Update Invoices"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form_series_inherit
+msgid "Update Series"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_delivery_note_form_integrator
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Update from Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_delivery_note_form_integrator
+msgid "Updates this despatch advice by fetching XML from the integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_ubl_invoice_form_incoming_fetch
+msgid "Updates this invoice by fetching XML from the integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__username
+msgid "Username (Production)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_integrator__test_username
+msgid "Username (Test)"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_incoming_invoice_search_convert_filter
+msgid "VKN/TCKN"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,help:iber_edonusum.field_edn_integrator__is_test
+msgid ""
+"When enabled, test credentials are used; when disabled, production "
+"credentials are used."
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields,field_description:iber_edonusum.field_edn_log__xmlpayload
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_log_form
+msgid "XML Payload"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_invoice_series__document_type__earchive
+msgid "e-Archive Invoice"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_invoice_series__document_type__despatch
+msgid "e-Despatch"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+#: model:ir.model.fields.selection,name:iber_edonusum.selection__edn_invoice_series__document_type__invoice
+msgid "e-Invoice"
+msgstr ""
+
+#. module: iber_edonusum
+#. odoo-python
+#: code:addons/iber_edonusum/models/incoming_to_account_move.py:0
+msgid "e-Invoice UUID: %s"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_document_manager
+msgid "e-Transformation Document Management"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_integrator
+msgid "e-Transformation Integrator"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_log
+msgid "e-Transformation Operation Log"
+msgstr ""
+
+#. module: iber_edonusum
+#: model:ir.model,name:iber_edonusum.model_edn_invoice_series
+msgid "e-Transformation Series Codes"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "https://api.entegrator.com"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "https://test-api.entegrator.com"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_integrator_form
+msgid "{\"timeout\": 60, \"custom_header\": \"value\"}"
+msgstr ""
+
+#. module: iber_edonusum
+#: model_terms:ir.ui.view,arch_db:iber_edonusum.view_edn_invoice_uuid_fetch_wizard_form
+msgid "ör. e2ab73e2-d0e9-4f83-b1d2-d9960611a885"
+msgstr ""

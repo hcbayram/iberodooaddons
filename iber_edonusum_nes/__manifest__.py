@@ -1,7 +1,7 @@
 {
     "name": "IberoDoo NES e-Transformation Integrator",
     "summary": "NES e-Transformation API integration — NES provider for the iber_edonusum framework",
-    "version": "19.0.1.4.0",
+    "version": "19.0.1.5.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

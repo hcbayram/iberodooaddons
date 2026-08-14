@@ -126,7 +126,12 @@ class EDNDocumentManager(models.Model):
 
     def _write_log(self, *, integrator, document_no=None, uuid=None,
                    jsonpayload=None, xmlpayload=None, payload=None, result, status):
-        self.env["edn.log"].create({
+        # sudo(): edn.log oluşturma yalnızca base.group_system (Ayarlar/
+        # Yönetici) grubuna açık — bu, sıradan bir iş kullanıcısının
+        # "Entegratörden Faturaları Getir" gibi günlük işlemlerde
+        # AccessError almasına yol açıyordu (log tutmak, tetikleyen
+        # kullanıcının yetkisine bağlı olmamalı).
+        self.env["edn.log"].sudo().create({
             "integrator": integrator,
             "document_no": document_no,
             "uuid": uuid,

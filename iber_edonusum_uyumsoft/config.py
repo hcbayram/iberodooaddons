@@ -5,10 +5,10 @@
 #   https://efaturaws-test.uyum.com.tr/Services/Integration (SOAP, WSDL doğrulandı)
 # Üretim URL'i tahminen "-test" kaldırılarak türetilmiştir — firmayla TEYİT EDİLMELİ.
 #
-# test_username/test_password HENÜZ GERÇEK DEĞİL: elde bulunan "Uyumsoft/Uyumsoft"
-# bilgisiyle canlı bir WhoAmI çağrısı denendi, sunucu "a:InvalidSecurity" SOAP
-# Fault döndürdü (zarf kabul edildi, kimlik bilgisi geçersiz). Firmadan gerçek
-# test kullanıcı adı/şifresi alınınca burası güncellenmeli.
+# test_username/test_password = "Uyumsoft"/"Uyumsoft" (elde bulunan tek bilgi).
+# NOT: Bu bilgiyle daha önce denenen canlı bir WhoAmI çağrısı sunucudan
+# "a:InvalidSecurity" SOAP Fault döndürmüştü (zarf kabul edildi, kimlik bilgisi
+# geçersiz) — firmadan gerçek test kullanıcı adı/şifresi alınınca güncellenmeli.
 # Üretim bilgileri kurulum sonrası Yapılandırma → Entegratörler ekranından girilir.
 
 INTEGRATOR_DEFAULTS = {
@@ -19,8 +19,8 @@ INTEGRATOR_DEFAULTS = {
 
     # Test ortamı
     "test_base_url": "https://efaturaws-test.uyum.com.tr",
-    "test_username": "",
-    "test_password": "",
+    "test_username": "Uyumsoft",
+    "test_password": "Uyumsoft",
     "test_apikey": "",
     "test_token": "",
 

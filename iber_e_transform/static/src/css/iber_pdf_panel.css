@@ -1,49 +1,18 @@
-/* PDF Yan Panel — fatura formu sağ yarısında açılır */
+/* PDF Önizleme popup'ı — fatura/irsaliye formundaki "PDF Preview" butonuyla açılır */
 
-/* PDF paneli göründüğünde sheet max-width kaldır */
-.o_form_view .o_form_sheet:has(.o_iber_pdf_col) {
-    max-width: none !important;
+.modal-dialog:has(.o_iber_pdf_preview_popup) {
+    max-width: 90vw;
+    width: 900px;
 }
 
-/* Ana sarmalayıcı: her zaman yatay flex */
-.o_iber_form_with_pdf {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    width: 100%;
-    gap: 0;
-}
-
-/* Sol kolon: form alanları */
-.o_iber_form_main_col {
-    flex: 1 1 0;
-    min-width: 0;
-    padding-right: 20px;
-    box-sizing: border-box;
-}
-
-/* Sağ kolon: PDF önizleme */
-.o_iber_pdf_col {
-    flex: 0 0 48%;
-    position: sticky;
-    top: 0;
-    align-self: flex-start;
-    max-height: calc(100vh - 130px);
-    overflow: hidden;
-    border-left: 1px solid var(--bs-border-color, #dee2e6);
-    padding-left: 16px;
-    box-sizing: border-box;
-}
-
-/* PDF viewer yüksekliği */
-.o_iber_pdf_col .o_field_pdf_viewer {
-    height: calc(100vh - 180px) !important;
+.o_iber_pdf_preview_popup.o_field_pdf_viewer {
+    height: 80vh !important;
     display: block;
 }
 
-.o_iber_pdf_col .o_field_pdf_viewer iframe,
-.o_iber_pdf_col .o_field_pdf_viewer embed,
-.o_iber_pdf_col .o_field_pdf_viewer object {
+.o_iber_pdf_preview_popup.o_field_pdf_viewer iframe,
+.o_iber_pdf_preview_popup.o_field_pdf_viewer embed,
+.o_iber_pdf_preview_popup.o_field_pdf_viewer object {
     height: 100% !important;
     width: 100% !important;
 }

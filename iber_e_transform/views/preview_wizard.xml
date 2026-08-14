@@ -6,9 +6,10 @@
             <field name="model">l10n_tr.ubl.invoice.pdf.preview.wizard</field>
             <field name="arch" type="xml">
                 <form string="PDF Preview">
-                    <sheet>
-                        <field name="pdf_data" widget="pdf_viewer"/>
-                    </sheet>
+                    <field name="pdf_data" widget="pdf_viewer" nolabel="1" class="o_iber_pdf_preview_popup"/>
+                    <footer>
+                        <button string="Close" special="cancel" class="btn-secondary"/>
+                    </footer>
                 </form>
             </field>
         </record>

@@ -594,23 +594,6 @@ class UBLInvoice(models.Model):
         self.json_data = json.dumps(json_payload, indent=4, ensure_ascii=False)
         return base64.b64encode(pdf_bytes)
 
-    def action_preview_pdf(self):
-        self.ensure_one()
-        self.pdf_data = self.get_pdf_data()
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "l10n_tr.ubl.invoice",
-            "view_mode": "form",
-            "views": [(False, "form")],
-            "res_id": self.id,
-            "target": "current",
-        }
-
-    def action_clear_pdf_preview(self):
-        self.ensure_one()
-        self.pdf_data = False
-        # xml_data ve json_data kalıcı — temizlenmez
-
     def to_json(self):
         self.ensure_one()
         return {

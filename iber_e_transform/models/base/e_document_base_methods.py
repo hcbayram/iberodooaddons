@@ -153,21 +153,17 @@ class EDocumentBaseMethods(models.AbstractModel):
 
     def action_preview_pdf(self):
         self.ensure_one()
-        self.pdf_data = self.get_pdf_data()
+        wizard = self.env["l10n_tr.ubl.invoice.pdf.preview.wizard"].create({
+            "pdf_data": self.get_pdf_data(),
+        })
         return {
             "type": "ir.actions.act_window",
-            "res_model": self._name,
+            "res_model": "l10n_tr.ubl.invoice.pdf.preview.wizard",
             "view_mode": "form",
-            "views": [(False, "form")],
-            "res_id": self.id,
-            "target": "current",
+            "views": [(self.env.ref("iber_e_transform.view_ubl_invoice_pdf_preview_wizard_form").id, "form")],
+            "res_id": wizard.id,
+            "target": "new",
         }
-
-    def action_clear_pdf_preview(self):
-        self.ensure_one()
-        self.pdf_data = False
-        self.xml_data = False
-        self.json_data = False
 
     def to_json(self):
         self.ensure_one()

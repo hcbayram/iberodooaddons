@@ -868,13 +868,16 @@ class UBLInvoiceIntegratorSync(models.Model):
             except Exception as e:
                 raise UserError(_("Could not generate PDF:\n%s") % str(e))
 
+        wizard = self.env["l10n_tr.ubl.invoice.pdf.preview.wizard"].create({
+            "pdf_data": self.pdf_data,
+        })
         action = {
             "type": "ir.actions.act_window",
-            "res_model": "l10n_tr.ubl.invoice",
+            "res_model": "l10n_tr.ubl.invoice.pdf.preview.wizard",
             "view_mode": "form",
-            "views": [(False, "form")],
-            "res_id": self.id,
-            "target": "current",
+            "views": [(self.env.ref("iber_e_transform.view_ubl_invoice_pdf_preview_wizard_form").id, "form")],
+            "res_id": wizard.id,
+            "target": "new",
         }
 
         if integrator_warning:

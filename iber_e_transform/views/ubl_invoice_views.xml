@@ -38,21 +38,11 @@
                             invisible="gib_status in ['sent','approved']"/>
                         <button name="action_preview_pdf"
                             string="PDF Preview"
-                            type="object"
-                            invisible="pdf_data"/>
-                        <button name="action_clear_pdf_preview"
-                            string="Close Preview"
-                            type="object"
-                            invisible="not pdf_data"/>
+                            type="object"/>
                         <field name="gib_status" widget="statusbar"
                             statusbar_visible="draft,xml_created,sent,approved"/>
                     </header>
                     <sheet>
-                        <div class="o_iber_form_with_pdf">
-
-                            <!-- Sol kolon: form alanları -->
-                            <div class="o_iber_form_main_col">
-
                                 <!-- Kaynak Fatura Smart Button -->
                                 <div class="oe_button_box" name="button_box">
                                     <button name="action_view_account_move"
@@ -282,18 +272,6 @@
                                 </group>
                             </page>
                                 </notebook>
-
-                            </div><!-- /o_iber_form_main_col -->
-
-                            <!-- Sağ kolon: PDF önizleme -->
-                            <div class="o_iber_pdf_col" invisible="not pdf_data">
-                                <div class="border-bottom mb-2 pb-1 d-flex justify-content-between align-items-center">
-                                    <strong class="text-muted small">PDF Preview</strong>
-                                </div>
-                                <field name="pdf_data" widget="pdf_viewer" nolabel="1"/>
-                            </div>
-
-                        </div><!-- /o_iber_form_with_pdf -->
                     </sheet>
                 </form>
             </field>

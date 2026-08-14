@@ -1,7 +1,7 @@
 {
     "name": "IberoDoo Uyumsoft e-Transformation Integrator",
     "summary": "Uyumsoft e-Invoice/e-Archive integration — Uyumsoft provider for the iber_edonusum framework",
-    "version": "19.0.1.7.0",
+    "version": "19.0.1.8.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

@@ -209,9 +209,6 @@ class EDocumentBase(models.Model):
     def action_preview_pdf(self):
         raise NotImplementedError("Must be implemented per document type.")
 
-    def action_clear_pdf_preview(self):
-        raise NotImplementedError("Must be implemented per document type.")
-
     def _get_service_url(self):
         raise NotImplementedError("Must be implemented per document type.")
 

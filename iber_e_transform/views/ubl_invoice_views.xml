@@ -189,18 +189,20 @@
 
                             <!-- Ödeme -->
                             <page string="Ödeme" name="payment_page">
-                                <group string="Ödeme Şekli">
-                                    <field name="PaymentMeansCode"/>
-                                    <field name="PaymentDueDate"/>
-                                    <field name="PaymentChannelCode"/>
-                                    <field name="InstructionNote"/>
-                                    <field name="PayeeFinancialAccount"/>
-                                </group>
-                                <group string="Ödeme Koşulları">
-                                    <field name="PaymentTermsNote"/>
-                                    <field name="PenaltySurchargePercent"/>
-                                    <field name="PenaltyAmount"/>
-                                    <field name="PTPaymentDueDate"/>
+                                <group>
+                                    <group string="Ödeme Şekli">
+                                        <field name="PaymentMeansCode"/>
+                                        <field name="PaymentDueDate"/>
+                                        <field name="PaymentChannelCode"/>
+                                        <field name="InstructionNote"/>
+                                        <field name="PayeeFinancialAccount"/>
+                                    </group>
+                                    <group string="Ödeme Koşulları">
+                                        <field name="PaymentTermsNote"/>
+                                        <field name="PenaltySurchargePercent"/>
+                                        <field name="PenaltyAmount"/>
+                                        <field name="PTPaymentDueDate"/>
+                                    </group>
                                 </group>
                             </page>
 

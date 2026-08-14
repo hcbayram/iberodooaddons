@@ -1,7 +1,7 @@
 {
     "name": "IberoDoo e-Transformation Integrator Core",
     "summary": "Plugin-based e-Transformation core: integrator management, series codes, send/receive, log",
-    "version": "19.0.1.9.0",
+    "version": "19.0.1.10.0",
     "author": "İberoDoo",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

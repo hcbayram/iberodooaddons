@@ -158,6 +158,7 @@ class EDocumentBaseMethods(models.AbstractModel):
         })
         return {
             "type": "ir.actions.act_window",
+            "name": _("PDF Preview"),
             "res_model": "l10n_tr.ubl.invoice.pdf.preview.wizard",
             "view_mode": "form",
             "views": [(self.env.ref("iber_e_transform.view_ubl_invoice_pdf_preview_wizard_form").id, "form")],

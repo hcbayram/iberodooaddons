@@ -15,7 +15,7 @@
                         class="oe_stat_button"
                         icon="fa-refresh"
                         invisible="not UUID or invoice_direction != 'outgoing'"
-                        title="NES'ten güncel durum çek">
+                        title="Fetch latest status from NES">
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_value">
                                 <field name="gib_status" widget="badge"
@@ -24,7 +24,7 @@
                                     decoration-danger="gib_status in ['rejected','error']"
                                     decoration-muted="gib_status == 'draft'"/>
                             </span>
-                            <span class="o_stat_text">Entegratör Durum</span>
+                            <span class="o_stat_text">Integrator Status</span>
                         </div>
                     </button>
                 </div>
@@ -44,9 +44,9 @@
 
                 <!-- NES Yanıtı sekmesini notebook'un sonuna ekle -->
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="NES Yanıtı" invisible="not nes_outgoing_raw">
+                    <page string="NES Response" invisible="not nes_outgoing_raw">
                         <group>
-                            <field name="nes_outgoing_fetch_date" readonly="1" string="Son Sorgu"/>
+                            <field name="nes_outgoing_fetch_date" readonly="1" string="Last Query"/>
                         </group>
                         <field name="nes_outgoing_raw" widget="code" readonly="1" nolabel="1"/>
                     </page>

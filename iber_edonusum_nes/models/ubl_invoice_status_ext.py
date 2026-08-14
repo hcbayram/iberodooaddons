@@ -12,20 +12,20 @@ class UBLInvoiceStatusExt(models.Model):
     nes_document_answer = fields.Selection(
         [
             ("none", "—"),
-            ("waiting", "Bekliyor"),
-            ("accepted", "Kabul Edildi"),
-            ("rejected", "Reddedildi"),
+            ("waiting", "Waiting"),
+            ("accepted", "Accepted"),
+            ("rejected", "Rejected"),
         ],
-        string="Belge Cevabı",
+        string="Document Answer",
         readonly=True,
     )
     nes_outgoing_raw = fields.Text(
-        string="NES Ham Yanıt",
+        string="NES Raw Response",
         readonly=True,
-        help="'Entegratör Durumu Sorgula' ile entegratörden dönen JSON verisi",
+        help="JSON data returned by the integrator via 'Fetch Integrator Status'",
     )
     nes_outgoing_fetch_date = fields.Datetime(
-        string="Son NES Sorgu Tarihi",
+        string="Last NES Query Date",
         readonly=True,
     )
 
@@ -61,17 +61,17 @@ class UBLInvoiceStatusExt(models.Model):
             try:
                 ok = self._fetch_and_store_pdf_from_integrator(integrator_code)
                 if not ok:
-                    integrator_warning = _("Entegratörden PDF alınamadı, standart önizleme kullanılıyor.")
+                    integrator_warning = _("Could not fetch PDF from the integrator, using standard preview.")
                     use_integrator = False
             except Exception as e:
-                integrator_warning = _("Entegratör PDF hatası: %s\nStandart önizleme kullanılıyor.") % str(e)
+                integrator_warning = _("Integrator PDF error: %s\nUsing standard preview.") % str(e)
                 use_integrator = False
 
         if not use_integrator:
             try:
                 self.pdf_data = self.get_pdf_data()
             except Exception as e:
-                raise UserError(_("PDF oluşturulamadı:\n%s") % str(e))
+                raise UserError(_("Could not generate PDF:\n%s") % str(e))
 
         action = {
             "type": "ir.actions.act_window",
@@ -87,7 +87,7 @@ class UBLInvoiceStatusExt(models.Model):
                 "type": "ir.actions.client",
                 "tag": "display_notification",
                 "params": {
-                    "title": _("PDF Uyarısı"),
+                    "title": _("PDF Warning"),
                     "message": integrator_warning,
                     "type": "warning",
                     "sticky": False,

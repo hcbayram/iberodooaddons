@@ -8,7 +8,7 @@ from ..core.nes_helpers import _clean_xml_for_display
 
 class NesIntegrator(IntegratorBase):
     code = "NES"
-    name = "NES e-Dönüşüm"
+    name = "NES e-Transformation"
 
     # NES documentStatus → gib_status
     status_map = {
@@ -49,8 +49,8 @@ class NesIntegrator(IntegratorBase):
         resolved_token = token or self.settings.get("api_token") or self.settings.get("apikey") or ""
         if not resolved_token:
             raise ValueError(
-                "NES token bulunamadı. Entegratör ayarlarında API Key veya "
-                "api_token değerini doldurun."
+                "NES token not found. Fill in the API Key or "
+                "api_token value in the integrator settings."
             )
         return {
             "Authorization": f"Bearer {resolved_token}",
@@ -141,7 +141,7 @@ class NesIntegrator(IntegratorBase):
                     for e in business_errors
                     if isinstance(e, dict)
                 ]
-                error_msg = raw.get("message", "Entegratör hatası") + ":\n" + "\n".join(descriptions)
+                error_msg = raw.get("message", "Integrator error") + ":\n" + "\n".join(descriptions)
 
             return {
                 "ok": business_ok,
@@ -502,7 +502,7 @@ class NesIntegrator(IntegratorBase):
                 }
 
             except ET.ParseError as e:
-                return {"ok": False, "raw": None, "error": f"XML parse hatası: {str(e)}"}
+                return {"ok": False, "raw": None, "error": f"XML parse error: {str(e)}"}
 
         except Exception as ex:
             return {"ok": False, "raw": None, "error": str(ex)}
@@ -743,7 +743,7 @@ class NesIntegrator(IntegratorBase):
                 }
 
             except ET.ParseError as e:
-                return {"ok": False, "raw": None, "error": f"XML parse hatası: {str(e)}"}
+                return {"ok": False, "raw": None, "error": f"XML parse error: {str(e)}"}
 
         except Exception as ex:
             return {"ok": False, "raw": None, "error": str(ex)}

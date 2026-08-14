@@ -6,25 +6,25 @@
              bazında ayrılır — bir şirketin kullanıcısı başka bir şirketin
              belgelerini göremez/işleyemez. -->
         <record id="rule_algebra_base_document_company" model="ir.rule">
-            <field name="name">Belge (Taban): Şirket Bazlı</field>
+            <field name="name">Document (Base): Company-based</field>
             <field name="model_id" ref="model_algebra_base_document"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 
         <record id="rule_ubl_invoice_company" model="ir.rule">
-            <field name="name">e-Fatura: Şirket Bazlı</field>
+            <field name="name">e-Invoice: Company-based</field>
             <field name="model_id" ref="model_l10n_tr_ubl_invoice"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 
         <record id="rule_ubl_delivery_note_company" model="ir.rule">
-            <field name="name">e-İrsaliye: Şirket Bazlı</field>
+            <field name="name">e-Despatch: Company-based</field>
             <field name="model_id" ref="model_l10n_tr_ubl_delivery_note"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 
         <record id="rule_ubl21_config_settings_company" model="ir.rule">
-            <field name="name">E-Dönüşüm Ayarları: Şirket Bazlı</field>
+            <field name="name">e-Transformation Settings: Company-based</field>
             <field name="model_id" ref="model_ubl21_config_settings"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>

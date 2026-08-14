@@ -14,25 +14,25 @@
                         class="oe_stat_button"
                         icon="fa-file-text"
                         invisible="move_type not in ['out_invoice','out_refund'] or ubl_invoice_count == 0">
-                        <field name="ubl_invoice_count" widget="statinfo" string="E-Fatura"/>
+                        <field name="ubl_invoice_count" widget="statinfo" string="e-Invoice"/>
                     </button>
                 </xpath>
 
                 <!-- E-Dönüşüm Tab -->
                 <xpath expr="//notebook" position="inside">
-                    <page string="E-Dönüşüm"
+                    <page string="e-Transformation"
                         invisible="move_type not in ['out_invoice', 'out_refund']">
                         <group>
                             <field name="ubl_status" readonly="1"/>
                         </group>
                         <group>
                             <button name="action_create_ubl_invoice"
-                                string="E-Fatura Oluştur"
+                                string="Create e-Invoice"
                                 type="object"
                                 class="btn-primary"
                                 invisible="ubl_invoice_count != 0 or state != 'posted'"/>
                             <button name="action_view_ubl_invoices"
-                                string="E-Faturayı Görüntüle"
+                                string="View e-Invoice"
                                 type="object"
                                 invisible="ubl_invoice_count == 0"/>
                         </group>

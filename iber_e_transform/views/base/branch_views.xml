@@ -5,7 +5,7 @@
             <field name="name">algebra.base.branch.list</field>
             <field name="model">algebra.base.branch</field>
             <field name="arch" type="xml">
-                <list string="Şubeler">
+                <list string="Branches">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="city"/>
@@ -17,7 +17,7 @@
             <field name="name">algebra.base.branch.form</field>
             <field name="model">algebra.base.branch</field>
             <field name="arch" type="xml">
-                <form string="Şube">
+                <form string="Branch">
                     <sheet>
                         <group>
                             <group>
@@ -35,7 +35,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="ERP Eşleşmeleri">
+                            <page string="ERP Mappings">
                                 <field name="erp_mapping_ids">
                                     <list editable="bottom">
                                         <field name="erp_system"/>

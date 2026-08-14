@@ -15,7 +15,7 @@ class EDocumentBase(models.Model):
 
     company_id = fields.Many2one(
         "res.company",
-        string="Şirket",
+        string="Company",
         required=True,
         index=True,
         default=lambda self: self.env.company,
@@ -28,23 +28,23 @@ class EDocumentBase(models.Model):
     # --- GIB / İntegratör durum bilgileri ---
     gib_status = fields.Selection(
         [
-            ("draft", "Taslak"),
-            ("xml_created", "XML Oluşturuldu"),
-            ("sent", "GIB'e Gönderildi"),
-            ("approved", "Onaylandı"),
-            ("rejected", "Reddedildi"),
-            ("error", "Hata"),
+            ("draft", "Draft"),
+            ("xml_created", "XML Created"),
+            ("sent", "Sent to GIB"),
+            ("approved", "Approved"),
+            ("rejected", "Rejected"),
+            ("error", "Error"),
         ],
-        string="GIB Durumu",
+        string="GIB Status",
         default="draft",
         readonly=True,
         tracking=True,
     )
-    gib_envelope_id = fields.Char("GIB Zarf No", readonly=True)
-    gib_send_date = fields.Datetime("Gönderim Tarihi", readonly=True)
-    gib_response_date = fields.Datetime("GIB Yanıt Tarihi", readonly=True)
-    gib_response_desc = fields.Text("GIB Yanıt Açıklaması", readonly=True)
-    gib_log = fields.Text("İşlem Logu", readonly=True)
+    gib_envelope_id = fields.Char("GIB Envelope No", readonly=True)
+    gib_send_date = fields.Datetime("Send Date", readonly=True)
+    gib_response_date = fields.Datetime("GIB Response Date", readonly=True)
+    gib_response_desc = fields.Text("GIB Response Description", readonly=True)
+    gib_log = fields.Text("Operation Log", readonly=True)
 
     # ERP entegrasyon bilgileri
     erp_id = fields.Char("ERP ID")
@@ -53,9 +53,9 @@ class EDocumentBase(models.Model):
     customer_receiver_alias = fields.Char("ERP Receiver Alias")
     branch_id = fields.Many2one(
         "algebra.base.branch",
-        string="Branch/Şube",
+        string="Branch",
         index=True,
-        help="Şube bilgisi",
+        help="Branch information",
     )
 
     # --- header ---
@@ -72,13 +72,13 @@ class EDocumentBase(models.Model):
         store=True,
     )
     id_value = fields.Char(
-        "Belge Numarası",
+        "Document Number",
         required=True,
         copy=False,
         default=lambda self: self.env["ir.sequence"].next_by_code("l10n_tr.ubl.invoice") or "/",
     )
     id_value_warning = fields.Char(
-        string="Numara Uyarısı",
+        string="Number Warning",
         compute="_compute_id_value_warning",
         store=False,
     )
@@ -111,7 +111,7 @@ class EDocumentBase(models.Model):
             val = (rec.id_value or "").strip()
 
             if not val or val == "/":
-                rec.id_value_warning = "Belge numarası boş olamaz."
+                rec.id_value_warning = "Document number cannot be empty."
                 continue
 
             # GIB formatına uyuyorsa hiçbir şey gösterme
@@ -125,20 +125,20 @@ class EDocumentBase(models.Model):
             if registered_prefixes and prefix in registered_prefixes:
                 # Prefix kayıtlı ama format tam değil — hafif uyarı
                 rec.id_value_warning = (
-                    f"'{val}' GIB formatına tam uymayabilir. "
-                    f"Beklenen yapı: {prefix}YYYY000000000"
+                    f"'{val}' may not fully match the GIB format. "
+                    f"Expected structure: {prefix}YYYY000000000"
                 )
             elif registered_prefixes and prefix not in registered_prefixes:
                 # Prefix kayıtlı değil
                 rec.id_value_warning = (
-                    f"'{prefix}' prefixi GIB'e kayıtlı seriler arasında değil. "
-                    f"Kayıtlı: {', '.join(sorted(registered_prefixes))}"
+                    f"Prefix '{prefix}' is not among the series registered with GIB. "
+                    f"Registered: {', '.join(sorted(registered_prefixes))}"
                 )
             else:
                 # iber_edonusum kurulu değil — sadece bilgi
                 rec.id_value_warning = (
-                    f"GIB formatına uymuyor (beklenen: 3 harf + 4 yıl + 9 rakam). "
-                    f"Mevcut: '{val}'"
+                    f"Does not match the GIB format (expected: 3 letters + 4-digit year + 9 digits). "
+                    f"Current: '{val}'"
                 )
     issue_date = fields.Date("Issue Date", default=fields.Date.context_today, required=True)
     document_type_id = fields.Many2one("algebra.base.document.type", string="Document Type")
@@ -153,31 +153,31 @@ class EDocumentBase(models.Model):
     UUID = fields.Char("UUID Number of E-Invoice", readonly=True)
 
     # --- inline parties (supplier) ---
-    supplier_name = fields.Char("Gönderici Adı", required=True)
+    supplier_name = fields.Char("Supplier Name", required=True)
     supplier_vkn_tckn = fields.Char("VKN/TCKN")
-    supplier_tax_office = fields.Char("Vergi Dairesi")
-    supplier_pname = fields.Char("Şahıs Adı")
-    supplier_psurname = fields.Char("Şahıs Soyadı")
+    supplier_tax_office = fields.Char("Tax Office")
+    supplier_pname = fields.Char("First Name")
+    supplier_psurname = fields.Char("Last Name")
     supplier_scheme_id = fields.Selection([("VKN", "VKN"), ("TCKN", "TCKN")])
-    supplier_street = fields.Char("Adres")
-    supplier_county = fields.Char("İlçe")
-    supplier_city = fields.Char("İl")
-    supplier_postal_code = fields.Char("Posta Kodu")
+    supplier_street = fields.Char("Address")
+    supplier_county = fields.Char("District")
+    supplier_city = fields.Char("City")
+    supplier_postal_code = fields.Char("Postal Code")
     supplier_country_code = fields.Char(string="Country Code", default="TR")
     supplier_country_name = fields.Char(string="Country Name", default="TÜRKİYE")
 
     # --- inline parties (customer) ---
     customer_card_code = fields.Char("ERP Card Code")
-    customer_name = fields.Char("Alıcı Adı", required=True)
+    customer_name = fields.Char("Customer Name", required=True)
     customer_vkn_tckn = fields.Char("VKN/TCKN")
-    customer_tax_office = fields.Char("Vergi Dairesi")
-    customer_pname = fields.Char("Şahıs Adı")
-    customer_psurname = fields.Char("Şahıs Soyadı")
+    customer_tax_office = fields.Char("Tax Office")
+    customer_pname = fields.Char("First Name")
+    customer_psurname = fields.Char("Last Name")
     customer_scheme_id = fields.Selection([("VKN", "VKN"), ("TCKN", "TCKN")])
-    customer_street = fields.Char("Adres")
-    customer_county = fields.Char("İlçe")
-    customer_city = fields.Char("İl")
-    customer_postal_code = fields.Char("Posta Kodu")
+    customer_street = fields.Char("Address")
+    customer_county = fields.Char("District")
+    customer_city = fields.Char("City")
+    customer_postal_code = fields.Char("Postal Code")
     customer_country_code = fields.Char(string="Country Code", default="TR")
     customer_country_name = fields.Char(string="Country Name", default="TÜRKİYE")
 
@@ -201,19 +201,19 @@ class EDocumentBase(models.Model):
     order_issue_date = fields.Date("Order Issue Date")
 
     def _get_profile_id_domain(self):
-        raise NotImplementedError("Belge türüne göre implement edilmeli.")
+        raise NotImplementedError("Must be implemented per document type.")
 
     def action_send_to_ubl_service(self):
-        raise NotImplementedError("Belge türüne göre implement edilmeli.")
+        raise NotImplementedError("Must be implemented per document type.")
 
     def action_preview_pdf(self):
-        raise NotImplementedError("Belge türüne göre implement edilmeli.")
+        raise NotImplementedError("Must be implemented per document type.")
 
     def action_clear_pdf_preview(self):
-        raise NotImplementedError("Belge türüne göre implement edilmeli.")
+        raise NotImplementedError("Must be implemented per document type.")
 
     def _get_service_url(self):
-        raise NotImplementedError("Belge türüne göre implement edilmeli.")
+        raise NotImplementedError("Must be implemented per document type.")
 
 
 class BaseDocumentSupplierExtraIDs(models.Model):

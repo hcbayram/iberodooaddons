@@ -5,14 +5,14 @@
             <field name="name">l10n_tr.ubl.delivery.note.list</field>
             <field name="model">l10n_tr.ubl.delivery.note</field>
             <field name="arch" type="xml">
-                <list string="UBL İrsaliyeler">
+                <list string="UBL Despatch Advices">
                     <field name="id_value"/>
                     <field name="issue_date"/>
                     <field name="document_direction"/>
                     <field name="customer_name"/>
                     <field name="customer_vkn_tckn"/>
                     <field name="profile_id" domain="[('profile_type', '=', 'delivery_note')]"/>
-                    <field name="stock_picking_id" string="Sevkiyat" optional="show"/>
+                    <field name="stock_picking_id" string="Shipment" optional="show"/>
                     <field name="erp_id" optional="hide"/>
                 </list>
             </field>
@@ -22,28 +22,28 @@
             <field name="name">l10n_tr.ubl.delivery.note.form</field>
             <field name="model">l10n_tr.ubl.delivery.note</field>
             <field name="arch" type="xml">
-                <form string="UBL İrsaliye" create="0">
+                <form string="UBL Despatch Advice" create="0">
                     <header>
                         <!-- Giden irsaliye: GIB'e Gönder -->
                         <button name="action_send_to_ubl_service"
-                            string="GIB'e Gönder"
+                            string="Send to GIB"
                             type="object"
                             class="btn-primary"
                             invisible="document_direction != 'outgoing' or gib_status in ['sent','approved']"/>
                         <!-- Giden irsaliye: ERP'den Güncelle (draft) -->
                         <button name="action_sync_from_erp"
-                            string="İrsaliyeleri Güncelle"
+                            string="Update Despatch Advices"
                             type="object"
                             class="btn-secondary"
                             invisible="document_direction != 'outgoing' or gib_status != 'draft'"
-                            title="ERP'deki güncel veriyle irsaliyeleri senkronize eder"/>
+                            title="Syncs despatch advices with the latest data from the ERP"/>
                         <!-- PDF Önizleme -->
                         <button name="action_preview_pdf"
-                            string="PDF Önizleme"
+                            string="PDF Preview"
                             type="object"
                             invisible="pdf_data"/>
                         <button name="action_clear_pdf_preview"
-                            string="Önizlemeyi Kapat"
+                            string="Close Preview"
                             type="object"
                             invisible="not pdf_data"/>
                     </header>
@@ -60,13 +60,13 @@
                                         icon="fa-truck"
                                         invisible="not stock_picking_id">
                                         <div class="o_stat_info">
-                                            <span class="o_stat_text">Sevkiyat</span>
+                                            <span class="o_stat_text">Shipment</span>
                                         </div>
                                     </button>
                                 </div>
 
                                 <group>
-                            <group string="Belge Bilgileri">
+                            <group string="Document Information">
                                 <field name="id_value" required="1"/>
                                 <field name="issue_date"/>
                                 <field name="document_direction"/>
@@ -74,7 +74,7 @@
                                 <field name="profile_id" domain="[('profile_type', '=', 'delivery_note')]"/>
                                 <field name="document_type_id" domain="[('doc_type', '=', 'delivery_note')]"/>
                                 <field name="copy_indicator"/>
-                                <field name="stock_picking_id" string="Sevkiyat Kaydı"/>
+                                <field name="stock_picking_id" string="Shipment Record"/>
                             </group>
                             <group string="ERP / UUID">
                                 <field name="UUID" readonly="1"/>
@@ -85,7 +85,7 @@
                         </group>
 
                         <notebook>
-                            <page string="Gönderici (Tedarikçi)">
+                            <page string="Sender (Supplier)">
                                 <group>
                                     <group>
                                         <field name="supplier_name"/>
@@ -103,7 +103,7 @@
                                 </group>
                             </page>
 
-                            <page string="Alıcı (Müşteri)">
+                            <page string="Receiver (Customer)">
                                 <group>
                                     <group>
                                         <field name="customer_name"/>
@@ -122,8 +122,8 @@
                                 </group>
                             </page>
 
-                            <page string="Taşıma">
-                                <group string="Araç Bilgileri">
+                            <page string="Transport">
+                                <group string="Vehicle Information">
                                     <field name="vehicle_plate_number"/>
                                     <field name="trailer_ids">
                                         <list editable="bottom">
@@ -132,7 +132,7 @@
                                         </list>
                                     </field>
                                 </group>
-                                <group string="Sürücüler">
+                                <group string="Drivers">
                                     <field name="driver_ids">
                                         <list editable="bottom">
                                             <field name="sequence" widget="handle"/>
@@ -143,7 +143,7 @@
                                         </list>
                                     </field>
                                 </group>
-                                <group string="Gönderi">
+                                <group string="Shipment">
                                     <field name="shipment_id"/>
                                     <field name="goods_item_value_amount"/>
                                     <field name="actual_despatch_date"/>
@@ -152,30 +152,30 @@
                                 </group>
                             </page>
 
-                            <page string="İlave Taraflar">
-                                <group string="Başlatan Taraf">
+                            <page string="Additional Parties">
+                                <group string="Originator Party">
                                     <field name="originator_name"/>
                                     <field name="originator_vkn_tckn"/>
                                     <field name="originator_tax_office"/>
                                     <field name="originator_city"/>
                                 </group>
-                                <group string="Taşıyıcı">
+                                <group string="Carrier">
                                     <field name="carrier_name"/>
                                     <field name="carrier_vkn_tckn"/>
                                     <field name="carrier_tax_office"/>
                                     <field name="carrier_city"/>
                                 </group>
-                                <group string="Satın Alan">
+                                <group string="Buyer">
                                     <field name="buyercustomer_name"/>
                                     <field name="buyercustomer_vkn_tckn"/>
                                 </group>
-                                <group string="Satan">
+                                <group string="Seller">
                                     <field name="sellersupplier_name"/>
                                     <field name="sellersupplier_vkn_tckn"/>
                                 </group>
                             </page>
 
-                            <page string="Satırlar">
+                            <page string="Lines">
                                 <field name="line_ids">
                                     <list editable="bottom">
                                         <field name="name"/>
@@ -188,7 +188,7 @@
                                 </field>
                             </page>
 
-                            <page string="Notlar">
+                            <page string="Notes">
                                 <field name="invoice_note_ids">
                                     <list editable="bottom">
                                         <field name="sequence" widget="handle"/>
@@ -210,7 +210,7 @@
                             <!-- Sağ kolon: PDF önizleme -->
                             <div class="o_iber_pdf_col" invisible="not pdf_data">
                                 <div class="border-bottom mb-2 pb-1 d-flex justify-content-between align-items-center">
-                                    <strong class="text-muted small">PDF Önizleme</strong>
+                                    <strong class="text-muted small">PDF Preview</strong>
                                 </div>
                                 <field name="pdf_data" widget="pdf_viewer" nolabel="1"/>
                             </div>

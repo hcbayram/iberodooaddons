@@ -10,7 +10,7 @@
                 <!-- Profil bilgisinin hemen altına makbuz belge tipi alanı -->
                 <xpath expr="//field[@name='profile_id']" position="after">
                     <field name="document_type_id"
-                        string="Makbuz/Belge Tipi"
+                        string="Receipt/Document Type"
                         invisible="profile_code != 'EARSIVBELGE'"
                         domain="[('doc_type', '=', 'receipt')]"/>
                 </xpath>

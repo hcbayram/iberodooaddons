@@ -4,8 +4,8 @@ class UBLInvoiceLine(models.Model):
 
 
     product_type = fields.Selection(
-        string='Ürün tipi',
-        selection=[('ILAC', 'İlaç'), ('TIBBICIHAZ', 'Tıbbi Cihaz'), ('DIGER', 'Diğer')]
+        string='Product Type',
+        selection=[('ILAC', 'Medicine'), ('TIBBICIHAZ', 'Medical Device'), ('DIGER', 'Other')]
     )
     
 

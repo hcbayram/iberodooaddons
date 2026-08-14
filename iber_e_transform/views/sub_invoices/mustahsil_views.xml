@@ -30,7 +30,7 @@
                 <!-- Fiili teslim tarihi alanını sipariş sekmesine ekle -->
                 <xpath expr="//page[@name='order_page']/group" position="inside">
                     <field name="ActualDeliveryDate"
-                        string="Fiili Teslim Tarihi"
+                        string="Actual Delivery Date"
                         invisible="document_type_code != 'MUSTAHSILMAKBUZ'"/>
                 </xpath>
             </field>

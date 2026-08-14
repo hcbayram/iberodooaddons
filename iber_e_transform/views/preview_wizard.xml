@@ -5,7 +5,7 @@
             <field name="name">l10n_tr.ubl.invoice.pdf.preview.wizard.form</field>
             <field name="model">l10n_tr.ubl.invoice.pdf.preview.wizard</field>
             <field name="arch" type="xml">
-                <form string="PDF Önizleme">
+                <form string="PDF Preview">
                     <sheet>
                         <field name="pdf_data" widget="pdf_viewer"/>
                     </sheet>
@@ -17,7 +17,7 @@
             <field name="name">l10n_tr.ubl.invoice.preview.wizard.form</field>
             <field name="model">l10n_tr.ubl.invoice.preview.wizard</field>
             <field name="arch" type="xml">
-                <form string="Fatura Önizleme">
+                <form string="Invoice Preview">
                     <sheet>
                         <field name="html_content" widget="html" readonly="1"/>
                     </sheet>

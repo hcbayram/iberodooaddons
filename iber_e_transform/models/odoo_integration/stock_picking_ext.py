@@ -12,10 +12,10 @@ class StockPicking(models.Model):
     ubl_delivery_note_ids = fields.One2many(
         "l10n_tr.ubl.delivery.note",
         "stock_picking_id",
-        string="UBL İrsaliyeler",
+        string="UBL Despatch Advices",
     )
     ubl_delivery_note_count = fields.Integer(
-        string="UBL İrsaliye Sayısı",
+        string="UBL Despatch Advice Count",
         compute="_compute_ubl_dn_count",
     )
 
@@ -41,9 +41,9 @@ class StockPicking(models.Model):
         """Odoo irsaliyesinden UBL e-irsaliye oluştur (Seçenek A)."""
         self.ensure_one()
         if self.picking_type_code != "outgoing":
-            raise UserError(_("Sadece giden sevkiyatlar için UBL irsaliyesi oluşturulabilir."))
+            raise UserError(_("UBL despatch advice can only be created for outgoing shipments."))
         if self.state != "done":
-            raise UserError(_("UBL irsaliyesi oluşturmak için sevkiyat tamamlanmış olmalıdır."))
+            raise UserError(_("The shipment must be completed to create a UBL despatch advice."))
 
         from ..erp.odoo_native_connector import OdooNativeConnector
         from ..erp.odoo_native_mapper import OdooERPMapper
@@ -65,7 +65,7 @@ class StockPicking(models.Model):
 
         return {
             "type": "ir.actions.act_window",
-            "name": _("UBL İrsaliye"),
+            "name": _("UBL Despatch Advice"),
             "res_model": "l10n_tr.ubl.delivery.note",
             "view_mode": "form",
             "res_id": ubl_dn.id,

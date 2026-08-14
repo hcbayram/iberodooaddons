@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_ids']/list/field[@name='tax_amount']" position="after">
                     <field name="tax_exemption_reason_id"
-                        string="İstisna Sebebi (İhracat)"
+                        string="Exemption Reason (Export)"
                         column_invisible="parent.profile_code != 'IHRACAT'"
                         domain="[('invoice_type', '=', 'IHRACAT')]"/>
                     <field name="gtip_num"
@@ -20,16 +20,16 @@
                         column_invisible="parent.profile_code != 'IHRACAT'"/>
                     <!-- Konteyner / izleme bilgileri -->
                     <field name="product_traceID"
-                        string="Ürün İzleme No"
+                        string="Product Trace No"
                         column_invisible="parent.profile_code != 'IHRACAT'"/>
                     <field name="container_number"
-                        string="Konteyner No"
+                        string="Container No"
                         column_invisible="parent.profile_code != 'IHRACAT'"/>
                     <field name="container_count"
-                        string="Konteyner Adedi"
+                        string="Container Count"
                         column_invisible="parent.profile_code != 'IHRACAT'"/>
                     <field name="container_type"
-                        string="Konteyner Tipi"
+                        string="Container Type"
                         column_invisible="parent.profile_code != 'IHRACAT'"/>
                 </xpath>
             </field>
@@ -42,7 +42,7 @@
             <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="İhracat Teslimat"
+                    <page string="Export Delivery"
                         invisible="profile_code != 'IHRACAT'">
                         <group>
                             <field name="delivery_street"/>

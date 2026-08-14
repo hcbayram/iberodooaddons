@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_ids']/list/field[@name='tax_amount']" position="after">
                     <field name="tax_exemption_reason_id"
-                        string="İhraç Kayıt Sebebi"
+                        string="Export Registration Reason"
                         column_invisible="parent.document_type_code != 'IHRACKAYITLI'"
                         domain="[('invoice_type', '=', 'IHRACKAYITLI')]"/>
                     <field name="buyer_linenum"

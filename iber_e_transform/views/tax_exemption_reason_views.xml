@@ -5,7 +5,7 @@
             <field name="name">tax.exemption.reason.list</field>
             <field name="model">tax.exemption.reason</field>
             <field name="arch" type="xml">
-                <list string="KDV İstisna Sebepleri">
+                <list string="VAT Exemption Reasons">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="invoice_type"/>

@@ -6,10 +6,10 @@ class UBL21ConfigSettings(models.Model):
     _description = "UBL-TR 2.1 Settings"
     _rec_name = "name"
 
-    name = fields.Char(default="UBL 2.1 Ayarları", readonly=True)
+    name = fields.Char(default="UBL 2.1 Settings", readonly=True)
     company_id = fields.Many2one(
         "res.company",
-        string="Şirket",
+        string="Company",
         required=True,
         index=True,
         default=lambda self: self.env.company,
@@ -19,49 +19,49 @@ class UBL21ConfigSettings(models.Model):
     # Not: iber_sap_b1 gibi ek modüller bu listeye kendi seçeneklerini ekler
     active_erp = fields.Selection(
         [
-            ("odoo_native", "Odoo 19 Enterprise (Yerleşik)"),
-            ("other", "Diğer ERP"),
+            ("odoo_native", "Odoo 19 Enterprise (Built-in)"),
+            ("other", "Other ERP"),
         ],
-        string="Aktif ERP",
+        string="Active ERP",
         default="odoo_native",
         required=True,
-        help="E-dönüşüm belgelerinin kaynağı olan ERP sistemi",
+        help="The ERP system that is the source of e-transformation documents",
     )
 
     # === GENEL AYARLAR ===
     ubl_service_url = fields.Char(
-        string="UBL Servis URL",
+        string="UBL Service URL",
         default="http://localhost:8019/algebra_service_layer/",
-        help="UBL XML oluşturma ve gönderme servisi URL adresi",
+        help="URL of the service that generates and sends UBL XML",
     )
-    erp_company_name = fields.Char(string="Şirket Adı")
+    erp_company_name = fields.Char(string="Company Name")
     erp_vkn_tckn = fields.Char(string="VKN/TCKN")
-    erp_tax_office = fields.Char(string="Vergi Dairesi")
-    erp_street = fields.Char(string="Adres")
-    erp_county = fields.Char(string="İlçe")
-    erp_city = fields.Char(string="İl")
-    erp_country_code = fields.Char(string="Ülke Kodu", default="TR")
-    erp_country_name = fields.Char(string="Ülke Adı", default="TÜRKİYE")
-    erp_postal_code = fields.Char(string="Posta Kodu")
-    erp_pname = fields.Char(string="Şahıs Adı")
-    erp_psurname = fields.Char(string="Şahıs Soyadı")
+    erp_tax_office = fields.Char(string="Tax Office")
+    erp_street = fields.Char(string="Address")
+    erp_county = fields.Char(string="District")
+    erp_city = fields.Char(string="City")
+    erp_country_code = fields.Char(string="Country Code", default="TR")
+    erp_country_name = fields.Char(string="Country Name", default="TÜRKİYE")
+    erp_postal_code = fields.Char(string="Postal Code")
+    erp_pname = fields.Char(string="First Name")
+    erp_psurname = fields.Char(string="Last Name")
     erp_sender_alias = fields.Char(
-        string="Gönderici Alias",
+        string="Sender Alias",
         default="urn:mail:defaultgb@nes.com.tr",
     )
 
     # === ERP SYNC TARİH BİLGİSİ ===
     last_invoice_sync_datetime = fields.Datetime(
-        string="Son Fatura Senkronizasyon Zamanı", readonly=True
+        string="Last Invoice Sync Time", readonly=True
     )
     last_delivery_note_sync_datetime = fields.Datetime(
-        string="Son İrsaliye Senkronizasyon Zamanı", readonly=True
+        string="Last Despatch Advice Sync Time", readonly=True
     )
 
 
     _sql_constraints = [
         # Singleton enforcement: şirket başına en fazla 1 kayıt olabilir
-        ("company_uniq", "unique(company_id)", "Şirket başına yalnızca 1 ayar kaydı olabilir!"),
+        ("company_uniq", "unique(company_id)", "Only 1 settings record can exist per company!"),
     ]
 
     @api.model
@@ -70,7 +70,7 @@ class UBL21ConfigSettings(models.Model):
         company = self.env.company
         rec = self.sudo().search([("company_id", "=", company.id)], limit=1, order="id asc")
         if not rec:
-            rec = self.sudo().create({"name": "UBL 2.1 Ayarları", "company_id": company.id})
+            rec = self.sudo().create({"name": "UBL 2.1 Settings", "company_id": company.id})
         return rec
 
     @api.model_create_multi
@@ -94,7 +94,7 @@ class UBL21ConfigSettings(models.Model):
         rec = self.get_singleton()
         return {
             "type": "ir.actions.act_window",
-            "name": "E-Dönüşüm Ayarları",
+            "name": "e-Transformation Settings",
             "res_model": "ubl21.config.settings",
             "view_mode": "form",
             "res_id": rec.id,
@@ -107,7 +107,7 @@ class UBL21ConfigSettings(models.Model):
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
-            "params": {"title": "Başarılı", "message": "Ayarlar kaydedildi.", "type": "success", "sticky": False},
+            "params": {"title": "Success", "message": "Settings saved.", "type": "success", "sticky": False},
         }
 
     def action_clear_invoice_sync_time(self):
@@ -116,7 +116,7 @@ class UBL21ConfigSettings(models.Model):
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
-            "params": {"title": "Başarılı", "message": "Fatura senkronizasyon zamanı temizlendi.", "type": "success", "sticky": False},
+            "params": {"title": "Success", "message": "Invoice sync time cleared.", "type": "success", "sticky": False},
         }
 
     def action_clear_delivery_note_sync_time(self):
@@ -125,5 +125,5 @@ class UBL21ConfigSettings(models.Model):
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
-            "params": {"title": "Başarılı", "message": "İrsaliye senkronizasyon zamanı temizlendi.", "type": "success", "sticky": False},
+            "params": {"title": "Success", "message": "Despatch advice sync time cleared.", "type": "success", "sticky": False},
         }

@@ -24,7 +24,7 @@ try:
 except Exception:
     XSLT_AVAILABLE = False
     def xslt2_transform(xml_string, xslt_path):
-        raise NotImplementedError("xslt_helper modülü yüklenemedi. Saxon/lxml kurulu mu?")
+        raise NotImplementedError("xslt_helper module could not be loaded. Is Saxon/lxml installed?")
 
 
 class UBLTaxSubtotal(models.Model):
@@ -42,9 +42,9 @@ class UBLTaxSubtotal(models.Model):
     invoice_id = fields.Many2one("l10n_tr.ubl.invoice", string="Invoice", ondelete="cascade", index=True)
     kind = fields.Selection(
         [
-            ("vat", "KDV"),
-            ("withholding_vat", "KDV Tevkifat"),
-            ("others", "Diğer Vergi ve Stopajlar"),
+            ("vat", "VAT"),
+            ("withholding_vat", "VAT Withholding"),
+            ("others", "Other Taxes and Withholdings"),
         ],
         default="vat",
         required=True,
@@ -68,7 +68,7 @@ class InvoicePreviewWizard(models.TransientModel):
     _name = "l10n_tr.ubl.invoice.preview.wizard"
     _description = "UBL Invoice Preview"
 
-    html_content = fields.Html("Fatura HTML")
+    html_content = fields.Html("Invoice HTML")
 
 
 class UBLInvoicePreviewWizard(models.TransientModel):
@@ -101,8 +101,8 @@ class UBLInvoice(models.Model):
     ]
 
     invoice_direction = fields.Selection(
-        [("incoming", "Gelen Fatura"), ("outgoing", "Giden Fatura")],
-        string="Fatura Yönü",
+        [("incoming", "Incoming Invoice"), ("outgoing", "Outgoing Invoice")],
+        string="Invoice Direction",
         default="outgoing",
         required=True,
     )
@@ -111,10 +111,10 @@ class UBLInvoice(models.Model):
     # Odoo 19 native bağlantısı (Seçenek A: bağımsız kayıt)
     account_move_id = fields.Many2one(
         "account.move",
-        string="Odoo Faturası",
+        string="Odoo Invoice",
         index=True,
         ondelete="set null",
-        help="Bu UBL faturasının kaynağı olan Odoo fatura kaydı",
+        help="The Odoo invoice record that is the source of this UBL invoice",
     )
 
     line_ids = fields.One2many("l10n_tr.ubl.invoiceline", "base_document_id", string="Lines")
@@ -143,14 +143,14 @@ class UBLInvoice(models.Model):
         compute="_compute_totals",
         store=True,
         readonly=True,
-        string="Tevkifat Toplam",
+        string="Withholding Total",
     )
     income_withholding_total = fields.Float(
         digits="Percentage Analytic",
         compute="_compute_totals",
         store=True,
         readonly=True,
-        string="Stopaj Toplam",
+        string="Income Withholding Total",
     )
 
     # Backward-compat aliases
@@ -167,21 +167,21 @@ class UBLInvoice(models.Model):
     subtotal_vat_ids = fields.One2many(
         "l10n_tr.ubl.taxsubtotal",
         "invoice_id",
-        string="KDV Subtotals",
+        string="VAT Subtotals",
         compute="_compute_filtered_subtotals",
         store=False,
     )
     subtotal_withholding_vat_ids = fields.One2many(
         "l10n_tr.ubl.taxsubtotal",
         "invoice_id",
-        string="Tevkifat Subtotals",
+        string="Withholding Subtotals",
         compute="_compute_filtered_subtotals",
         store=False,
     )
     subtotal_withholding_income_ids = fields.One2many(
         "l10n_tr.ubl.taxsubtotal",
         "invoice_id",
-        string="Stopaj Subtotals",
+        string="Income Withholding Subtotals",
         compute="_compute_filtered_subtotals",
         store=False,
     )
@@ -221,10 +221,10 @@ class UBLInvoice(models.Model):
     PTPaymentDueDate = fields.Date("Payment Due Date (PT)")
 
     # OKC
-    okc_fis_no = fields.Char("OKC Fiş No")
-    okc_fis_tarih_saat = fields.Datetime("OKC Fiş Tarihi/Saati")
-    okc_z_rapor_no = fields.Char("OKC Z Rapor No")
-    okc_seri_no = fields.Char("OKC Seri No")
+    okc_fis_no = fields.Char("OKC Receipt No")
+    okc_fis_tarih_saat = fields.Datetime("OKC Receipt Date/Time")
+    okc_z_rapor_no = fields.Char("OKC Z Report No")
+    okc_seri_no = fields.Char("OKC Serial No")
     okc_fis_tipi = fields.Selection(
         [
             ("AVANS", "Avans"), ("YEMEK_FIS", "Yemek Fişi Tahsilatı"),
@@ -234,7 +234,7 @@ class UBLInvoice(models.Model):
             ("FATURA_TAHSILAT", "Fatura Tahsilatı İşlemleri"),
             ("FATURA_TAHSILAT_KOMISYONLU", "Komisyonlu Fatura Tahsilatı İşlemleri"),
         ],
-        string="OKC Fiş Tipi",
+        string="OKC Receipt Type",
     )
 
     def copy(self, default=None):
@@ -249,7 +249,7 @@ class UBLInvoice(models.Model):
         if self.document_type_code == "IADE":
             if self.profile_id.code not in ["EARSIVFATURA", "TEMELFATURA", "ILAC_TIBBICIHAZ"]:
                 raise UserError(
-                    _("İade tipi fatura sadece e-Arşiv, Temel Fatura ve İlaç/Tıbbi Cihaz profillerinde kullanılabilir.")
+                    _("Return-type invoices can only be used with e-Archive, Basic Invoice, and Pharmaceutical/Medical Device profiles.")
                 )
 
     def _get_profile_id_domain(self):
@@ -409,13 +409,13 @@ class UBLInvoice(models.Model):
         self.ensure_one()
         if self.document_type_code in ["IADE", "TEVKIFATIADE"]:
             if not self.return_reference_ids:
-                raise UserError("İade tipi faturalarda en az bir İade Referansı olmalıdır.")
+                raise UserError("Return-type invoices must have at least one Return Reference.")
             if any(not ref.issue_date for ref in self.return_reference_ids):
-                raise UserError("İade Referanslarının düzenlenme tarihi boş olamaz.")
+                raise UserError("Return Reference issue date cannot be empty.")
             if any(len(ref.invoice_number) != 16 for ref in self.return_reference_ids):
-                raise UserError("İade Referans numaraları 16 karakter uzunluğunda olmalıdır.")
+                raise UserError("Return Reference numbers must be 16 characters long.")
             if any(ref.issue_date > date.today() for ref in self.return_reference_ids):
-                raise UserError("İade Referanslarının düzenlenme tarihi bugünden büyük olamaz.")
+                raise UserError("Return Reference issue date cannot be later than today.")
 
     def action_send_to_ubl_service(self):
         self.ensure_one()
@@ -423,7 +423,7 @@ class UBLInvoice(models.Model):
         xml_response = self._get_xml_from_service()
         json_payload = self.to_json()
         if not xml_response:
-            raise UserError("Servisten XML alınamadı!")
+            raise UserError("Could not fetch XML from the service!")
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_info = {
             "IntegratorCode": settings.integrator_id.code if settings and settings.integrator_id else "NES",
@@ -456,7 +456,7 @@ class UBLInvoice(models.Model):
                 response = requests.post(url, headers=self._service_headers(), data=json.dumps(payload))
                 if response.status_code != 200:
                     raise UserError(
-                        _("Servis hata döndürdü (HTTP %s):\n%s") % (response.status_code, response.text[:300])
+                        _("Service returned an error (HTTP %s):\n%s") % (response.status_code, response.text[:300])
                     )
                 resp_data = response.json()
 
@@ -465,13 +465,13 @@ class UBLInvoice(models.Model):
             envelope_id = resp_data.get("EnvelopeID") or resp_data.get("envelope_id") or ""
 
             if integrator_ok:
-                _logger.info("UBL gönderimi başarılı — UUID: %s", self.UUID)
+                _logger.info("UBL send successful — UUID: %s", self.UUID)
                 log_entry = (
-                    f"[{fields.Datetime.now()}] GIB'e gönderildi.\n"
+                    f"[{fields.Datetime.now()}] Sent to GIB.\n"
                     f"  UUID       : {self.UUID}\n"
-                    f"  Zarf No    : {envelope_id or '—'}\n"
-                    f"  Entegratör : {settings.integrator_id.name if settings.integrator_id else '—'}\n"
-                    f"  Test Modu  : {'Evet' if settings.test_mode else 'Hayır'}\n"
+                    f"  Envelope No: {envelope_id or '—'}\n"
+                    f"  Integrator : {settings.integrator_id.name if settings.integrator_id else '—'}\n"
+                    f"  Test Mode  : {'Yes' if settings.test_mode else 'No'}\n"
                 )
                 self.write({
                     "gib_status": "sent",
@@ -483,22 +483,22 @@ class UBLInvoice(models.Model):
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
-                        "title": _("GIB'e Gönderildi"),
+                        "title": _("Sent to GIB"),
                         "message": _(
-                            "Fatura başarıyla iletildi.\n"
+                            "Invoice sent successfully.\n"
                             "UUID: %(uuid)s\n"
-                            "Zarf No: %(env)s"
+                            "Envelope No: %(env)s"
                         ) % {"uuid": self.UUID, "env": envelope_id or "—"},
                         "type": "success",
                         "sticky": True,
                     },
                 }
             else:
-                _logger.error("Entegratör iş hatası — UUID: %s — %s", self.UUID, integrator_error)
+                _logger.error("Integrator business error — UUID: %s — %s", self.UUID, integrator_error)
                 log_entry = (
-                    f"[{fields.Datetime.now()}] Entegratör hatası.\n"
+                    f"[{fields.Datetime.now()}] Integrator error.\n"
                     f"  UUID  : {self.UUID}\n"
-                    f"  Hata  : {integrator_error}\n"
+                    f"  Error : {integrator_error}\n"
                 )
                 self.write({
                     "gib_status": "error",
@@ -509,7 +509,7 @@ class UBLInvoice(models.Model):
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
-                        "title": _("Entegratör Hatası"),
+                        "title": _("Integrator Error"),
                         "message": integrator_error,
                         "type": "danger",
                         "sticky": True,
@@ -518,12 +518,12 @@ class UBLInvoice(models.Model):
         except UserError:
             raise
         except Exception as e:
-            log_entry = f"[{fields.Datetime.now()}] Gönderim hatası: {str(e)}\n"
+            log_entry = f"[{fields.Datetime.now()}] Send error: {str(e)}\n"
             self.write({
                 "gib_status": "error",
                 "gib_log": (self.gib_log or "") + log_entry,
             })
-            raise UserError(_("Gönderim hatası: %s") % str(e))
+            raise UserError(_("Send error: %s") % str(e))
 
     def _get_xml_from_service(self):
         self.ensure_one()
@@ -533,9 +533,9 @@ class UBLInvoice(models.Model):
         # Önce aynı Odoo instance'ında doğrudan Python çağrısı dene
         xml_string = self._create_ubl_xml_direct(json_payload)
         if xml_string:
-            _logger.info("UBL XML doğrudan oluşturuldu (local). UUID: %s", self.UUID)
+            _logger.info("UBL XML generated directly (local). UUID: %s", self.UUID)
             log_entry = (
-                f"[{fields.Datetime.now()}] XML oluşturuldu (local).\n"
+                f"[{fields.Datetime.now()}] XML generated (local).\n"
                 f"  UUID: {self.UUID}\n"
             )
             self.write({
@@ -550,10 +550,10 @@ class UBLInvoice(models.Model):
         try:
             response = requests.post(url, headers=headers, data=json.dumps(json_payload))
             if response.status_code == 200:
-                _logger.info("UBL XML servisten oluşturuldu. UUID: %s", self.UUID)
+                _logger.info("UBL XML generated from service. UUID: %s", self.UUID)
                 ubl_xml = response.json().get("ubl_xml")
                 log_entry = (
-                    f"[{fields.Datetime.now()}] XML oluşturuldu.\n"
+                    f"[{fields.Datetime.now()}] XML generated.\n"
                     f"  UUID: {self.UUID}\n"
                 )
                 self.write({
@@ -563,11 +563,11 @@ class UBLInvoice(models.Model):
                 return ubl_xml
             else:
                 raise UserError(
-                    _("UBL servisi XML oluşturmada hata döndürdü (Status: %s):\n%s")
+                    _("UBL service returned an error while generating XML (Status: %s):\n%s")
                     % (response.status_code, response.text)
                 )
         except requests.exceptions.RequestException as e:
-            raise UserError(_("UBL servis bağlantı hatası: %s") % str(e))
+            raise UserError(_("UBL service connection error: %s") % str(e))
 
     def html_to_pdf_bytes(self, html_string):
         process = subprocess.Popen(
@@ -586,7 +586,7 @@ class UBLInvoice(models.Model):
         xml_response = self._get_xml_from_service()
         json_payload = self.to_json()
         if not xml_response:
-            raise UserError("Servisten XML alınamadı!")
+            raise UserError("Could not fetch XML from the service!")
         xslt_path = file_path("iber_e_transform/static/xslt/general.xslt")
         html_content = xslt2_transform(xml_response, xslt_path)
         pdf_bytes = self.html_to_pdf_bytes(html_content)
@@ -633,7 +633,7 @@ class UBLInvoice(models.Model):
     @api.model
     def action_fetch_incoming_from_integrator(self, ids=None, ui_filters=None):
         """Gelen faturaları entegratörden çeker. iber_edonusum modülü bu metodu genişletir."""
-        raise UserError("Bu işlev için 'iber_edonusum' modülünün kurulu olması gerekir.")
+        raise UserError("This action requires the 'iber_edonusum' module to be installed.")
 
     @api.model
     def action_sync_outgoing_from_erp(self):
@@ -645,14 +645,14 @@ class UBLInvoice(models.Model):
         """ERP sisteminden faturaları çeker. Alt modüller (iber_sap_b1 vb.) bu metodu genişletir."""
         settings = self.env["ubl21.config.settings"].get_singleton()
         if not settings:
-            raise UserError("Ayarlar bulunamadı.")
+            raise UserError("Settings not found.")
         return self._sync_from_odoo_native(settings)
 
     def _sync_from_odoo_native(self, settings):
         from ..erp.odoo_native_connector import OdooNativeConnector
         from ..erp.odoo_native_mapper import OdooERPMapper
 
-        _logger.info("=== Odoo Native Fatura Senkronizasyonu Başlatıldı ===")
+        _logger.info("=== Odoo Native Invoice Sync Started ===")
         connector = OdooNativeConnector(self.env)
         mapper = OdooERPMapper(self.env)
         last_sync = settings.last_invoice_sync_datetime
@@ -662,7 +662,7 @@ class UBLInvoice(models.Model):
         error_count = 0
 
         moves = connector.fetch_invoices(last_sync_datetime=last_sync)
-        _logger.info("Odoo'dan %d fatura çekildi", len(moves))
+        _logger.info("%d invoice(s) fetched from Odoo", len(moves))
 
         for move in moves:
             try:
@@ -683,16 +683,16 @@ class UBLInvoice(models.Model):
                     created_count += 1
             except Exception as e:
                 error_count += 1
-                _logger.error("Fatura %s işlenirken hata: %s", move.name, str(e))
+                _logger.error("Error processing invoice %s: %s", move.name, str(e))
 
         settings.write({"last_invoice_sync_datetime": sync_start_time})
-        message = f"Senkronizasyon tamamlandı.\nOluşturulan: {created_count}\nGüncellenen: {updated_count}"
+        message = f"Sync completed.\nCreated: {created_count}\nUpdated: {updated_count}"
         if error_count:
-            message += f"\nHata: {error_count}"
+            message += f"\nErrors: {error_count}"
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
-            "params": {"title": "Tamamlandı", "message": message, "type": "success", "sticky": False},
+            "params": {"title": "Completed", "message": message, "type": "success", "sticky": False},
         }
 
     def _sync_invoice_lines_from_odoo(self, invoice, move, mapper):

@@ -16,10 +16,10 @@ class UBLInvoice(models.Model):
 
     
     sgk_invoice_type = fields.Selection(
-        selection=SGK_INVOICE_TYPES, string="SGK Fatura Tipi") 
-    sgk_company_code = fields.Char(string="SGK Firma Kodu")
-    sgk_company_name = fields.Char(string="SGK Firma Adı")
-    sgk_file_number = fields.Char(string="SGK Dosya Numarası")
+        selection=SGK_INVOICE_TYPES, string="SGK Invoice Type")
+    sgk_company_code = fields.Char(string="SGK Company Code")
+    sgk_company_name = fields.Char(string="SGK Company Name")
+    sgk_file_number = fields.Char(string="SGK File Number")
 
     
 """ <cbc:DocumentCurrencyCode>TRY</cbc:DocumentCurrencyCode>

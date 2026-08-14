@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="iber_e_transform.view_ubl_invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="İade Referansları"
+                    <page string="Return References"
                         invisible="document_type_code not in ['IADE','TEVKIFATIADE']">
                         <field name="return_reference_ids">
                             <list editable="bottom">

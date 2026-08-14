@@ -5,7 +5,7 @@
             <field name="name">erp.field.mapping.info.wizard.form</field>
             <field name="model">erp.field.mapping.info.wizard</field>
             <field name="arch" type="xml">
-                <form string="ERP Alan Eşleşme Bilgisi">
+                <form string="ERP Field Mapping Info">
                     <sheet>
                         <field name="info_html" widget="html" readonly="1"/>
                     </sheet>

@@ -14,22 +14,22 @@
                         class="oe_stat_button"
                         icon="fa-truck"
                         invisible="picking_type_code != 'outgoing' or ubl_delivery_note_count == 0">
-                        <field name="ubl_delivery_note_count" widget="statinfo" string="E-İrsaliye"/>
+                        <field name="ubl_delivery_note_count" widget="statinfo" string="e-Despatch"/>
                     </button>
                 </xpath>
 
                 <!-- E-Dönüşüm Tab -->
                 <xpath expr="//notebook" position="inside">
-                    <page string="E-İrsaliye"
+                    <page string="e-Despatch"
                         invisible="picking_type_code != 'outgoing'">
                         <group>
                             <button name="action_create_ubl_delivery_note"
-                                string="E-İrsaliye Oluştur"
+                                string="Create e-Despatch"
                                 type="object"
                                 class="btn-primary"
                                 invisible="ubl_delivery_note_count != 0 or state != 'done'"/>
                             <button name="action_view_ubl_delivery_notes"
-                                string="E-İrsaliyeyi Görüntüle"
+                                string="View e-Despatch"
                                 type="object"
                                 invisible="ubl_delivery_note_count == 0"/>
                         </group>

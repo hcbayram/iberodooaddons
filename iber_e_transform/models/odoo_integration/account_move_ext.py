@@ -12,21 +12,21 @@ class AccountMove(models.Model):
     ubl_invoice_ids = fields.One2many(
         "l10n_tr.ubl.invoice",
         "account_move_id",
-        string="UBL Faturalar",
+        string="UBL Invoices",
     )
     ubl_invoice_count = fields.Integer(
-        string="UBL Fatura Sayısı",
+        string="UBL Invoice Count",
         compute="_compute_ubl_invoice_count",
     )
     ubl_status = fields.Selection(
         [
-            ("none", "UBL Oluşturulmadı"),
-            ("draft", "UBL Taslak"),
-            ("sent", "GIB'e Gönderildi"),
-            ("approved", "Onaylandı"),
-            ("rejected", "Reddedildi"),
+            ("none", "UBL Not Created"),
+            ("draft", "UBL Draft"),
+            ("sent", "Sent to GIB"),
+            ("approved", "Approved"),
+            ("rejected", "Rejected"),
         ],
-        string="E-Dönüşüm Durumu",
+        string="e-Transformation Status",
         compute="_compute_ubl_status",
         store=True,
     )
@@ -61,9 +61,9 @@ class AccountMove(models.Model):
         """Odoo faturasından UBL fatura oluştur (Seçenek A)."""
         self.ensure_one()
         if self.move_type not in ["out_invoice", "out_refund"]:
-            raise UserError(_("Sadece müşteri faturaları için UBL oluşturulabilir."))
+            raise UserError(_("UBL can only be created for customer invoices."))
         if self.state != "posted":
-            raise UserError(_("UBL fatura oluşturmak için fatura onaylanmış olmalıdır."))
+            raise UserError(_("The invoice must be posted to create a UBL invoice."))
 
         from ..erp.odoo_native_connector import OdooNativeConnector
         from ..erp.odoo_native_mapper import OdooERPMapper
@@ -85,7 +85,7 @@ class AccountMove(models.Model):
 
         return {
             "type": "ir.actions.act_window",
-            "name": _("UBL Fatura"),
+            "name": _("UBL Invoice"),
             "res_model": "l10n_tr.ubl.invoice",
             "view_mode": "form",
             "res_id": ubl_invoice.id,

@@ -12,22 +12,22 @@
                     <t t-if="props.list.context and props.list.context.default_document_direction === 'outgoing'">
                         <button type="button" class="btn btn-success"
                                 t-on-click="() => env.bus.trigger('ubl_dn:erp_ubl_olustur')">
-                            <i class="fa fa-refresh me-1"/> İrsaliyeleri Güncelle
+                            <i class="fa fa-refresh me-1"/> Update Despatch Advices
                         </button>
                         <button type="button" class="btn btn-primary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_dn:gib_gonder')">
-                            <i class="fa fa-paper-plane me-1"/> GIB'e Gönder
+                            <i class="fa fa-paper-plane me-1"/> Send to GIB
                         </button>
                         <button type="button" class="btn btn-info"
                                 t-att-disabled="props.list.selection.length !== 1"
                                 t-on-click="() => env.bus.trigger('ubl_dn:pdf_onizle')">
-                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Preview
                         </button>
                         <button type="button" class="btn btn-secondary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_dn:gib_sifirla')">
-                            <i class="fa fa-undo me-1"/> GIB Durumunu Sıfırla
+                            <i class="fa fa-undo me-1"/> Reset GIB Status
                         </button>
                     </t>
 
@@ -35,30 +35,30 @@
                     <t t-if="props.list.context and props.list.context.default_document_direction === 'incoming'">
                         <!-- Tarih filtre combobox -->
                         <div class="d-flex align-items-center gap-1 me-2">
-                            <label class="small text-muted mb-0 me-1">Dönem:</label>
+                            <label class="small text-muted mb-0 me-1">Period:</label>
                             <select class="form-select form-select-sm"
                                     style="width:140px"
                                     t-on-change="(ev) => env.bus.trigger('ubl_dn:tarih_filtre', ev.target.value)">
-                                <option value="son_30_gun">Son 30 Gün</option>
-                                <option value="bu_ay">Bu Ay</option>
-                                <option value="bu_hafta">Bu Hafta</option>
-                                <option value="bugun">Bugün</option>
-                                <option value="tumu">Tümü</option>
+                                <option value="son_30_gun">Last 30 Days</option>
+                                <option value="bu_ay">This Month</option>
+                                <option value="bu_hafta">This Week</option>
+                                <option value="bugun">Today</option>
+                                <option value="tumu">All</option>
                             </select>
                         </div>
                         <button type="button" class="btn btn-success"
                                 t-on-click="() => env.bus.trigger('ubl_dn:entegrator_getir')">
-                            <i class="fa fa-cloud-download me-1"/> Entegratörden İrsaliyeleri Getir
+                            <i class="fa fa-cloud-download me-1"/> Fetch Despatch Advices from Integrator
                         </button>
                         <button type="button" class="btn btn-info"
                                 t-att-disabled="props.list.selection.length !== 1"
                                 t-on-click="() => env.bus.trigger('ubl_dn:pdf_onizle')">
-                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Preview
                         </button>
                         <button type="button" class="btn btn-secondary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_dn:gib_sifirla')">
-                            <i class="fa fa-undo me-1"/> GIB Durumunu Sıfırla
+                            <i class="fa fa-undo me-1"/> Reset GIB Status
                         </button>
                     </t>
 

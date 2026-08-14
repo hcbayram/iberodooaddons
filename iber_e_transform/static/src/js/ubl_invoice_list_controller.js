@@ -7,7 +7,7 @@ import { useService } from "@web/core/utils/hooks";
 import { onWillUnmount } from "@odoo/owl";
 
 function parseOdooError(error) {
-    if (!error) return "Bilinmeyen hata.";
+    if (!error) return "Unknown error.";
     if (error?.data?.message) return error.data.message;
     if (error?.message) return error.message;
     return String(error);
@@ -66,7 +66,7 @@ export class UBLInvoiceListController extends ListController {
 
     /** Giden faturalar — Odoo'dan senkronize et */
     async onFaturaGuncelle() {
-        this.notification.add("Faturalar güncelleniyor...", { type: "info" });
+        this.notification.add("Updating invoices...", { type: "info" });
         try {
             const result = await this.orm.call(
                 "l10n_tr.ubl.invoice", "action_sync_outgoing_from_erp", []
@@ -76,7 +76,7 @@ export class UBLInvoiceListController extends ListController {
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Güncelleme hatası:\n" + parseOdooError(error),
+                "Update error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -84,7 +84,7 @@ export class UBLInvoiceListController extends ListController {
 
     /** Gelen faturalar — Entegratörden getir */
     async onEntegratorGetir() {
-        this.notification.add("Entegratörden faturalar alınıyor...", { type: "info" });
+        this.notification.add("Fetching invoices from integrator...", { type: "info" });
         try {
             // Önce toolbar preset'i, yoksa domain filtrelerini kullan
             let filters = {};
@@ -101,7 +101,7 @@ export class UBLInvoiceListController extends ListController {
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Fatura alma hatası:\n" + parseOdooError(error),
+                "Invoice fetch error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -109,7 +109,7 @@ export class UBLInvoiceListController extends ListController {
 
     /** Gelen faturalar — Test amaçlı: son N faturayı getir (tarih filtresiz) */
     async onSonNGetir() {
-        this.notification.add("Entegratörden son 10 fatura alınıyor...", { type: "info" });
+        this.notification.add("Fetching last 10 invoices from integrator...", { type: "info" });
         try {
             const result = await this.orm.call(
                 "l10n_tr.ubl.invoice", "action_fetch_last_n_incoming_from_integrator", [10]
@@ -119,7 +119,7 @@ export class UBLInvoiceListController extends ListController {
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Fatura alma hatası:\n" + parseOdooError(error),
+                "Invoice fetch error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -155,9 +155,9 @@ export class UBLInvoiceListController extends ListController {
     onTarihFiltre(ev) {
         const preset = ev.detail || ev;
         this._activeDateFilter = preset === "tumu" ? null : preset;
-        const label = { bugun: "Bugün", bu_hafta: "Bu Hafta", bu_ay: "Bu Ay",
-                        son_30_gun: "Son 30 Gün", tumü: "Tümü" }[preset] || preset;
-        this.notification.add(`Filtre: ${label}`, { type: "info" });
+        const label = { bugun: "Today", bu_hafta: "This Week", bu_ay: "This Month",
+                        son_30_gun: "Last 30 Days", tumu: "All" }[preset] || preset;
+        this.notification.add(`Filter: ${label}`, { type: "info" });
     }
 
     /** Seçili preset'ten tarih aralığı hesaplar */
@@ -226,7 +226,7 @@ export class UBLInvoiceListController extends ListController {
     async onGibGonder() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen en az bir fatura seçin.", { type: "warning" });
+            this.notification.add("Please select at least one invoice.", { type: "warning" });
             return;
         }
         let successCount = 0;
@@ -239,7 +239,7 @@ export class UBLInvoiceListController extends ListController {
                 if (result?.type === "ir.actions.client") {
                     const params = result.params || {};
                     if (params.type === "success") successCount++;
-                    else errors.push(`#${id}: ${params.message || "Bilinmeyen hata"}`);
+                    else errors.push(`#${id}: ${params.message || "Unknown error"}`);
                 } else {
                     successCount++;
                 }
@@ -252,13 +252,13 @@ export class UBLInvoiceListController extends ListController {
 
         if (successCount) {
             this.notification.add(
-                `${successCount} fatura başarıyla GIB'e gönderildi.`,
+                `${successCount} invoice(s) sent to GIB successfully.`,
                 { type: "success" }
             );
         }
         if (errors.length) {
             this.notification.add(
-                "Gönderim hatası:\n" + errors.join("\n"),
+                "Send error:\n" + errors.join("\n"),
                 { type: "danger", sticky: true }
             );
         }
@@ -268,11 +268,11 @@ export class UBLInvoiceListController extends ListController {
     async onPdfOnizle() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen bir fatura seçin.", { type: "warning" });
+            this.notification.add("Please select an invoice.", { type: "warning" });
             return;
         }
         if (ids.length > 1) {
-            this.notification.add("PDF önizleme için tek bir fatura seçin.", { type: "warning" });
+            this.notification.add("Select a single invoice for PDF preview.", { type: "warning" });
             return;
         }
         try {
@@ -282,7 +282,7 @@ export class UBLInvoiceListController extends ListController {
             await this.action.doAction(result);
         } catch (error) {
             this.notification.add(
-                "PDF oluşturulamadı:\n" + parseOdooError(error),
+                "Could not generate PDF:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -292,7 +292,7 @@ export class UBLInvoiceListController extends ListController {
     async onSistemFaturasıDonustur() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen en az bir fatura seçin.", { type: "warning" });
+            this.notification.add("Please select at least one invoice.", { type: "warning" });
             return;
         }
         try {
@@ -302,14 +302,14 @@ export class UBLInvoiceListController extends ListController {
                 "l10n_tr.ubl.invoice", "action_convert_to_account_move_silent", [ids]
             );
             this.notification.add(
-                `${count} fatura sistem faturasına dönüştürüldü.`,
+                `${count} invoice(s) converted to system invoice.`,
                 { type: "success" }
             );
             await this.model.root.load();
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Dönüştürme hatası:\n" + parseOdooError(error),
+                "Conversion error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -319,7 +319,7 @@ export class UBLInvoiceListController extends ListController {
     async onGibSifirla() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen en az bir fatura seçin.", { type: "warning" });
+            this.notification.add("Please select at least one invoice.", { type: "warning" });
             return;
         }
         try {
@@ -328,14 +328,14 @@ export class UBLInvoiceListController extends ListController {
                 gib_log: false,
             });
             this.notification.add(
-                `${ids.length} faturanın GIB durumu sıfırlandı.`,
+                `GIB status reset for ${ids.length} invoice(s).`,
                 { type: "success" }
             );
             await this.model.root.load();
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Durum sıfırlama hatası:\n" + parseOdooError(error),
+                "Status reset error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }

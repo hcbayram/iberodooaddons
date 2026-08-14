@@ -5,7 +5,7 @@
             <field name="name">algebra.base.document.unit.list</field>
             <field name="model">algebra.base.document.unit</field>
             <field name="arch" type="xml">
-                <list string="Birim Kodları">
+                <list string="Unit Codes">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="description"/>
@@ -16,7 +16,7 @@
             <field name="name">algebra.base.document.unit.form</field>
             <field name="model">algebra.base.document.unit</field>
             <field name="arch" type="xml">
-                <form string="Birim Kodu">
+                <form string="Unit Code">
                     <sheet>
                         <group>
                             <field name="code"/>
@@ -24,7 +24,7 @@
                             <field name="description"/>
                         </group>
                         <notebook>
-                            <page string="ERP Eşleşmeleri">
+                            <page string="ERP Mappings">
                                 <field name="erp_mapping_ids">
                                     <list editable="bottom">
                                         <field name="erp_system"/>

@@ -13,7 +13,7 @@ try:
 except Exception:
     XSLT_AVAILABLE = False
     def xslt2_transform(xml_string, xslt_path):
-        raise NotImplementedError("xslt_helper modülü yüklenemedi. Saxon/lxml kurulu mu?")
+        raise NotImplementedError("xslt_helper module could not be loaded. Is Saxon/lxml installed?")
 
 
 class UBLDeliveryNote(models.Model):
@@ -41,77 +41,77 @@ class UBLDeliveryNote(models.Model):
     # Odoo 19 native bağlantısı (Seçenek A)
     stock_picking_id = fields.Many2one(
         "stock.picking",
-        string="Odoo İrsaliyesi",
+        string="Odoo Despatch Advice",
         index=True,
         ondelete="set null",
-        help="Bu UBL irsaliyesinin kaynağı olan Odoo stok hareketi",
+        help="The Odoo stock move that is the source of this UBL despatch advice",
     )
 
     document_direction = fields.Selection(
-        [("incoming", "Gelen İrsaliye"), ("outgoing", "Giden İrsaliye")],
-        string="İrsaliye Yönü",
+        [("incoming", "Incoming Despatch Advice"), ("outgoing", "Outgoing Despatch Advice")],
+        string="Despatch Direction",
         default="outgoing",
         required=True,
     )
-    copy_indicator = fields.Boolean("Asıl/Suret", default=False)
+    copy_indicator = fields.Boolean("Original/Copy", default=False)
 
     # Originator
-    originator_name = fields.Char("Başlatan Taraf Adı")
+    originator_name = fields.Char("Originator Party Name")
     originator_vkn_tckn = fields.Char("VKN/TCKN")
-    originator_tax_office = fields.Char("Vergi Dairesi")
-    originator_street = fields.Char("Adres")
-    originator_county = fields.Char("İlçe")
-    originator_city = fields.Char("İl")
-    originator_postal_code = fields.Char("Posta Kodu")
+    originator_tax_office = fields.Char("Tax Office")
+    originator_street = fields.Char("Address")
+    originator_county = fields.Char("District")
+    originator_city = fields.Char("City")
+    originator_postal_code = fields.Char("Postal Code")
     originator_country_code = fields.Char(default="TR")
     originator_country_name = fields.Char(default="TÜRKİYE")
 
     # Carrier
-    carrier_name = fields.Char("Taşıyıcı Adı")
+    carrier_name = fields.Char("Carrier Name")
     carrier_vkn_tckn = fields.Char("VKN/TCKN")
-    carrier_tax_office = fields.Char("Vergi Dairesi")
-    carrier_street = fields.Char("Adres")
-    carrier_county = fields.Char("İlçe")
-    carrier_city = fields.Char("İl")
-    carrier_postal_code = fields.Char("Posta Kodu")
+    carrier_tax_office = fields.Char("Tax Office")
+    carrier_street = fields.Char("Address")
+    carrier_county = fields.Char("District")
+    carrier_city = fields.Char("City")
+    carrier_postal_code = fields.Char("Postal Code")
     carrier_country_code = fields.Char(default="TR")
     carrier_country_name = fields.Char(default="TÜRKİYE")
 
     # Buyer Customer
-    buyercustomer_name = fields.Char("Satın Alan Taraf Adı")
+    buyercustomer_name = fields.Char("Buyer Party Name")
     buyercustomer_vkn_tckn = fields.Char("VKN/TCKN")
-    buyercustomer_tax_office = fields.Char("Vergi Dairesi")
-    buyercustomer_street = fields.Char("Adres")
-    buyercustomer_county = fields.Char("İlçe")
-    buyercustomer_city = fields.Char("İl")
-    buyercustomer_postal_code = fields.Char("Posta Kodu")
+    buyercustomer_tax_office = fields.Char("Tax Office")
+    buyercustomer_street = fields.Char("Address")
+    buyercustomer_county = fields.Char("District")
+    buyercustomer_city = fields.Char("City")
+    buyercustomer_postal_code = fields.Char("Postal Code")
     buyercustomer_country_code = fields.Char(default="TR")
     buyercustomer_country_name = fields.Char(default="TÜRKİYE")
 
     # Seller Supplier
-    sellersupplier_name = fields.Char("Satan Taraf Adı")
+    sellersupplier_name = fields.Char("Seller Party Name")
     sellersupplier_vkn_tckn = fields.Char("VKN/TCKN")
-    sellersupplier_tax_office = fields.Char("Vergi Dairesi")
-    sellersupplier_street = fields.Char("Adres")
-    sellersupplier_county = fields.Char("İlçe")
-    sellersupplier_city = fields.Char("İl")
-    sellersupplier_postal_code = fields.Char("Posta Kodu")
+    sellersupplier_tax_office = fields.Char("Tax Office")
+    sellersupplier_street = fields.Char("Address")
+    sellersupplier_county = fields.Char("District")
+    sellersupplier_city = fields.Char("City")
+    sellersupplier_postal_code = fields.Char("Postal Code")
     sellersupplier_country_code = fields.Char(default="TR")
     sellersupplier_country_name = fields.Char(default="TÜRKİYE")
 
     # Shipment
-    shipment_id = fields.Char("Gönderi ID")
-    goods_item_value_amount = fields.Float("Mal Değeri", digits="Percentage Analytic")
-    vehicle_plate_number = fields.Char("Araç Plakası")
+    shipment_id = fields.Char("Shipment ID")
+    goods_item_value_amount = fields.Float("Goods Value", digits="Percentage Analytic")
+    vehicle_plate_number = fields.Char("Vehicle Plate Number")
     trailer_ids = fields.One2many(
-        "l10n_tr.ubl.delivery.note.trailer", "delivery_note_id", string="Dorse/Römork Plakaları"
+        "l10n_tr.ubl.delivery.note.trailer", "delivery_note_id", string="Trailer Plate Numbers"
     )
     driver_ids = fields.One2many(
-        "l10n_tr.ubl.delivery.note.driver", "delivery_note_id", string="Sürücüler"
+        "l10n_tr.ubl.delivery.note.driver", "delivery_note_id", string="Drivers"
     )
-    actual_despatch_date = fields.Date("Fiili Sevk Tarihi")
-    actual_despatch_time = fields.Float("Fiili Sevk Saati")
-    despatch_contact_name = fields.Char("Teslim Eden")
+    actual_despatch_date = fields.Date("Actual Despatch Date")
+    actual_despatch_time = fields.Float("Actual Despatch Time")
+    despatch_contact_name = fields.Char("Delivered By")
 
     line_ids = fields.One2many(
         "l10n_tr.ubl.delivery.note.line", "base_document_id", string="Lines"
@@ -122,7 +122,7 @@ class UBLDeliveryNote(models.Model):
         config = self.env["ubl21.config.settings"].get_singleton()
         url = config.ubl_service_url
         if not url:
-            raise UserError("UBL XML servis adresi (UBL Service URL) tanımlı değil.")
+            raise UserError("UBL XML service address (UBL Service URL) is not defined.")
         return url
 
     def _get_profile_id_domain(self):
@@ -282,7 +282,7 @@ class UBLDeliveryNote(models.Model):
         xml_response = self._get_xml_from_service()
         json_payload = self.to_json()
         if not xml_response:
-            raise UserError("Servisten XML alınamadı!")
+            raise UserError("Could not fetch XML from the service!")
         settings = self.env["ubl21.config.settings"].get_singleton()
         integrator_info = {
             "IntegratorCode": settings.integrator_id.code if settings and settings.integrator_id else "NES",
@@ -312,7 +312,7 @@ class UBLDeliveryNote(models.Model):
                 response = requests.post(url, headers=self._service_headers(), data=json.dumps(payload))
                 if response.status_code != 200:
                     raise UserError(
-                        _("Servis hata döndürdü (HTTP %s):\n%s") % (response.status_code, response.text[:300])
+                        _("Service returned an error (HTTP %s):\n%s") % (response.status_code, response.text[:300])
                     )
                 resp_data = response.json()
 
@@ -330,8 +330,8 @@ class UBLDeliveryNote(models.Model):
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
-                        "title": _("GIB'e Gönderildi"),
-                        "message": _("İrsaliye başarıyla iletildi.\nUUID: %s") % self.UUID,
+                        "title": _("Sent to GIB"),
+                        "message": _("Despatch advice sent successfully.\nUUID: %s") % self.UUID,
                         "type": "success",
                         "sticky": True,
                     },
@@ -342,7 +342,7 @@ class UBLDeliveryNote(models.Model):
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
-                        "title": _("Entegratör Hatası"),
+                        "title": _("Integrator Error"),
                         "message": integrator_error,
                         "type": "danger",
                         "sticky": True,
@@ -352,21 +352,21 @@ class UBLDeliveryNote(models.Model):
             raise
         except Exception as e:
             self.write({"gib_status": "error"})
-            raise UserError(_("Gönderim hatası: %s") % str(e))
+            raise UserError(_("Send error: %s") % str(e))
 
     @api.model
     def action_sync_from_erp(self):
         """ERP sisteminden irsaliyeleri çeker. Alt modüller (iber_sap_b1 vb.) bu metodu genişletir."""
         settings = self.env["ubl21.config.settings"].get_singleton()
         if not settings:
-            raise UserError("Ayarlar bulunamadı.")
+            raise UserError("Settings not found.")
         return self._sync_from_odoo_native(settings)
 
     def _sync_from_odoo_native(self, settings):
         from ..erp.odoo_native_connector import OdooNativeConnector
         from ..erp.odoo_native_mapper import OdooERPMapper
 
-        _logger.info("=== Odoo Native İrsaliye Senkronizasyonu Başlatıldı ===")
+        _logger.info("=== Odoo Native Despatch Advice Sync Started ===")
         connector = OdooNativeConnector(self.env)
         mapper = OdooERPMapper(self.env)
         last_sync = settings.last_delivery_note_sync_datetime
@@ -393,16 +393,16 @@ class UBLDeliveryNote(models.Model):
                     created_count += 1
             except Exception as e:
                 error_count += 1
-                _logger.error("İrsaliye %s işlenirken hata: %s", picking.name, str(e))
+                _logger.error("Error processing despatch advice %s: %s", picking.name, str(e))
 
         settings.write({"last_delivery_note_sync_datetime": sync_start_time})
-        message = f"Senkronizasyon tamamlandı.\nOluşturulan: {created_count}\nGüncellenen: {updated_count}"
+        message = f"Sync completed.\nCreated: {created_count}\nUpdated: {updated_count}"
         if error_count:
-            message += f"\nHata: {error_count}"
+            message += f"\nErrors: {error_count}"
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
-            "params": {"title": "Tamamlandı", "message": message, "type": "success", "sticky": False},
+            "params": {"title": "Completed", "message": message, "type": "success", "sticky": False},
         }
 
     def _sync_dn_lines_from_odoo(self, delivery_note, picking, mapper):
@@ -424,21 +424,21 @@ class UBLDeliveryNoteTrailer(models.Model):
     delivery_note_id = fields.Many2one(
         "l10n_tr.ubl.delivery.note", string="Delivery Note", required=True, ondelete="cascade"
     )
-    plate_number = fields.Char("Dorse Plakası", required=True)
+    plate_number = fields.Char("Trailer Plate Number", required=True)
 
 
 class UBLDeliveryNoteDriver(models.Model):
     _name = "l10n_tr.ubl.delivery.note.driver"
-    _description = "Delivery Note Driver (Sürücü)"
+    _description = "Delivery Note Driver"
     _order = "sequence, id"
 
     sequence = fields.Integer(default=10)
     delivery_note_id = fields.Many2one(
         "l10n_tr.ubl.delivery.note", string="Delivery Note", required=True, ondelete="cascade"
     )
-    first_name = fields.Char("Adı", required=True)
-    family_name = fields.Char("Soyadı", required=True)
-    title = fields.Char("Ünvanı", default="Şoför")
+    first_name = fields.Char("First Name", required=True)
+    family_name = fields.Char("Last Name", required=True)
+    title = fields.Char("Title", default="Şoför")
     tckn = fields.Char("TCKN")
 
 

@@ -6,7 +6,7 @@
             <field name="name">l10n_tr.ubl.invoice.list</field>
             <field name="model">l10n_tr.ubl.invoice</field>
             <field name="arch" type="xml">
-                <list string="UBL Faturalar" decoration-info="invoice_direction == 'incoming'">
+                <list string="UBL Invoices" decoration-info="invoice_direction == 'incoming'">
                     <field name="id_value"/>
                     <field name="issue_date"/>
                     <field name="invoice_direction"/>
@@ -16,7 +16,7 @@
                     <field name="document_type_id" domain="[('doc_type', 'in', ['invoice', 'credit_note', 'receipt'])]"/>
                     <field name="total_with_tax"/>
                     <field name="document_currency_id"/>
-                    <field name="account_move_id" string="Kaynak Fatura" optional="show"/>
+                    <field name="account_move_id" string="Source Invoice" optional="show"/>
                     <field name="erp_id" optional="hide"/>
                     <field name="erp_last_sync_date" optional="hide"/>
                     <field name="company_id" optional="hide" groups="base.group_multi_company"/>
@@ -29,19 +29,19 @@
             <field name="name">l10n_tr.ubl.invoice.form</field>
             <field name="model">l10n_tr.ubl.invoice</field>
             <field name="arch" type="xml">
-                <form string="UBL Fatura" create="0">
+                <form string="UBL Invoice" create="0">
                     <header>
                         <button name="action_send_to_ubl_service"
-                            string="GIB'e Gönder"
+                            string="Send to GIB"
                             type="object"
                             class="btn-primary"
                             invisible="gib_status in ['sent','approved']"/>
                         <button name="action_preview_pdf"
-                            string="PDF Önizleme"
+                            string="PDF Preview"
                             type="object"
                             invisible="pdf_data"/>
                         <button name="action_clear_pdf_preview"
-                            string="Önizlemeyi Kapat"
+                            string="Close Preview"
                             type="object"
                             invisible="not pdf_data"/>
                         <field name="gib_status" widget="statusbar"
@@ -61,7 +61,7 @@
                                         icon="fa-file-text-o"
                                         invisible="not account_move_id">
                                         <div class="o_stat_info">
-                                            <span class="o_stat_text">Muhasebe Kaydı</span>
+                                            <span class="o_stat_text">Accounting Entry</span>
                                         </div>
                                     </button>
                                 </div>
@@ -89,14 +89,14 @@
                                         <field name="id_value" required="1"/>
                                         <field name="document_currency_id"/>
                                         <field name="document_exchange_rate"/>
-                                        <field name="account_move_id" string="Kaynak Fatura"/>
+                                        <field name="account_move_id" string="Source Invoice"/>
                                         <field name="customer_receiver_alias" invisible="invoice_direction == 'incoming'"/>
                                     </group>
                                 </group>
 
                                 <notebook>
                             <!-- Gönderici -->
-                            <page string="Gönderici">
+                            <page string="Sender">
                                 <group>
                                     <group>
                                         <field name="supplier_name"/>
@@ -118,7 +118,7 @@
                             </page>
 
                             <!-- Alıcı -->
-                            <page string="Alıcı">
+                            <page string="Receiver">
                                 <group>
                                     <group>
                                         <field name="customer_card_code"/>
@@ -141,14 +141,14 @@
                             </page>
 
                             <!-- Fatura Satırları -->
-                            <page string="Fatura Satırları">
+                            <page string="Invoice Lines">
                                 <field name="line_ids">
                                     <list editable="bottom">
                                         <button name="open_line_details"
                                             type="object"
                                             string=""
                                             icon="fa-list"
-                                            title="Satır Detaylarını Görüntüle"/>
+                                            title="View Line Details"/>
                                         <field name="name"/>
                                         <field name="quantity"/>
                                         <field name="unit_code_id"/>
@@ -173,7 +173,7 @@
                             </page>
 
                             <!-- Vergi Alt Toplamları -->
-                            <page string="Vergiler">
+                            <page string="Taxes">
                                 <field name="subtotal_ids">
                                     <list>
                                         <field name="name"/>
@@ -188,16 +188,16 @@
                             </page>
 
                             <!-- Ödeme -->
-                            <page string="Ödeme" name="payment_page">
+                            <page string="Payment" name="payment_page">
                                 <group>
-                                    <group string="Ödeme Şekli">
+                                    <group string="Payment Method">
                                         <field name="PaymentMeansCode"/>
                                         <field name="PaymentDueDate"/>
                                         <field name="PaymentChannelCode"/>
                                         <field name="InstructionNote"/>
                                         <field name="PayeeFinancialAccount"/>
                                     </group>
-                                    <group string="Ödeme Koşulları">
+                                    <group string="Payment Terms">
                                         <field name="PaymentTermsNote"/>
                                         <field name="PenaltySurchargePercent"/>
                                         <field name="PenaltyAmount"/>
@@ -207,7 +207,7 @@
                             </page>
 
                             <!-- İrsaliye Referansları -->
-                            <page string="İrsaliye Referansları">
+                            <page string="Despatch References">
                                 <field name="despatch_reference_ids">
                                     <list editable="bottom">
                                         <field name="despatch_id"/>
@@ -218,7 +218,7 @@
                             </page>
 
                             <!-- Sipariş -->
-                            <page string="Sipariş" name="order_page">
+                            <page string="Order" name="order_page">
                                 <group>
                                     <field name="order_id"/>
                                     <field name="order_issue_date"/>
@@ -226,7 +226,7 @@
                             </page>
 
                             <!-- Notlar -->
-                            <page string="Notlar">
+                            <page string="Notes">
                                 <field name="invoice_note_ids">
                                     <list editable="bottom">
                                         <field name="sequence" widget="handle"/>
@@ -247,8 +247,8 @@
                             </page>
 
                             <!-- GIB Durum ve Log -->
-                            <page string="GIB Durumu">
-                                <group string="Durum Bilgisi">
+                            <page string="GIB Status">
+                                <group string="Status Information">
                                     <field name="gib_status" readonly="1" widget="badge"
                                         decoration-success="gib_status == 'approved'"
                                         decoration-warning="gib_status in ['xml_created','sent']"
@@ -260,7 +260,7 @@
                                     <field name="gib_response_date" readonly="1"/>
                                     <field name="gib_response_desc" readonly="1"/>
                                 </group>
-                                <group string="İşlem Logu">
+                                <group string="Operation Log">
                                     <field name="gib_log" widget="text" readonly="1" nolabel="1"/>
                                 </group>
                             </page>
@@ -288,7 +288,7 @@
                             <!-- Sağ kolon: PDF önizleme -->
                             <div class="o_iber_pdf_col" invisible="not pdf_data">
                                 <div class="border-bottom mb-2 pb-1 d-flex justify-content-between align-items-center">
-                                    <strong class="text-muted small">PDF Önizleme</strong>
+                                    <strong class="text-muted small">PDF Preview</strong>
                                 </div>
                                 <field name="pdf_data" widget="pdf_viewer" nolabel="1"/>
                             </div>
@@ -304,10 +304,10 @@
             <field name="name">l10n_tr.ubl.invoiceline.details.form</field>
             <field name="model">l10n_tr.ubl.invoiceline</field>
             <field name="arch" type="xml">
-                <form string="Satır Detayları">
+                <form string="Line Details">
                     <sheet>
                         <group>
-                            <group string="Kalem Bilgisi">
+                            <group string="Item Information">
                                 <field name="name" readonly="1"/>
                                 <field name="quantity" readonly="1"/>
                                 <field name="unit_code_id" readonly="1"/>
@@ -317,7 +317,7 @@
                                 <field name="tax_amount" readonly="1"/>
                                 <field name="currency_id" invisible="1"/>
                             </group>
-                            <group string="Tevkifat">
+                            <group string="Withholding">
                                 <field name="withholding_code"/>
                                 <field name="withholding_rate"/>
                                 <field name="withholding_amount" readonly="1"/>
@@ -326,7 +326,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="İndirim / Arttırım" name="adjustments_page">
+                            <page string="Discount / Surcharge" name="adjustments_page">
                                 <field name="adjustment_ids">
                                     <list editable="bottom">
                                         <field name="type"/>
@@ -337,7 +337,7 @@
                                     </list>
                                 </field>
                             </page>
-                            <page string="KDV ve Diğer Vergiler">
+                            <page string="VAT and Other Taxes">
                                 <field name="taxextra_ids">
                                     <list editable="bottom">
                                         <field name="tax_type_id"/>
@@ -346,7 +346,7 @@
                                     </list>
                                 </field>
                             </page>
-                            <page string="Notlar">
+                            <page string="Notes">
                                 <field name="line_note_ids">
                                     <list editable="bottom">
                                         <field name="sequence" widget="handle"/>
@@ -365,7 +365,7 @@
             <field name="name">l10n_tr.ubl.invoiceline.note.list</field>
             <field name="model">l10n_tr.ubl.invoiceline.note</field>
             <field name="arch" type="xml">
-                <list editable="bottom" string="Satır Notları">
+                <list editable="bottom" string="Line Notes">
                     <field name="sequence" widget="handle"/>
                     <field name="note"/>
                 </list>

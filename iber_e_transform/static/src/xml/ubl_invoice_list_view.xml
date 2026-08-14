@@ -12,22 +12,22 @@
                     <t t-if="props.list.context and props.list.context.default_invoice_direction === 'outgoing'">
                         <button type="button" class="btn btn-success"
                                 t-on-click="() => env.bus.trigger('ubl_inv:fatura_guncelle')">
-                            <i class="fa fa-refresh me-1"/> Faturaları Güncelle
+                            <i class="fa fa-refresh me-1"/> Update Invoices
                         </button>
                         <button type="button" class="btn btn-primary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_inv:gib_gonder')">
-                            <i class="fa fa-paper-plane me-1"/> GIB'e Gönder
+                            <i class="fa fa-paper-plane me-1"/> Send to GIB
                         </button>
                         <button type="button" class="btn btn-info"
                                 t-att-disabled="props.list.selection.length !== 1"
                                 t-on-click="() => env.bus.trigger('ubl_inv:pdf_onizle')">
-                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Preview
                         </button>
                         <button type="button" class="btn btn-secondary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_inv:gib_sifirla')">
-                            <i class="fa fa-undo me-1"/> GIB Durumunu Sıfırla
+                            <i class="fa fa-undo me-1"/> Reset GIB Status
                         </button>
                     </t>
 
@@ -35,46 +35,46 @@
                     <t t-if="props.list.context and props.list.context.default_invoice_direction === 'incoming'">
                         <!-- Tarih filtre combobox -->
                         <div class="d-flex align-items-center gap-1 me-2">
-                            <label class="small text-muted mb-0 me-1">Dönem:</label>
+                            <label class="small text-muted mb-0 me-1">Period:</label>
                             <select class="form-select form-select-sm"
                                     style="width:140px"
                                     t-on-change="(ev) => env.bus.trigger('ubl_inv:tarih_filtre', ev.target.value)">
-                                <option value="son_30_gun">Son 30 Gün</option>
-                                <option value="bu_ay">Bu Ay</option>
-                                <option value="bu_hafta">Bu Hafta</option>
-                                <option value="bugun">Bugün</option>
-                                <option value="tumu">Tümü</option>
+                                <option value="son_30_gun">Last 30 Days</option>
+                                <option value="bu_ay">This Month</option>
+                                <option value="bu_hafta">This Week</option>
+                                <option value="bugun">Today</option>
+                                <option value="tumu">All</option>
                             </select>
                         </div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-success"
                                     t-on-click="() => env.bus.trigger('ubl_inv:entegrator_getir')">
-                                <i class="fa fa-cloud-download me-1"/> Entegratörden Faturaları Getir
+                                <i class="fa fa-cloud-download me-1"/> Fetch Invoices from Integrator
                             </button>
                             <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Diğer alma seçenekleri</span>
+                                <span class="visually-hidden">Other fetch options</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a class="dropdown-item" href="#"
-                                       title="Yalnızca test amaçlı: tarih aralığı gözetmeksizin entegratörden en son 10 faturayı çeker (test ortamı aktif entegratörde çalışır)"
+                                       title="Test purposes only: fetches the last 10 invoices from the integrator regardless of date range (works on an integrator with test environment active)"
                                        t-on-click.prevent="() => env.bus.trigger('ubl_inv:son_n_getir')">
-                                        <i class="fa fa-flask me-1"/> Son 10 Faturayı Getir (Test)
+                                        <i class="fa fa-flask me-1"/> Fetch Last 10 Invoices (Test)
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#"
-                                       title="Belgenin UUID'sini (GUID) biliyorsanız, liste/tarih filtresine gerek kalmadan doğrudan bu belgeyi çeker"
+                                       title="If you know the document's UUID (GUID), this fetches it directly without needing a list/date filter"
                                        t-on-click.prevent="() => env.bus.trigger('ubl_inv:uuid_ile_getir')">
-                                        <i class="fa fa-search me-1"/> UUID İle Getir
+                                        <i class="fa fa-search me-1"/> Fetch by UUID
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"/></li>
                                 <li>
                                     <a class="dropdown-item" href="#"
                                        t-on-click.prevent="() => env.bus.trigger('ubl_inv:xml_ice_aktar')">
-                                        <i class="fa fa-upload me-1"/> XML'den İçe Aktar
+                                        <i class="fa fa-upload me-1"/> Import from XML
                                     </a>
                                 </li>
                             </ul>
@@ -82,12 +82,12 @@
                         <button type="button" class="btn btn-info"
                                 t-att-disabled="props.list.selection.length !== 1"
                                 t-on-click="() => env.bus.trigger('ubl_inv:pdf_onizle')">
-                            <i class="fa fa-file-pdf-o me-1"/> PDF Önizleme
+                            <i class="fa fa-file-pdf-o me-1"/> PDF Preview
                         </button>
                         <button type="button" class="btn btn-secondary"
                                 t-att-disabled="!props.list.selection.length"
                                 t-on-click="() => env.bus.trigger('ubl_inv:sistem_faturasi_donustur')">
-                            <i class="fa fa-exchange me-1"/> Sistem Faturasına Dönüştür
+                            <i class="fa fa-exchange me-1"/> Convert to System Invoice
                         </button>
                     </t>
 

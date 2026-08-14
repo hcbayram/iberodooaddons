@@ -22,14 +22,14 @@ class EDocumentBaseLine(models.Model):
         string="Unit",
         required=True,
         index=True,
-        help="UBL standard birim kodu",
+        help="UBL standard unit code",
     )
     unit_code = fields.Char(
         string="Unit Code",
         related="unit_code_id.code",
         readonly=True,
         store=True,
-        help="UBL birim kodu (unit_code_id'den türetilir)",
+        help="UBL unit code (derived from unit_code_id)",
     )
     currency_id = fields.Many2one("res.currency", string="Currency", required=True)
     price_amount = fields.Float("Unit Price", digits="Product Price", required=True)
@@ -55,7 +55,7 @@ class EDocumentBaseLine(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "Satır Detayları",
+            "name": "Line Details",
             "res_model": self._name,
             "view_mode": "form",
             "res_id": self.id,

@@ -5,21 +5,21 @@
             <field name="name">ubl21.config.settings.form</field>
             <field name="model">ubl21.config.settings</field>
             <field name="arch" type="xml">
-                <form string="E-Dönüşüm Ayarları">
+                <form string="e-Transformation Settings">
                     <header>
-                        <button name="action_save" string="Kaydet" type="object" class="btn-primary"/>
+                        <button name="action_save" string="Save" type="object" class="btn-primary"/>
                     </header>
                     <sheet>
                         <notebook>
                             <!-- Genel Ayarlar -->
-                            <page string="Genel">
-                                <group string="ERP Entegrasyonu">
+                            <page string="General">
+                                <group string="ERP Integration">
                                     <field name="active_erp" widget="radio"/>
                                 </group>
-                                <group string="UBL Servis">
+                                <group string="UBL Service">
                                     <field name="ubl_service_url"/>
                                 </group>
-                                <group string="Şirket Bilgileri">
+                                <group string="Company Information">
                                     <group>
                                         <field name="erp_company_name"/>
                                         <field name="erp_vkn_tckn"/>
@@ -36,23 +36,23 @@
                                         <field name="erp_country_name"/>
                                     </group>
                                 </group>
-                                <group string="Gönderim">
+                                <group string="Sending">
                                     <field name="erp_sender_alias"/>
                                 </group>
                             </page>
 
 
                             <!-- Senkronizasyon Durumu -->
-                            <page string="Senkronizasyon">
-                                <group string="Son Senkronizasyon Zamanları">
+                            <page string="Synchronization">
+                                <group string="Last Sync Times">
                                     <field name="last_invoice_sync_datetime" readonly="1"/>
                                     <button name="action_clear_invoice_sync_time"
-                                        string="Fatura Sync Zamanını Sıfırla"
+                                        string="Reset Invoice Sync Time"
                                         type="object"
                                         class="btn-secondary"/>
                                     <field name="last_delivery_note_sync_datetime" readonly="1"/>
                                     <button name="action_clear_delivery_note_sync_time"
-                                        string="İrsaliye Sync Zamanını Sıfırla"
+                                        string="Reset Despatch Advice Sync Time"
                                         type="object"
                                         class="btn-secondary"/>
                                 </group>

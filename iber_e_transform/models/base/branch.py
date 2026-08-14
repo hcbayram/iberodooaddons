@@ -6,7 +6,7 @@ ERP_SYSTEM_SELECTION = [
     ("ODOO19", "Odoo 19 Enterprise"),
     ("LOGO", "Logo"),
     ("MIKRO", "Mikro"),
-    ("OTHER", "Diğer"),
+    ("OTHER", "Other"),
 ]
 
 

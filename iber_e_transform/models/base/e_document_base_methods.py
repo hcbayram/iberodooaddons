@@ -16,7 +16,7 @@ try:
 except Exception:
     XSLT_AVAILABLE = False
     def xslt2_transform(xml_string, xslt_path):
-        raise NotImplementedError("xslt_helper modülü yüklenemedi. Saxon/lxml kurulu mu?")
+        raise NotImplementedError("xslt_helper module could not be loaded. Is Saxon/lxml installed?")
 
 
 class EDocumentBaseMethods(models.AbstractModel):
@@ -29,44 +29,44 @@ class EDocumentBaseMethods(models.AbstractModel):
         errors = []
 
         if not self.line_ids:
-            errors.append("• Belgede en az bir satır olmalıdır.")
+            errors.append("• The document must have at least one line.")
 
         if not self.supplier_name:
-            errors.append("• Gönderici adı (Supplier Name) boş bırakılamaz.")
+            errors.append("• Supplier name cannot be empty.")
 
         if not self.supplier_vkn_tckn:
-            errors.append("• Gönderici VKN/TCKN boş bırakılamaz.")
+            errors.append("• Supplier VKN/TCKN cannot be empty.")
         else:
             cleaned = "".join(filter(str.isdigit, self.supplier_vkn_tckn))
             if len(cleaned) not in (10, 11):
-                errors.append(f"• Gönderici VKN 10, TCKN 11 haneli olmalıdır (şu an: {len(cleaned)} hane).")
+                errors.append(f"• Supplier VKN must be 10 digits, TCKN 11 digits (currently: {len(cleaned)} digits).")
 
         if not self.customer_name:
-            errors.append("• Alıcı adı (Customer Name) boş bırakılamaz.")
+            errors.append("• Customer name cannot be empty.")
 
         if not self.customer_vkn_tckn:
-            errors.append("• Alıcı VKN/TCKN boş bırakılamaz.")
+            errors.append("• Customer VKN/TCKN cannot be empty.")
         else:
             cleaned = "".join(filter(str.isdigit, self.customer_vkn_tckn))
             if len(cleaned) not in (10, 11):
-                errors.append(f"• Alıcı VKN 10, TCKN 11 haneli olmalıdır (şu an: {len(cleaned)} hane).")
+                errors.append(f"• Customer VKN must be 10 digits, TCKN 11 digits (currently: {len(cleaned)} digits).")
 
         if not self.profile_id:
-            errors.append("• Fatura profili (Profile ID) seçilmemiş.")
+            errors.append("• Invoice profile (Profile ID) is not selected.")
 
         doc_no = (self.id_value or "").strip()
         if not doc_no or doc_no == "/":
-            errors.append("• Belge numarası boş olamaz.")
+            errors.append("• Document number cannot be empty.")
 
         if errors:
-            raise UserError("Belge doğrulama hataları:\n\n" + "\n".join(errors))
+            raise UserError("Document validation errors:\n\n" + "\n".join(errors))
 
     def _get_service_url(self):
         self.ensure_one()
         config = self.env["ubl21.config.settings"].get_singleton()
         url = config.ubl_service_url
         if not url:
-            raise UserError("UBL XML servis adresi (UBL Service URL) tanımlı değil.")
+            raise UserError("UBL XML service address (UBL Service URL) is not defined.")
         return url
 
     def _service_headers(self):
@@ -120,11 +120,11 @@ class EDocumentBaseMethods(models.AbstractModel):
                 return response.json().get("ubl_xml")
             else:
                 raise UserError(
-                    _("UBL servisi XML oluşturmada hata döndürdü (Status: %s):\n%s")
+                    _("UBL service returned an error while generating XML (Status: %s):\n%s")
                     % (response.status_code, response.text)
                 )
         except requests.exceptions.RequestException as e:
-            raise UserError(_("UBL servis bağlantı hatası: %s") % str(e))
+            raise UserError(_("UBL service connection error: %s") % str(e))
 
     def html_to_pdf_bytes(self, html_string):
         process = subprocess.Popen(
@@ -143,7 +143,7 @@ class EDocumentBaseMethods(models.AbstractModel):
         xml_response = self._get_xml_from_service()
         json_payload = self.to_json()
         if not xml_response:
-            raise UserError("Servisten XML alınamadı!")
+            raise UserError("Could not fetch XML from the service!")
         xslt_path = file_path(self._xslt_path)
         html_content = xslt2_transform(xml_response, xslt_path)
         pdf_bytes = self.html_to_pdf_bytes(html_content)

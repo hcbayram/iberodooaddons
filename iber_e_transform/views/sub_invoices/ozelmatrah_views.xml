@@ -9,11 +9,11 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_ids']/list/field[@name='tax_amount']" position="after">
                     <field name="tax_exemption_reason_id"
-                        string="Özel Matrah Sebebi"
+                        string="Special Base Reason"
                         column_invisible="parent.document_type_code != 'OZELMATRAH'"
                         domain="[('invoice_type', '=', 'OZELMATRAH')]"/>
                     <field name="special_base_amount"
-                        string="Özel Matrah Tutarı"
+                        string="Special Base Amount"
                         column_invisible="parent.document_type_code != 'OZELMATRAH'"/>
                 </xpath>
             </field>

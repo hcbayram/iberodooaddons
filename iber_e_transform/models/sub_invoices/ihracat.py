@@ -52,10 +52,10 @@ class UBLInvoiceLineIhracat(models.Model):
 class UBLInvoiceIhracat(models.Model):
     _inherit = "l10n_tr.ubl.invoice"
 
-    delivery_street = fields.Char("Adres (Cadde / Sokak / Mahalle)")
-    delivery_county = fields.Char("İlçe")
-    delivery_city = fields.Char("İl")
-    delivery_postal_code = fields.Char("Posta Kodu")
+    delivery_street = fields.Char("Address (Street / Avenue / Neighborhood)")
+    delivery_county = fields.Char("District")
+    delivery_city = fields.Char("City")
+    delivery_postal_code = fields.Char("Postal Code")
     delivery_country_code = fields.Char()
     delivery_country_name = fields.Char()
 

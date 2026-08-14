@@ -17,21 +17,21 @@ class UBLInvoiceLineAdjustment(models.Model):
         "l10n_tr.ubl.invoiceline", string="Invoice Line", ondelete="cascade", required=True, index=True
     )
     type = fields.Selection(
-        [("discount", "İndirim"), ("surcharge", "Arttırım")],
-        string="Tür",
+        [("discount", "Discount"), ("surcharge", "Surcharge")],
+        string="Type",
         required=True,
     )
-    rate = fields.Float("Oran (%)")
-    base_amount = fields.Float("Baz Tutar", digits="Percentage Analytic", readonly=True)
+    rate = fields.Float("Rate (%)")
+    base_amount = fields.Float("Base Amount", digits="Percentage Analytic", readonly=True)
     amount = fields.Float("Amount", compute="_compute_amount", inverse="_inverse_amount", store=True)
     currency_id = fields.Many2one(
         "res.currency",
-        string="Para Birimi",
+        string="Currency",
         related="line_id.currency_id",
         store=True,
         readonly=True,
     )
-    description = fields.Char("Açıklama")
+    description = fields.Char("Description")
 
     @api.depends("rate", "line_id.line_extension_amount")
     def _compute_amount(self):
@@ -77,7 +77,7 @@ class UBLTaxType(models.Model):
     name = fields.Char("Name", required=True)
     notes = fields.Text("Notes")
     type = fields.Selection(
-        [("base", "Tutar"), ("vat", "KDV"), ("otv", "Tutar + KDV")],
+        [("base", "Amount"), ("vat", "VAT"), ("otv", "Amount + VAT")],
         string="Type",
         required=True,
     )
@@ -93,13 +93,13 @@ class UBLInvoiceLineTaxExtra(models.Model):
     _description = "Invoice Line Extra Taxes"
 
     line_id = fields.Many2one("l10n_tr.ubl.invoiceline", required=True, ondelete="cascade")
-    tax_type_id = fields.Many2one("l10n_tr.ubl.tax.type", string="Vergi Kodu", required=True)
-    rate = fields.Float("Oran (%)")
+    tax_type_id = fields.Many2one("l10n_tr.ubl.tax.type", string="Tax Code", required=True)
+    rate = fields.Float("Rate (%)")
     taxable_amount = fields.Float(
-        "Vergi Baz Tutar", digits="Percentage Analytic", compute="_compute_amount", store=True
+        "Tax Base Amount", digits="Percentage Analytic", compute="_compute_amount", store=True
     )
     amount = fields.Float(
-        "Tutar", digits="Percentage Analytic", compute="_compute_amount", store=True
+        "Amount", digits="Percentage Analytic", compute="_compute_amount", store=True
     )
     currency_id = fields.Many2one(related="line_id.currency_id", store=False)
 
@@ -130,15 +130,15 @@ class UBLInvoiceLine(models.Model):
     tax_category_code = fields.Char("Tax Category Code", default="S")
     tax_scheme_code = fields.Char("Tax Scheme Code", default="0015")
     tax_scheme_name = fields.Char("Tax Scheme Name", default="KDV")
-    withholding_rate = fields.Float("Tevkifat %", default=0.0)
+    withholding_rate = fields.Float("Withholding %", default=0.0)
     withholding_amount = fields.Float(
-        "Tevkifat Tutarı", digits="Percentage Analytic", compute="_compute_line_amount", store=True
+        "Withholding Amount", digits="Percentage Analytic", compute="_compute_line_amount", store=True
     )
-    income_withholding_rate = fields.Float("Stopaj %", default=0.0)
+    income_withholding_rate = fields.Float("Income Withholding %", default=0.0)
     income_withholding_amount = fields.Float(
-        "Stopaj Tutarı", digits="Percentage Analytic", compute="_compute_line_amount", store=True
+        "Income Withholding Amount", digits="Percentage Analytic", compute="_compute_line_amount", store=True
     )
-    withholding_code = fields.Selection(TEVKIFAT_KODLARI, string="Tevkifat Kodu")
+    withholding_code = fields.Selection(TEVKIFAT_KODLARI, string="Withholding Code")
     line_note_ids = fields.One2many(
         "l10n_tr.ubl.invoiceline.note", "line_id", string="Line Notes"
     )
@@ -146,11 +146,11 @@ class UBLInvoiceLine(models.Model):
         "l10n_tr.ubl.invoiceline.adjustment", "line_id", string="Adjustments"
     )
     taxextra_ids = fields.One2many(
-        "l10n_tr.ubl.invoiceline.taxextra", "line_id", string="Extra Taxes (Stopaj, Diğer)"
+        "l10n_tr.ubl.invoiceline.taxextra", "line_id", string="Extra Taxes (Income Withholding, Other)"
     )
-    tax_exemption_reason_id = fields.Many2one("tax.exemption.reason", string="KDV İstisna Sebebi")
+    tax_exemption_reason_id = fields.Many2one("tax.exemption.reason", string="VAT Exemption Reason")
     tax_exemption_reason_code = fields.Char(
-        related="tax_exemption_reason_id.code", string="KDV İstisna Sebep Kodu"
+        related="tax_exemption_reason_id.code", string="VAT Exemption Reason Code"
     )
 
     def write(self, vals):
@@ -173,7 +173,7 @@ class UBLInvoiceLine(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Satır Notları"),
+            "name": _("Line Notes"),
             "res_model": "l10n_tr.ubl.invoiceline.note",
             "view_mode": "list",
             "views": [
@@ -202,7 +202,7 @@ class UBLInvoiceLineNote(models.Model):
 
 class TaxExemptionReason(models.Model):
     _name = "tax.exemption.reason"
-    _description = "KDV İstisna Sebebi"
+    _description = "VAT Exemption Reason"
 
     code = fields.Char(required=True)
     name = fields.Char(required=True)

@@ -5,7 +5,7 @@
             <field name="name">algebra.integrator.list</field>
             <field name="model">algebra.integrator</field>
             <field name="arch" type="xml">
-                <list string="Entegratörler">
+                <list string="Integrators">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="active"/>
@@ -16,7 +16,7 @@
             <field name="name">algebra.integrator.form</field>
             <field name="model">algebra.integrator</field>
             <field name="arch" type="xml">
-                <form string="Entegratör">
+                <form string="Integrator">
                     <sheet>
                         <group>
                             <field name="name"/>

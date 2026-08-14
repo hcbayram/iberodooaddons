@@ -1,7 +1,7 @@
 {
-    "name": "İberoDoo E-Dönüşüm",
-    "version": "19.0.1.8.0",
-    "summary": "UBL-TR 2.1 E-Fatura ve E-İrsaliye — Odoo 19 Enterprise native entegrasyon + çoklu ERP desteği",
+    "name": "IberoDoo e-Transformation",
+    "version": "19.0.1.9.0",
+    "summary": "UBL-TR 2.1 e-Invoice and e-Despatch — native Odoo 19 Enterprise integration + multi-ERP support",
     "category": "Accounting",
     "author": "İberoDoo",
     "license": "LGPL-3",

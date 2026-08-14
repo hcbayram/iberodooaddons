@@ -11,7 +11,7 @@ import { onWillUnmount } from "@odoo/owl";
  * Odoo server hataları error.data.message içinde gelir.
  */
 function parseOdooError(error) {
-    if (!error) return "Bilinmeyen hata.";
+    if (!error) return "Unknown error.";
     if (error?.data?.message) return error.data.message;
     if (error?.message) return error.message;
     return String(error);
@@ -84,7 +84,7 @@ export class UBLDeliveryNoteListController extends ListController {
         if (this._activeDateFilter) {
             uiFilters = this._dateRangeFromPreset(this._activeDateFilter);
         }
-        this.notification.add("Gelen irsaliyeler çekiliyor...", { type: "info" });
+        this.notification.add("Fetching incoming despatch advices...", { type: "info" });
         try {
             const result = await this.orm.call(
                 "l10n_tr.ubl.delivery.note",
@@ -97,7 +97,7 @@ export class UBLDeliveryNoteListController extends ListController {
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Entegratörden irsaliye çekme hatası:\n" + parseOdooError(error),
+                "Error fetching despatch advice from integrator:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -110,7 +110,7 @@ export class UBLDeliveryNoteListController extends ListController {
 
     /** ERP'den UBL oluştur — seçim gerektirmez */
     async onErpdenUblOlustur() {
-        this.notification.add("ERP'den UBL oluşturma başlatılıyor...", { type: "info" });
+        this.notification.add("Starting UBL creation from ERP...", { type: "info" });
         try {
             const result = await this.orm.call(
                 "l10n_tr.ubl.delivery.note",
@@ -122,7 +122,7 @@ export class UBLDeliveryNoteListController extends ListController {
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "ERP senkronizasyon hatası:\n" + parseOdooError(error),
+                "ERP sync error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -132,7 +132,7 @@ export class UBLDeliveryNoteListController extends ListController {
     async onGibGonder() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen en az bir irsaliye seçin.", { type: "warning" });
+            this.notification.add("Please select at least one despatch advice.", { type: "warning" });
             return;
         }
         let successCount = 0;
@@ -147,7 +147,7 @@ export class UBLDeliveryNoteListController extends ListController {
                 if (result?.type === "ir.actions.client") {
                     const params = result.params || {};
                     if (params.type === "success") successCount++;
-                    else errors.push(`#${id}: ${params.message || "Bilinmeyen hata"}`);
+                    else errors.push(`#${id}: ${params.message || "Unknown error"}`);
                 } else {
                     successCount++;
                 }
@@ -160,13 +160,13 @@ export class UBLDeliveryNoteListController extends ListController {
 
         if (successCount) {
             this.notification.add(
-                `${successCount} irsaliye başarıyla GIB'e gönderildi.`,
+                `${successCount} despatch advice(s) sent to GIB successfully.`,
                 { type: "success" }
             );
         }
         if (errors.length) {
             this.notification.add(
-                "Gönderim hatası:\n" + errors.join("\n"),
+                "Send error:\n" + errors.join("\n"),
                 { type: "danger", sticky: true }
             );
         }
@@ -176,11 +176,11 @@ export class UBLDeliveryNoteListController extends ListController {
     async onPdfOnizle() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen bir irsaliye seçin.", { type: "warning" });
+            this.notification.add("Please select a despatch advice.", { type: "warning" });
             return;
         }
         if (ids.length > 1) {
-            this.notification.add("PDF önizleme için tek bir irsaliye seçin.", { type: "warning" });
+            this.notification.add("Select a single despatch advice for PDF preview.", { type: "warning" });
             return;
         }
         try {
@@ -192,7 +192,7 @@ export class UBLDeliveryNoteListController extends ListController {
             await this.action.doAction(result);
         } catch (error) {
             this.notification.add(
-                "PDF oluşturulamadı:\n" + parseOdooError(error),
+                "Could not generate PDF:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }
@@ -202,7 +202,7 @@ export class UBLDeliveryNoteListController extends ListController {
     async onGibSifirla() {
         const ids = this.getSelectedResIds();
         if (!ids.length) {
-            this.notification.add("Lütfen en az bir irsaliye seçin.", { type: "warning" });
+            this.notification.add("Please select at least one despatch advice.", { type: "warning" });
             return;
         }
         try {
@@ -211,14 +211,14 @@ export class UBLDeliveryNoteListController extends ListController {
                 gib_log: false,
             });
             this.notification.add(
-                `${ids.length} irsaliyenin GIB durumu sıfırlandı.`,
+                `GIB status reset for ${ids.length} despatch advice(s).`,
                 { type: "success" }
             );
             await this.model.root.load();
             this.model.notify();
         } catch (error) {
             this.notification.add(
-                "Durum sıfırlama hatası:\n" + parseOdooError(error),
+                "Status reset error:\n" + parseOdooError(error),
                 { type: "danger", sticky: true }
             );
         }

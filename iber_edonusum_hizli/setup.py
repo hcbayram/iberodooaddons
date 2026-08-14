@@ -24,7 +24,7 @@ extensions = [
 
 setup(
     name='iber_edonusum_hizli_core',
-    version='19.0.1.1.0',
+    version='19.0.1.2.0',
     package_dir={'iber_edonusum_hizli': ''},
     ext_modules=cythonize(
         extensions,

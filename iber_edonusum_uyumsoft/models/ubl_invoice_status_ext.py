@@ -11,20 +11,20 @@ class UBLInvoiceStatusUyumsoftExt(models.Model):
     uyumsoft_document_answer = fields.Selection(
         [
             ("none", "—"),
-            ("waiting", "Bekliyor"),
-            ("accepted", "Kabul Edildi"),
-            ("rejected", "Reddedildi"),
+            ("waiting", "Waiting"),
+            ("accepted", "Accepted"),
+            ("rejected", "Rejected"),
         ],
-        string="Belge Cevabı (Uyumsoft)",
+        string="Document Answer (Uyumsoft)",
         readonly=True,
     )
     uyumsoft_outgoing_raw = fields.Text(
-        string="Uyumsoft Ham Yanıt",
+        string="Uyumsoft Raw Response",
         readonly=True,
-        help="'Entegratör Durumu Sorgula' ile entegratörden dönen JSON verisi",
+        help="JSON data returned by the integrator via 'Fetch Integrator Status'",
     )
     uyumsoft_outgoing_fetch_date = fields.Datetime(
-        string="Son Uyumsoft Sorgu Tarihi",
+        string="Last Uyumsoft Query Date",
         readonly=True,
     )
 

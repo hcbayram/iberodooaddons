@@ -162,12 +162,12 @@ class UyumsoftIntegrator(IntegratorBase):
                 timeout=self._timeout,
             )
         except requests.RequestException as exc:
-            return {"ok": False, "error": f"HTTP bağlantı hatası: {exc}"}
+            return {"ok": False, "error": f"HTTP connection error: {exc}"}
 
         try:
             root = ET.fromstring(resp.content)
         except ET.ParseError as exc:
-            return {"ok": False, "error": f"SOAP yanıt ayrıştırma hatası — HTTP {resp.status_code}: {exc}"}
+            return {"ok": False, "error": f"SOAP response parse error — HTTP {resp.status_code}: {exc}"}
 
         fault = root.find(f".//{{{_SOAP_NS}}}Fault")
         if fault is not None:
@@ -182,7 +182,7 @@ class UyumsoftIntegrator(IntegratorBase):
 
         body = root.find(f".//{{{_SOAP_NS}}}Body")
         if body is None or not list(body):
-            return {"ok": False, "error": "Boş SOAP yanıtı"}
+            return {"ok": False, "error": "Empty SOAP response"}
         response_wrapper = list(body)[0]  # <{Operation}Response>
         result_children = list(response_wrapper)
         if not result_children:
@@ -192,7 +192,7 @@ class UyumsoftIntegrator(IntegratorBase):
 
         is_ok = str(result.get("IsSucceded", "true")).strip().lower() == "true"
         if not is_ok:
-            return {"ok": False, "raw": result, "error": result.get("Message") or "Uyumsoft hatası"}
+            return {"ok": False, "raw": result, "error": result.get("Message") or "Uyumsoft error"}
         return {"ok": True, "raw": result}
 
     # ------------------------------------------------------------------
@@ -212,7 +212,7 @@ class UyumsoftIntegrator(IntegratorBase):
         """
         settings = settings or self.settings
         if not (self._base_url(settings) and settings.get("username") and settings.get("password")):
-            return {"ok": False, "token": None, "raw": None, "error": "URL/kullanıcı adı/şifre eksik."}
+            return {"ok": False, "token": None, "raw": None, "error": "URL/username/password missing."}
         result = self._call("WhoAmI", "<tns:WhoAmI/>", settings=settings)
         if not result.get("ok"):
             return {"ok": False, "token": None, "raw": result.get("raw"), "error": result.get("error")}
@@ -230,7 +230,7 @@ class UyumsoftIntegrator(IntegratorBase):
         xml_content = (document.get("File") or "").strip()
         xml_content = re.sub(r"^<\?xml[^>]*\?>\s*", "", xml_content)  # nested prolog olamaz
         if not xml_content:
-            return {"ok": False, "error": "Gönderilecek UBL XML içeriği boş."}
+            return {"ok": False, "error": "UBL XML content to send is empty."}
 
         profile = (document.get("DocumentProfile") or "").upper()
         scenario = "eArchive" if profile == "EARSIVFATURA" else "eInvoice"
@@ -374,16 +374,16 @@ class UyumsoftIntegrator(IntegratorBase):
         value = raw.get("Value") or {}
         b64 = value.get("Data") or ""
         if not b64:
-            return {"ok": False, "error": "XML içeriği yanıtta bulunamadı."}
+            return {"ok": False, "error": "XML content not found in response."}
         try:
             import base64 as _b64mod
             xml_text = _b64mod.b64decode(b64).decode("utf-8", errors="replace")
         except Exception as ex:
-            return {"ok": False, "error": f"Base64 decode hatası: {ex}"}
+            return {"ok": False, "error": f"Base64 decode error: {ex}"}
         try:
             return {"ok": True, "raw": _parse_ubl_xml(xml_text)}
         except Exception as ex:
-            return {"ok": False, "error": f"XML parse hatası: {ex}"}
+            return {"ok": False, "error": f"XML parse error: {ex}"}
 
     def get_incoming_document_pdf(self, uuid: str, doc_type: str = "invoice") -> dict:
         """GetInboxInvoicePdf."""
@@ -395,12 +395,12 @@ class UyumsoftIntegrator(IntegratorBase):
         value = raw.get("Value") or {}
         b64 = value.get("Data") or ""
         if not b64:
-            return {"ok": False, "pdf_bytes": None, "error": "PDF içeriği yanıtta bulunamadı."}
+            return {"ok": False, "pdf_bytes": None, "error": "PDF content not found in response."}
         try:
             import base64 as _b64mod
             return {"ok": True, "pdf_bytes": _b64mod.b64decode(b64), "error": None}
         except Exception as ex:
-            return {"ok": False, "pdf_bytes": None, "error": f"Base64 decode hatası: {ex}"}
+            return {"ok": False, "pdf_bytes": None, "error": f"Base64 decode error: {ex}"}
 
     def get_outgoing_document_pdf(self, uuid: str, doc_type: str = "invoice") -> dict:
         """WSDL'de giden belge için ayrı bir GetOutboxInvoicePdf var; aynı imzayı kullanır."""
@@ -412,12 +412,12 @@ class UyumsoftIntegrator(IntegratorBase):
         value = raw.get("Value") or {}
         b64 = value.get("Data") or ""
         if not b64:
-            return {"ok": False, "pdf_bytes": None, "error": "PDF içeriği yanıtta bulunamadı."}
+            return {"ok": False, "pdf_bytes": None, "error": "PDF content not found in response."}
         try:
             import base64 as _b64mod
             return {"ok": True, "pdf_bytes": _b64mod.b64decode(b64), "error": None}
         except Exception as ex:
-            return {"ok": False, "pdf_bytes": None, "error": f"Base64 decode hatası: {ex}"}
+            return {"ok": False, "pdf_bytes": None, "error": f"Base64 decode error: {ex}"}
 
     def get_outgoing_document(self, uuid: str, doc_type: str = "invoice") -> dict:
         """QueryOutboxInvoiceStatus ile giden belge durumu."""

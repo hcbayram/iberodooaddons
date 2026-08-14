@@ -22,9 +22,9 @@
 
                 <!-- Uyumsoft Yanıtı sekmesini notebook'un sonuna ekle -->
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="Uyumsoft Yanıtı" invisible="not uyumsoft_outgoing_raw">
+                    <page string="Uyumsoft Response" invisible="not uyumsoft_outgoing_raw">
                         <group>
-                            <field name="uyumsoft_outgoing_fetch_date" readonly="1" string="Son Sorgu"/>
+                            <field name="uyumsoft_outgoing_fetch_date" readonly="1" string="Last Query"/>
                         </group>
                         <field name="uyumsoft_outgoing_raw" widget="code" readonly="1" nolabel="1"/>
                     </page>

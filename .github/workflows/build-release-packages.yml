@@ -122,7 +122,7 @@ jobs:
           $addon = "iber_edonusum"
           $staging = "staging\$addon"
           $manifest = Get-Content "$addon\__manifest__.py" -Raw
-          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          if ($manifest -match '["'']version["'']\s*:\s*["'']([^"'']+)["'']') { $version = $Matches[1] } else { $version = "0.0.0" }
           $versionTag = $version -replace '\.', '_'
           echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
           New-Item -ItemType Directory -Force -Path $staging | Out-Null
@@ -190,7 +190,7 @@ jobs:
           $addon = "iber_edonusum_uyumsoft"
           $staging = "staging\$addon"
           $manifest = Get-Content "$addon\__manifest__.py" -Raw
-          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          if ($manifest -match '["'']version["'']\s*:\s*["'']([^"'']+)["'']') { $version = $Matches[1] } else { $version = "0.0.0" }
           $versionTag = $version -replace '\.', '_'
           echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
           New-Item -ItemType Directory -Force -Path $staging | Out-Null
@@ -258,7 +258,7 @@ jobs:
           $addon = "iber_edonusum_hizli"
           $staging = "staging\$addon"
           $manifest = Get-Content "$addon\__manifest__.py" -Raw
-          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          if ($manifest -match '["'']version["'']\s*:\s*["'']([^"'']+)["'']') { $version = $Matches[1] } else { $version = "0.0.0" }
           $versionTag = $version -replace '\.', '_'
           echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
           New-Item -ItemType Directory -Force -Path $staging | Out-Null
@@ -326,7 +326,7 @@ jobs:
           $addon = "iber_edonusum_nes"
           $staging = "staging\$addon"
           $manifest = Get-Content "$addon\__manifest__.py" -Raw
-          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          if ($manifest -match '["'']version["'']\s*:\s*["'']([^"'']+)["'']') { $version = $Matches[1] } else { $version = "0.0.0" }
           $versionTag = $version -replace '\.', '_'
           echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
           New-Item -ItemType Directory -Force -Path $staging | Out-Null
@@ -384,7 +384,7 @@ jobs:
           $addon = "${{ matrix.addon }}"
           $staging = "staging\$addon"
           $manifest = Get-Content "$addon\__manifest__.py" -Raw
-          if ($manifest -match "'version'\s*:\s*'([^']+)'") { $version = $Matches[1] } else { $version = "0.0.0" }
+          if ($manifest -match '["'']version["'']\s*:\s*["'']([^"'']+)["'']') { $version = $Matches[1] } else { $version = "0.0.0" }
           $versionTag = $version -replace '\.', '_'
           echo "ARTIFACT_NAME=$($addon)_$($versionTag)" >> $env:GITHUB_ENV
           Write-Host "Packaging $addon v$version"

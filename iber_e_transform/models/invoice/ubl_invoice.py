@@ -76,6 +76,17 @@ class UBLInvoicePreviewWizard(models.TransientModel):
     _description = "UBL Invoice PDF Preview Wizard"
 
     pdf_data = fields.Binary("PDF", readonly=True, attachment=False)
+    pdf_filename = fields.Char(readonly=True)
+    xml_data = fields.Text("XML", readonly=True)
+    xml_filename = fields.Char(readonly=True)
+    xml_file = fields.Binary("XML File", compute="_compute_xml_file")
+
+    @api.depends("xml_data")
+    def _compute_xml_file(self):
+        for wizard in self:
+            wizard.xml_file = (
+                base64.b64encode(wizard.xml_data.encode("utf-8")) if wizard.xml_data else False
+            )
 
 
 class UBLInvoice(models.Model):

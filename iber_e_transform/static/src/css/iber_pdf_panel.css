@@ -1,6 +1,7 @@
-/* PDF Önizleme popup'ı — fatura/irsaliye formundaki "PDF Preview" butonuyla açılır */
+/* PDF/XML Önizleme popup'ı — fatura/irsaliye formundaki "PDF Preview" butonuyla açılır */
 
-.modal-dialog:has(.o_iber_pdf_preview_popup) {
+.modal-dialog:has(.o_iber_pdf_preview_popup),
+.modal-dialog:has(.o_iber_xml_preview_popup) {
     max-width: 90vw;
     width: 900px;
 }
@@ -15,4 +16,18 @@
 .o_iber_pdf_preview_popup.o_field_pdf_viewer object {
     height: 100% !important;
     width: 100% !important;
+}
+
+.o_iber_xml_preview_popup {
+    height: 75vh !important;
+    display: block;
+}
+
+.o_iber_download_link {
+    font-size: 0.9em;
+}
+.o_iber_download_link .o_form_uri {
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 4px;
+    padding: 3px 10px;
 }

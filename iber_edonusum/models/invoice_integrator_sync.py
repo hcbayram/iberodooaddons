@@ -868,8 +868,12 @@ class UBLInvoiceIntegratorSync(models.Model):
             except Exception as e:
                 raise UserError(_("Could not generate PDF:\n%s") % str(e))
 
+        filename_base = (self.id_value or "document").strip("/").replace("/", "-") or "document"
         wizard = self.env["l10n_tr.ubl.invoice.pdf.preview.wizard"].create({
             "pdf_data": self.pdf_data,
+            "pdf_filename": f"{filename_base}.pdf",
+            "xml_data": self.xml_data,
+            "xml_filename": f"{filename_base}.xml",
         })
         action = {
             "type": "ir.actions.act_window",

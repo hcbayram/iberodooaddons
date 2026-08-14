@@ -1,6 +1,6 @@
 {
     "name": "IberoDoo e-Transformation",
-    "version": "19.0.1.14.0",
+    "version": "19.0.1.15.0",
     "summary": "UBL-TR 2.1 e-Invoice and e-Despatch — native System integration + multi-ERP support",
     "category": "Accounting",
     "author": "İberoDoo",

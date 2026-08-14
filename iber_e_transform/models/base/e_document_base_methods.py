@@ -153,8 +153,13 @@ class EDocumentBaseMethods(models.AbstractModel):
 
     def action_preview_pdf(self):
         self.ensure_one()
+        pdf_data = self.get_pdf_data()
+        filename_base = (self.id_value or "document").strip("/").replace("/", "-") or "document"
         wizard = self.env["l10n_tr.ubl.invoice.pdf.preview.wizard"].create({
-            "pdf_data": self.get_pdf_data(),
+            "pdf_data": pdf_data,
+            "pdf_filename": f"{filename_base}.pdf",
+            "xml_data": self.xml_data,
+            "xml_filename": f"{filename_base}.xml",
         })
         return {
             "type": "ir.actions.act_window",

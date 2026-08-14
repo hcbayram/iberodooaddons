@@ -6,7 +6,25 @@
             <field name="model">l10n_tr.ubl.invoice.pdf.preview.wizard</field>
             <field name="arch" type="xml">
                 <form string="PDF Preview">
-                    <field name="pdf_data" widget="pdf_viewer" nolabel="1" class="o_iber_pdf_preview_popup"/>
+                    <notebook>
+                        <page string="PDF" name="pdf_page">
+                            <div class="d-flex justify-content-end mb-2">
+                                <field name="pdf_filename" invisible="1"/>
+                                <field name="pdf_data" widget="binary" filename="pdf_filename"
+                                       readonly="1" class="o_iber_download_link"/>
+                            </div>
+                            <field name="pdf_data" widget="pdf_viewer" nolabel="1" class="o_iber_pdf_preview_popup"/>
+                        </page>
+                        <page string="XML (UBL-TR)" name="xml_page">
+                            <div class="d-flex justify-content-end mb-2">
+                                <field name="xml_filename" invisible="1"/>
+                                <field name="xml_file" widget="binary" filename="xml_filename"
+                                       readonly="1" class="o_iber_download_link"/>
+                            </div>
+                            <field name="xml_data" widget="ace" options="{'mode': 'xml'}"
+                                   readonly="1" nolabel="1" class="o_iber_xml_preview_popup"/>
+                        </page>
+                    </notebook>
                     <footer>
                         <button string="Close" special="cancel" class="btn-secondary"/>
                     </footer>

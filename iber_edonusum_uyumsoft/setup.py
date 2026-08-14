@@ -24,7 +24,7 @@ extensions = [
 
 setup(
     name='iber_edonusum_uyumsoft_core',
-    version='19.0.1.4.0',
+    version='19.0.1.5.0',
     package_dir={'iber_edonusum_uyumsoft': ''},
     ext_modules=cythonize(
         extensions,

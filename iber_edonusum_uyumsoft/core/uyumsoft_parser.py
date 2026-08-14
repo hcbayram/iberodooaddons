@@ -31,8 +31,21 @@ def _strip_ns(tag: str) -> str:
     return re.sub(r"\{[^}]+\}", "", tag)
 
 
-def _elem_to_dict(elem) -> dict:
-    """SOAP yanıt elemanını dict'e çevirir (attribute'lar dahil)."""
+def _elem_to_dict(elem):
+    """SOAP yanıt elemanını dict'e çevirir (attribute'lar dahil).
+
+    NOT: dönüş tipi kasıtlı olarak dict|str karışıktır — attribute'suz,
+    alt elemanı olmayan "yaprak" XML düğümleri (ör. <IsSucceded>true
+    </IsSucceded>) doğrudan metin (str) olarak döner, çağıran taraf
+    (_call) bunu result.get("IsSucceded") ile bekliyor. Önceden buradaki
+    "-> dict" tip belirteci saf Python'da (derlenmemiş .py) etkisizdi
+    ama bu modül Cython ile derlenince (core/ klasörü, GitHub Actions
+    release paketleri) Cython bunu ÇALIŞMA ZAMANINDA zorunlu kıldı ve
+    metin döndüren yaprak düğümlerde "TypeError: Expected dict, got str"
+    ile canlı ortamda patlamaya sebep oldu (2026-08-14, WhoAmI/SOAP
+    yanıtı ayrıştırılırken tespit edildi) — tip belirteci bu yüzden
+    kaldırıldı.
+    """
     result = {}
     for akey, aval in elem.attrib.items():
         result[_strip_ns(akey)] = aval

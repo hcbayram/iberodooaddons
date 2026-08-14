@@ -46,10 +46,39 @@
                                 <option value="tumu">Tümü</option>
                             </select>
                         </div>
-                        <button type="button" class="btn btn-success"
-                                t-on-click="() => env.bus.trigger('ubl_inv:entegrator_getir')">
-                            <i class="fa fa-cloud-download me-1"/> Entegratörden Faturaları Getir
-                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success"
+                                    t-on-click="() => env.bus.trigger('ubl_inv:entegrator_getir')">
+                                <i class="fa fa-cloud-download me-1"/> Entegratörden Faturaları Getir
+                            </button>
+                            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Diğer alma seçenekleri</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                       title="Yalnızca test amaçlı: tarih aralığı gözetmeksizin entegratörden en son 10 faturayı çeker (test ortamı aktif entegratörde çalışır)"
+                                       t-on-click.prevent="() => env.bus.trigger('ubl_inv:son_n_getir')">
+                                        <i class="fa fa-flask me-1"/> Son 10 Faturayı Getir (Test)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                       title="Belgenin UUID'sini (GUID) biliyorsanız, liste/tarih filtresine gerek kalmadan doğrudan bu belgeyi çeker"
+                                       t-on-click.prevent="() => env.bus.trigger('ubl_inv:uuid_ile_getir')">
+                                        <i class="fa fa-search me-1"/> UUID İle Getir
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                       t-on-click.prevent="() => env.bus.trigger('ubl_inv:xml_ice_aktar')">
+                                        <i class="fa fa-upload me-1"/> XML'den İçe Aktar
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         <button type="button" class="btn btn-info"
                                 t-att-disabled="props.list.selection.length !== 1"
                                 t-on-click="() => env.bus.trigger('ubl_inv:pdf_onizle')">

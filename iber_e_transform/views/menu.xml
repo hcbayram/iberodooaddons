@@ -12,46 +12,65 @@
             name="Yapılandırma"
             parent="menu_iber_e_transform_root"
             sequence="100"/>
+
+        <!-- Yapılandırma altındaki ara (container) menüler — hedef yazılımdan
+             (SAP B1 vb.) bağımsız genel ayarlar ile entegrasyon/eşleme
+             ayarlarını ayırmak için. Alt menüler bu addon'da ve onu
+             genişleten addon'larda (iber_edonusum, eropa_efatura_sap vb.)
+             tanımlanır. -->
+        <menuitem id="menu_e_transform_config_entegrasyon"
+            name="Entegrasyon"
+            parent="menu_e_transform_config"
+            sequence="10"/>
+        <menuitem id="menu_e_transform_config_genel"
+            name="Genel Yapılandırma"
+            parent="menu_e_transform_config"
+            sequence="20"/>
+        <menuitem id="menu_e_transform_config_sap_mapping"
+            name="SAP B1 Veri Eşleştirme"
+            parent="menu_e_transform_config"
+            sequence="30"/>
+
         <menuitem id="menu_ubl21_config_settings"
             name="E-Dönüşüm Ayarları"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_entegrasyon"
             action="iber_e_transform.action_ubl21_config_settings_server"
             sequence="10"/>
 
         <menuitem id="menu_algebra_base_branch"
             name="Şubeler"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_algebra_base_branch"
-            sequence="30"/>
+            sequence="10"/>
         <menuitem id="menu_algebra_base_document_unit"
             name="Birim Kodları"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_algebra_base_document_unit"
-            sequence="40"/>
+            sequence="20"/>
         <menuitem id="menu_algebra_base_document_profile_id"
             name="Fatura Profilleri"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_algebra_base_document_profile_id"
-            sequence="50"/>
+            sequence="30"/>
         <menuitem id="menu_algebra_base_document_type"
             name="Fatura Tipleri"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_algebra_base_document_type"
-            sequence="60"/>
+            sequence="40"/>
         <menuitem id="menu_l10n_tr_ubl_partyid_type"
             name="Taraf Kimlik Tipleri"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_l10n_tr_ubl_partyid_type"
-            sequence="70"/>
+            sequence="50"/>
         <menuitem id="menu_l10n_tr_ubl_tax_type"
             name="Vergi Tipleri"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_l10n_tr_ubl_tax_type"
-            sequence="80"/>
+            sequence="60"/>
         <menuitem id="menu_tax_exemption_reason"
             name="KDV İstisna Sebepleri"
-            parent="menu_e_transform_config"
+            parent="menu_e_transform_config_genel"
             action="iber_e_transform.action_tax_exemption_reason"
-            sequence="90"/>
+            sequence="70"/>
     </data>
 </odoo>

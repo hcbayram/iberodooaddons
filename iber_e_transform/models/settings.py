@@ -7,6 +7,13 @@ class UBL21ConfigSettings(models.Model):
     _rec_name = "name"
 
     name = fields.Char(default="UBL 2.1 Ayarları", readonly=True)
+    company_id = fields.Many2one(
+        "res.company",
+        string="Şirket",
+        required=True,
+        index=True,
+        default=lambda self: self.env.company,
+    )
 
     # === AKTİF ERP SEÇİMİ ===
     # Not: iber_sap_b1 gibi ek modüller bu listeye kendi seçeneklerini ekler
@@ -53,26 +60,33 @@ class UBL21ConfigSettings(models.Model):
 
 
     _sql_constraints = [
-        # Singleton enforcement: en fazla 1 kayıt olabilir
-        # CHECK(id=1) Odoo 19'da sorunlu, bunun yerine create override ile kontrol ediyoruz
+        # Singleton enforcement: şirket başına en fazla 1 kayıt olabilir
+        ("company_uniq", "unique(company_id)", "Şirket başına yalnızca 1 ayar kaydı olabilir!"),
     ]
 
     @api.model
     def get_singleton(self):
-        """Her zaman tek ayar kaydını döner, yoksa oluşturur."""
-        rec = self.sudo().search([], limit=1, order="id asc")
+        """Mevcut şirketin tek ayar kaydını döner, yoksa oluşturur."""
+        company = self.env.company
+        rec = self.sudo().search([("company_id", "=", company.id)], limit=1, order="id asc")
         if not rec:
-            rec = self.sudo().create({"name": "UBL 2.1 Ayarları"})
+            rec = self.sudo().create({"name": "UBL 2.1 Ayarları", "company_id": company.id})
         return rec
 
     @api.model_create_multi
     def create(self, vals_list):
-        """Singleton: her zaman yalnızca 1 kayıt olmasını garanti eder."""
-        existing = self.sudo().search([], limit=1)
-        if existing:
-            # Zaten bir kayıt var → oluşturma, var olanı döndür
-            return existing
-        return super().create(vals_list)
+        """Singleton: şirket başına yalnızca 1 kayıt olmasını garanti eder."""
+        results = self.browse()
+        for vals in vals_list:
+            company_id = vals.get("company_id") or self.env.company.id
+            existing = self.sudo().search([("company_id", "=", company_id)], limit=1)
+            if existing:
+                # Bu şirket için zaten bir kayıt var → oluşturma, var olanı döndür
+                results |= existing
+            else:
+                vals.setdefault("company_id", company_id)
+                results |= super(UBL21ConfigSettings, self).create([vals])
+        return results
 
     @api.model
     def action_open_settings(self):

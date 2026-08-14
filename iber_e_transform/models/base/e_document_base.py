@@ -13,6 +13,14 @@ class EDocumentBase(models.Model):
     _description = "UBL-TR Base Document"
     _xslt_path = "iber_e_transform/static/xslt/general.xslt"
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Şirket",
+        required=True,
+        index=True,
+        default=lambda self: self.env.company,
+    )
+
     pdf_data = fields.Binary("PDF", readonly=True, attachment=False)
     xml_data = fields.Text("XML", readonly=True)
     json_data = fields.Text("JSON", readonly=True)

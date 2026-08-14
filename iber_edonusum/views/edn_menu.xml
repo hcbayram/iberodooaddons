@@ -3,15 +3,15 @@
     <data>
         <!-- E-Dönüşüm ana menüsü iber_e_transform'da, alt menüler buraya ekleniyor -->
         <menuitem id="menu_edn_integrators"
-            name="İntegratörler"
-            parent="iber_e_transform.menu_e_transform_config"
+            name="Entegratörler"
+            parent="iber_e_transform.menu_e_transform_config_entegrasyon"
             action="iber_edonusum.action_edn_integrators"
-            sequence="5"/>
+            sequence="20"/>
 
         <menuitem id="menu_edn_logs"
             name="Gönderim Logu"
-            parent="iber_e_transform.menu_e_transform_config"
+            parent="iber_e_transform.menu_e_transform_config_genel"
             action="iber_edonusum.action_edn_logs"
-            sequence="95"/>
+            sequence="80"/>
     </data>
 </odoo>

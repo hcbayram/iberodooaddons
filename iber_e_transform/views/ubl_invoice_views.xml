@@ -19,6 +19,7 @@
                     <field name="account_move_id" string="Kaynak Fatura" optional="show"/>
                     <field name="erp_id" optional="hide"/>
                     <field name="erp_last_sync_date" optional="hide"/>
+                    <field name="company_id" optional="hide" groups="base.group_multi_company"/>
                 </list>
             </field>
         </record>
@@ -76,6 +77,7 @@
                                 <group>
                                     <group string="Belge Bilgileri">
                                         <field name="id_value" required="1"/>
+                                        <field name="company_id" groups="base.group_multi_company"/>
                                         <field name="issue_date"/>
                                         <field name="invoice_direction"/>
                                         <field name="customization_id"/>

@@ -22,6 +22,9 @@ export class UBLInvoiceListController extends ListController {
 
         this._onFaturaGuncelle          = this.onFaturaGuncelle.bind(this);
         this._onEntegratorGetir         = this.onEntegratorGetir.bind(this);
+        this._onSonNGetir               = this.onSonNGetir.bind(this);
+        this._onUuidIleGetir            = this.onUuidIleGetir.bind(this);
+        this._onXmlIceAktar             = this.onXmlIceAktar.bind(this);
         this._onGibGonder               = this.onGibGonder.bind(this);
         this._onGibSifirla              = this.onGibSifirla.bind(this);
         this._onPdfOnizle               = this.onPdfOnizle.bind(this);
@@ -33,6 +36,9 @@ export class UBLInvoiceListController extends ListController {
 
         this.env.bus.addEventListener("ubl_inv:fatura_guncelle",          this._onFaturaGuncelle);
         this.env.bus.addEventListener("ubl_inv:entegrator_getir",         this._onEntegratorGetir);
+        this.env.bus.addEventListener("ubl_inv:son_n_getir",              this._onSonNGetir);
+        this.env.bus.addEventListener("ubl_inv:uuid_ile_getir",           this._onUuidIleGetir);
+        this.env.bus.addEventListener("ubl_inv:xml_ice_aktar",            this._onXmlIceAktar);
         this.env.bus.addEventListener("ubl_inv:gib_gonder",               this._onGibGonder);
         this.env.bus.addEventListener("ubl_inv:gib_sifirla",              this._onGibSifirla);
         this.env.bus.addEventListener("ubl_inv:pdf_onizle",               this._onPdfOnizle);
@@ -42,6 +48,9 @@ export class UBLInvoiceListController extends ListController {
         onWillUnmount(() => {
             this.env.bus.removeEventListener("ubl_inv:fatura_guncelle",          this._onFaturaGuncelle);
             this.env.bus.removeEventListener("ubl_inv:entegrator_getir",         this._onEntegratorGetir);
+            this.env.bus.removeEventListener("ubl_inv:son_n_getir",              this._onSonNGetir);
+            this.env.bus.removeEventListener("ubl_inv:uuid_ile_getir",           this._onUuidIleGetir);
+            this.env.bus.removeEventListener("ubl_inv:xml_ice_aktar",            this._onXmlIceAktar);
             this.env.bus.removeEventListener("ubl_inv:gib_gonder",               this._onGibGonder);
             this.env.bus.removeEventListener("ubl_inv:gib_sifirla",              this._onGibSifirla);
             this.env.bus.removeEventListener("ubl_inv:pdf_onizle",               this._onPdfOnizle);
@@ -96,6 +105,50 @@ export class UBLInvoiceListController extends ListController {
                 { type: "danger", sticky: true }
             );
         }
+    }
+
+    /** Gelen faturalar — Test amaçlı: son N faturayı getir (tarih filtresiz) */
+    async onSonNGetir() {
+        this.notification.add("Entegratörden son 10 fatura alınıyor...", { type: "info" });
+        try {
+            const result = await this.orm.call(
+                "l10n_tr.ubl.invoice", "action_fetch_last_n_incoming_from_integrator", [10]
+            );
+            if (result) await this.action.doAction(result);
+            await this.model.root.load();
+            this.model.notify();
+        } catch (error) {
+            this.notification.add(
+                "Fatura alma hatası:\n" + parseOdooError(error),
+                { type: "danger", sticky: true }
+            );
+        }
+    }
+
+    /** Gelen faturalar — bilinen bir UUID (GUID) ile entegratörden tekil belge çeker */
+    async onUuidIleGetir() {
+        await this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "edn.invoice.uuid.fetch.wizard",
+            view_mode: "form",
+            views: [[false, "form"]],
+            target: "new",
+        });
+        await this.model.root.load();
+        this.model.notify();
+    }
+
+    /** Gelen faturalar — ham UBL-TR XML'inden elle içe aktar */
+    async onXmlIceAktar() {
+        await this.action.doAction({
+            type: "ir.actions.act_window",
+            res_model: "edn.invoice.xml.import.wizard",
+            view_mode: "form",
+            views: [[false, "form"]],
+            target: "new",
+        });
+        await this.model.root.load();
+        this.model.notify();
     }
 
     /** Toolbar tarih filtre butonu */

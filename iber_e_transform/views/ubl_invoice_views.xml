@@ -77,19 +77,19 @@
                                 <group>
                                     <group>
                                         <field name="company_id" groups="base.group_multi_company"/>
+                                        <field name="branch_id"/>
                                         <field name="invoice_direction"/>
                                         <field name="customization_id"/>
                                         <field name="profile_id" domain="[('profile_type', '=', 'invoice')]"/>
                                         <field name="document_type_id" domain="[('doc_type', 'in', ['invoice', 'credit_note', 'receipt'])]"/>
                                     </group>
                                     <group>
+                                        <field name="issue_date"/>
                                         <field name="UUID" readonly="1"/>
                                         <field name="id_value" required="1"/>
-                                        <field name="issue_date"/>
                                         <field name="document_currency_id"/>
                                         <field name="document_exchange_rate"/>
                                         <field name="account_move_id" string="Kaynak Fatura"/>
-                                        <field name="branch_id"/>
                                         <field name="customer_receiver_alias" invisible="invoice_direction == 'incoming'"/>
                                     </group>
                                 </group>

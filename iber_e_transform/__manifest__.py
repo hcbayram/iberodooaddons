@@ -1,6 +1,6 @@
 {
     "name": "İberoDoo E-Dönüşüm",
-    "version": "19.0.1.4.0",
+    "version": "19.0.1.5.0",
     "summary": "UBL-TR 2.1 E-Fatura ve E-İrsaliye — Odoo 19 Enterprise native entegrasyon + çoklu ERP desteği",
     "category": "Accounting",
     "author": "İberoDoo",

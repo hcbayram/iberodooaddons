@@ -76,24 +76,21 @@
 
                                 <group>
                                     <group string="Belge Bilgileri">
-                                        <field name="id_value" required="1"/>
                                         <field name="company_id" groups="base.group_multi_company"/>
-                                        <field name="issue_date"/>
                                         <field name="invoice_direction"/>
                                         <field name="customization_id"/>
                                         <field name="profile_id" domain="[('profile_type', '=', 'invoice')]"/>
                                         <field name="document_type_id" domain="[('doc_type', 'in', ['invoice', 'credit_note', 'receipt'])]"/>
+                                    </group>
+                                    <group>
+                                        <field name="UUID" readonly="1"/>
+                                        <field name="id_value" required="1"/>
+                                        <field name="issue_date"/>
                                         <field name="document_currency_id"/>
                                         <field name="document_exchange_rate"/>
                                         <field name="account_move_id" string="Kaynak Fatura"/>
-                                    </group>
-                                    <group string="ERP / UUID">
-                                        <field name="UUID" readonly="1"/>
-                                        <field name="erp_id"/>
-                                        <field name="erp_object_type"/>
-                                        <field name="erp_last_sync_date" readonly="1"/>
                                         <field name="branch_id"/>
-                                        <field name="customer_receiver_alias"/>
+                                        <field name="customer_receiver_alias" invisible="invoice_direction == 'incoming'"/>
                                     </group>
                                 </group>
 
@@ -271,6 +268,15 @@
                                 <group>
                                     <field name="xml_data" widget="code" readonly="1"/>
                                     <field name="json_data" widget="code" readonly="1"/>
+                                </group>
+                            </page>
+
+                            <!-- ERP -->
+                            <page string="ERP" name="erp_page">
+                                <group>
+                                    <field name="erp_id"/>
+                                    <field name="erp_object_type"/>
+                                    <field name="erp_last_sync_date" readonly="1"/>
                                 </group>
                             </page>
                                 </notebook>

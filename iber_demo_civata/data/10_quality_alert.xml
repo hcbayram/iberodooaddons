@@ -6,6 +6,7 @@
              izlenebilirlik zincirinin canlı gösterileceği örnek kalite uyarısı. -->
         <record id="quality_alert_qa_2026_0089" model="quality.alert">
             <field name="name">QA-2026-0089</field>
+            <field name="product_tmpl_id" ref="product_blt_m08030_product_template"/>
             <field name="product_id" ref="product_blt_m08030"/>
             <field name="lot_ids" eval="[(6, 0, [ref('lot_zinc_044')])]"/>
             <field name="stage_id" ref="quality.quality_alert_stage_1"/>

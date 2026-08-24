@@ -19,6 +19,11 @@
             <field name="product_id" ref="product_chm_zinc"/>
         </record>
 
+        <record id="lot_oil_045" model="stock.lot">
+            <field name="name">LOT-2026-08-045</field>
+            <field name="product_id" ref="product_chm_oil"/>
+        </record>
+
         <!-- ================= MAMUL BAŞLANGIÇ STOK LOTLARI ================= -->
 
         <record id="lot_stock_m08030" model="stock.lot">
@@ -69,6 +74,13 @@
             <field name="inventory_quantity">480</field>
         </record>
 
+        <record id="quant_oil_045" model="stock.quant">
+            <field name="product_id" ref="product_chm_oil"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_oil_045"/>
+            <field name="inventory_quantity">90</field>
+        </record>
+
         <record id="quant_m08030" model="stock.quant">
             <field name="product_id" ref="product_blt_m08030"/>
             <field name="location_id" ref="stock.stock_location_stock"/>
@@ -109,6 +121,7 @@
                     ref('quant_wire_042'),
                     ref('quant_wire_043'),
                     ref('quant_zinc_044'),
+                    ref('quant_oil_045'),
                     ref('quant_m08030'),
                     ref('quant_m10050'),
                     ref('quant_m06020'),

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ================= LOT NUMARALI HAMMADDE STOĞU ================= -->
+
+        <record id="lot_wire_042" model="stock.lot">
+            <field name="name">LOT-2026-08-042</field>
+            <field name="product_id" ref="product_raw_wire"/>
+        </record>
+
+        <record id="lot_wire_043" model="stock.lot">
+            <field name="name">LOT-2026-08-043</field>
+            <field name="product_id" ref="product_raw_wire"/>
+        </record>
+
+        <record id="lot_zinc_044" model="stock.lot">
+            <field name="name">LOT-2026-08-044</field>
+            <field name="product_id" ref="product_chm_zinc"/>
+        </record>
+
+        <!-- ================= MAMUL BAŞLANGIÇ STOK LOTLARI ================= -->
+
+        <record id="lot_stock_m08030" model="stock.lot">
+            <field name="name">STOK-M08030-INIT</field>
+            <field name="product_id" ref="product_blt_m08030"/>
+        </record>
+
+        <record id="lot_stock_m10050" model="stock.lot">
+            <field name="name">STOK-M10050-INIT</field>
+            <field name="product_id" ref="product_blt_m10050"/>
+        </record>
+
+        <record id="lot_stock_m06020" model="stock.lot">
+            <field name="name">STOK-M06020-INIT</field>
+            <field name="product_id" ref="product_scr_m06020"/>
+        </record>
+
+        <record id="lot_stock_m12080" model="stock.lot">
+            <field name="name">STOK-M12080-INIT</field>
+            <field name="product_id" ref="product_blt_m12080"/>
+        </record>
+
+        <record id="lot_stock_m16100" model="stock.lot">
+            <field name="name">STOK-M16100-INIT</field>
+            <field name="product_id" ref="product_blt_m16100"/>
+        </record>
+
+        <!-- ================= STOK MİKTARLARI (ENVANTER DÜZELTMESİ) ================= -->
+
+        <record id="quant_wire_042" model="stock.quant">
+            <field name="product_id" ref="product_raw_wire"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_wire_042"/>
+            <field name="inventory_quantity">3200</field>
+        </record>
+
+        <record id="quant_wire_043" model="stock.quant">
+            <field name="product_id" ref="product_raw_wire"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_wire_043"/>
+            <field name="inventory_quantity">2800</field>
+        </record>
+
+        <record id="quant_zinc_044" model="stock.quant">
+            <field name="product_id" ref="product_chm_zinc"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_zinc_044"/>
+            <field name="inventory_quantity">480</field>
+        </record>
+
+        <record id="quant_m08030" model="stock.quant">
+            <field name="product_id" ref="product_blt_m08030"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_stock_m08030"/>
+            <field name="inventory_quantity">48200</field>
+        </record>
+
+        <record id="quant_m10050" model="stock.quant">
+            <field name="product_id" ref="product_blt_m10050"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_stock_m10050"/>
+            <field name="inventory_quantity">32750</field>
+        </record>
+
+        <record id="quant_m06020" model="stock.quant">
+            <field name="product_id" ref="product_scr_m06020"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_stock_m06020"/>
+            <field name="inventory_quantity">125000</field>
+        </record>
+
+        <record id="quant_m12080" model="stock.quant">
+            <field name="product_id" ref="product_blt_m12080"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_stock_m12080"/>
+            <field name="inventory_quantity">3200</field>
+        </record>
+
+        <record id="quant_m16100" model="stock.quant">
+            <field name="product_id" ref="product_blt_m16100"/>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="lot_id" ref="lot_stock_m16100"/>
+            <field name="inventory_quantity">8900</field>
+        </record>
+
+        <function model="stock.quant" name="action_apply_inventory">
+            <function model="stock.quant" name="search" eval="[[('id', 'in', [
+                    ref('quant_wire_042'),
+                    ref('quant_wire_043'),
+                    ref('quant_zinc_044'),
+                    ref('quant_m08030'),
+                    ref('quant_m10050'),
+                    ref('quant_m06020'),
+                    ref('quant_m12080'),
+                    ref('quant_m16100'),
+                ])]]"/>
+        </function>
+
+    </data>
+</odoo>

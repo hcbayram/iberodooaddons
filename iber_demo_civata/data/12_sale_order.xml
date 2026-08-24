@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sale_order_so_2026_0847" model="sale.order">
+            <field name="name">SO-2026-0847</field>
+            <field name="partner_id" ref="partner_customer_bmw"/>
+            <field name="pricelist_id" ref="pricelist_oem_premium"/>
+            <field name="date_order" eval="DateTime(2026, 8, 18, 9, 0, 0)"/>
+            <field name="commitment_date" eval="DateTime(2026, 9, 22, 0, 0, 0)"/>
+            <field name="origin">CRM — BMW Werk Leipzig</field>
+        </record>
+
+        <record id="sale_order_line_so_2026_0847" model="sale.order.line">
+            <field name="order_id" ref="sale_order_so_2026_0847"/>
+            <field name="product_id" ref="product_blt_m08030"/>
+            <field name="product_uom_qty">500000</field>
+            <field name="price_unit">0.041</field>
+        </record>
+
+    </data>
+</odoo>

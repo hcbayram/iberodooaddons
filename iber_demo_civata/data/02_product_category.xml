@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="product_category_civata" model="product.category">
+            <field name="name">Bağlantı Elemanları (Mamul)</field>
+            <field name="parent_id" ref="product.product_category_goods"/>
+        </record>
+
+        <record id="product_category_hammadde" model="product.category">
+            <field name="name">Hammadde &amp; Sarf Malzemeleri</field>
+            <field name="parent_id" ref="product.product_category_goods"/>
+        </record>
+
+    </data>
+</odoo>

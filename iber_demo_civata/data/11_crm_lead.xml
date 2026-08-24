@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="crm_lead_bmw" model="crm.lead">
+            <field name="name">BMW Werk Leipzig — M8×30 / M10×50 Tedariki</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_customer_bmw"/>
+            <field name="expected_revenue">240000</field>
+            <field name="stage_id" ref="crm.stage_lead4"/>
+            <field name="probability">100</field>
+        </record>
+
+        <record id="crm_lead_liebherr" model="crm.lead">
+            <field name="name">Liebherr Baumaschinen — M16×100 HDG</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_customer_liebherr"/>
+            <field name="expected_revenue">185000</field>
+            <field name="stage_id" ref="crm.stage_lead3"/>
+        </record>
+
+        <record id="crm_lead_claas" model="crm.lead">
+            <field name="name">CLAAS KGaA mbH — M12×80</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_customer_claas"/>
+            <field name="expected_revenue">98000</field>
+            <field name="stage_id" ref="crm.stage_lead3"/>
+        </record>
+
+        <record id="crm_lead_db" model="crm.lead">
+            <field name="name">Deutsche Bahn AG — M16×100 ASTM</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_customer_db"/>
+            <field name="expected_revenue">310000</field>
+            <field name="stage_id" ref="crm.stage_lead4"/>
+            <field name="probability">100</field>
+        </record>
+
+        <record id="crm_lead_nordex" model="crm.lead">
+            <field name="name">Nordex SE — M12×80 / M16×100</field>
+            <field name="type">opportunity</field>
+            <field name="partner_id" ref="partner_customer_nordex"/>
+            <field name="expected_revenue">155000</field>
+            <field name="stage_id" ref="crm.stage_lead2"/>
+        </record>
+
+    </data>
+</odoo>

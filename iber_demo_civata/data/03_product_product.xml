@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ================= HAMMADDE / SARF MALZEMELERİ ================= -->
+
+        <record id="product_raw_wire" model="product.product">
+            <field name="name">Çelik Tel Rulosu C15E</field>
+            <field name="default_code">RAW-WIRE-C15E</field>
+            <field name="categ_id" ref="product_category_hammadde"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="list_price">0.95</field>
+            <field name="standard_price">0.85</field>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_chm_zinc" model="product.product">
+            <field name="name">Çinko Kaplama Solüsyonu ZN40</field>
+            <field name="default_code">CHM-ZINC-ZN40</field>
+            <field name="categ_id" ref="product_category_hammadde"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_litre"/>
+            <field name="list_price">4.60</field>
+            <field name="standard_price">4.20</field>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_chm_oil" model="product.product">
+            <field name="name">Soğuk Dövme Yağı CF10</field>
+            <field name="default_code">CHM-OIL-CF10</field>
+            <field name="categ_id" ref="product_category_hammadde"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">none</field>
+            <field name="uom_id" ref="uom.product_uom_litre"/>
+            <field name="list_price">3.95</field>
+            <field name="standard_price">3.60</field>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_pkg_box" model="product.product">
+            <field name="name">Karton Kutu (1000'lik)</field>
+            <field name="default_code">PKG-BOX-M08-1K</field>
+            <field name="categ_id" ref="product_category_hammadde"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">none</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.40</field>
+            <field name="standard_price">0.35</field>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <!-- ================= MAMUL — CİVATA / VİDA KATALOĞU ================= -->
+
+        <record id="product_blt_m08030" model="product.product">
+            <field name="name">M8×30 Altıgen Cıvata DIN 931 Sınıf 8.8 — Çinko Kaplama</field>
+            <field name="default_code">BLT-M08030-88Z</field>
+            <field name="categ_id" ref="product_category_civata"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.045</field>
+            <field name="standard_price">0.0199</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="description_sale">DIN 931 · Sınıf 8.8 · Çinko Kaplama (5–8 μm) · Otomotiv OEM</field>
+        </record>
+
+        <record id="product_blt_m10050" model="product.product">
+            <field name="name">M10×50 Altıgen Cıvata ISO 4014 Sınıf 10.9 — Sıcak Daldırma Galvaniz</field>
+            <field name="default_code">BLT-M10050-10G</field>
+            <field name="categ_id" ref="product_category_civata"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.092</field>
+            <field name="standard_price">0.048</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="description_sale">ISO 4014 · Sınıf 10.9 · Sıcak Daldırma Galvaniz</field>
+        </record>
+
+        <record id="product_scr_m06020" model="product.product">
+            <field name="name">M6×20 İçten Altıgen Vida DIN 912 Sınıf 12.9 — Kara Oksit</field>
+            <field name="default_code">SCR-M06020-12B</field>
+            <field name="categ_id" ref="product_category_civata"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.028</field>
+            <field name="standard_price">0.015</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="description_sale">DIN 912 · Sınıf 12.9 · Kara Oksit</field>
+        </record>
+
+        <record id="product_blt_m12080" model="product.product">
+            <field name="name">M12×80 Yük Taşıyıcı Cıvata DIN 603 Sınıf 5.8 — Ham (Plain)</field>
+            <field name="default_code">BLT-M12080-58P</field>
+            <field name="categ_id" ref="product_category_civata"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.118</field>
+            <field name="standard_price">0.065</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="description_sale">DIN 603 · Sınıf 5.8 · Ham (Plain)</field>
+        </record>
+
+        <record id="product_blt_m16100" model="product.product">
+            <field name="name">M16×100 Ağır Altıgen Cıvata ASTM A325 Sınıf 8.8 — HDG Galvaniz</field>
+            <field name="default_code">BLT-M16100-88H</field>
+            <field name="categ_id" ref="product_category_civata"/>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="tracking">lot</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="list_price">0.385</field>
+            <field name="standard_price">0.210</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="description_sale">ASTM A325 · Sınıf 8.8 · HDG Galvaniz</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="workcenter_wc001_kesim" model="mrp.workcenter">
+            <field name="name">WC-001 Tel Kesim</field>
+            <field name="code">WC-001</field>
+            <field name="note">Ekipman: CNC-Saw-K400 · Kapasite: 850 kg/vardiya</field>
+            <field name="time_start">15</field>
+            <field name="time_efficiency">94</field>
+            <field name="costs_hour">45</field>
+        </record>
+
+        <record id="workcenter_wc002_dovme" model="mrp.workcenter">
+            <field name="name">WC-002 Soğuk Dövme</field>
+            <field name="code">WC-002</field>
+            <field name="note">Ekipman: SACMA-SP18 · Kapasite: 200 adet/dk</field>
+            <field name="time_start">30</field>
+            <field name="time_efficiency">91</field>
+            <field name="costs_hour">60</field>
+        </record>
+
+        <record id="workcenter_wc003_dis" model="mrp.workcenter">
+            <field name="name">WC-003 Diş Açma</field>
+            <field name="code">WC-003</field>
+            <field name="note">Ekipman: Profiroll-PR6 · Kapasite: 150 adet/dk</field>
+            <field name="time_start">20</field>
+            <field name="time_efficiency">89</field>
+            <field name="costs_hour">55</field>
+        </record>
+
+        <record id="workcenter_wc004_isil" model="mrp.workcenter">
+            <field name="name">WC-004 Isıl İşlem</field>
+            <field name="code">WC-004</field>
+            <field name="note">Ekipman: Fırın-HT800 · Kapasite: 500 kg/parti — bu hafta %97 yüklü (darboğaz)</field>
+            <field name="time_start">45</field>
+            <field name="time_efficiency">82</field>
+            <field name="costs_hour">70</field>
+        </record>
+
+        <record id="workcenter_wc005_kaplama" model="mrp.workcenter">
+            <field name="name">WC-005 Çinko Kaplama</field>
+            <field name="code">WC-005</field>
+            <field name="note">Ekipman: ElektroLine-Z3 · Kapasite: 800 kg/vardiya</field>
+            <field name="time_start">60</field>
+            <field name="time_efficiency">93</field>
+            <field name="costs_hour">50</field>
+        </record>
+
+        <record id="workcenter_wc006_kk" model="mrp.workcenter">
+            <field name="name">WC-006 KK Muayene</field>
+            <field name="code">WC-006</field>
+            <field name="note">Ekipman: Lab-Optik M2 · Kapasite: 500 adet/saat</field>
+            <field name="time_start">10</field>
+            <field name="time_efficiency">98</field>
+            <field name="costs_hour">40</field>
+        </record>
+
+        <record id="workcenter_wc007_paketleme" model="mrp.workcenter">
+            <field name="name">WC-007 Paketleme</field>
+            <field name="code">WC-007</field>
+            <field name="note">Manuel istasyon</field>
+            <field name="time_start">5</field>
+            <field name="time_efficiency">100</field>
+            <field name="costs_hour">25</field>
+        </record>
+
+    </data>
+</odoo>

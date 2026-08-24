@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ================= MÜŞTERİLER ================= -->
+
+        <record id="partner_customer_bmw" model="res.partner">
+            <field name="name">BMW Werk Leipzig</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="street">Am Auensee 1</field>
+            <field name="city">Leipzig</field>
+            <field name="zip">04159</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">purchasing@bmw-leipzig.example.com</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Otomotiv — OEM. Ana ürün: M8×30, M10×50.</field>
+        </record>
+
+        <record id="partner_customer_liebherr" model="res.partner">
+            <field name="name">Liebherr Baumaschinen GmbH</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Ehingen</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">einkauf@liebherr.example.com</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">İnşaat makineleri. Ana ürün: M16×100 HDG.</field>
+        </record>
+
+        <record id="partner_customer_claas" model="res.partner">
+            <field name="name">CLAAS KGaA mbH</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Harsewinkel</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">procurement@claas.example.com</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Tarım makineleri. Ana ürün: M12×80.</field>
+        </record>
+
+        <record id="partner_customer_db" model="res.partner">
+            <field name="name">Deutsche Bahn AG</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Berlin</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">einkauf@deutschebahn.example.com</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Demiryolu. Ana ürün: M16×100 ASTM A325.</field>
+        </record>
+
+        <record id="partner_customer_nordex" model="res.partner">
+            <field name="name">Nordex SE</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Hamburg</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sourcing@nordex.example.com</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Rüzgar enerjisi. Ana ürün: M12×80, M16×100.</field>
+        </record>
+
+        <!-- ================= TEDARİKÇİLER (Çelik Tel) ================= -->
+
+        <record id="partner_supplier_steelsupply" model="res.partner">
+            <field name="name">SteelSupply DE GmbH</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Dortmund</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sales@steelsupply-de.example.com</field>
+            <field name="supplier_rank">1</field>
+            <field name="comment">C15E çelik tel — 7 gün teslim, kalite puanı 96/100. Seçilen tedarikçi.</field>
+        </record>
+
+        <record id="partner_supplier_boehler" model="res.partner">
+            <field name="name">Böhler Edelstahl GmbH</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Kapfenberg</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sales@boehler-edelstahl.example.com</field>
+            <field name="supplier_rank">1</field>
+            <field name="comment">C15E çelik tel — 12 gün teslim, kalite puanı 98/100. Yedek tedarikçi.</field>
+        </record>
+
+        <record id="partner_supplier_tradesteel" model="res.partner">
+            <field name="name">TradeSteel PL</field>
+            <field name="is_company" eval="True"/>
+            <field name="company_type">company</field>
+            <field name="city">Katowice</field>
+            <field name="country_id" ref="base.pl"/>
+            <field name="email">sales@tradesteel-pl.example.com</field>
+            <field name="supplier_rank">1</field>
+            <field name="comment">C15E çelik tel — 18 gün teslim, kalite puanı 78/100.</field>
+        </record>
+
+    </data>
+</odoo>
